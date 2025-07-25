@@ -23,18 +23,21 @@
             font-feature-settings: "cv03", "cv04", "cv11";
         }
 
-        .logo-atas-kanan {
-            position: absolute;
-            top: 30px;
-            right: 30px;
+        /* Hilangkan posisi absolute pada logo */
+        .logo-atas-kanan,
+        .logo-bawah-kiri {
+            position: static;
+            display: inline-block;
+            margin: 0 10px;
             z-index: 10;
         }
 
-        .logo-bawah-kiri {
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            z-index: 10;
+        .logo-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 16px;
+            gap: 16px;
         }
 
         .login-container {
@@ -47,19 +50,20 @@
 
 <body class="d-flex flex-column login-container">
     <script src="./dist/js/demo-theme.min.js?1692870487"></script>
-    <!-- Logo Atas Emas Sebelah Kanan -->
-    <div class="logo-atas-kanan">
-        <img src="{{ asset('assets/img/icon/emas.png') }}" alt="Logo Emas" width="80">
-    </div>
-    <!-- Logo Hijau Bawah Sebelah Kiri -->
-    <div class="logo-bawah-kiri">
-        <img src="{{ asset('assets/img/icon/hijau.png') }}" alt="Logo Hijau" width="80">
-    </div>
     <div class="page page-center">
         <div class="container container-normal py-4">
             <div class="row align-items-center g-4">
                 <div class="col-lg">
                     <div class="container-tight">
+                        <!-- Logo di atas form -->
+                        <div class="logo-row mb-2">
+                            <div class="logo-atas-kanan">
+                                <img src="{{ asset('assets/img/icon/emas.png') }}" alt="Logo Emas" width="80">
+                            </div>
+                            <div class="logo-bawah-kiri">
+                                <img src="{{ asset('assets/img/icon/hijau.png') }}" alt="Logo Hijau" width="80">
+                            </div>
+                        </div>
                         <div class="text-center mb-4">
                             <h1 class="fw-bold" style="letter-spacing:2px;">Aplikasi KPAD</h1>
                         </div>
