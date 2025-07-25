@@ -58,10 +58,11 @@
                         <!-- Logo di atas form -->
                         <div class="logo-row mb-2">
                             <div class="logo-atas-kanan">
-                                <img src="{{ asset('assets/img/icon/emas.png') }}" alt="Logo Emas" width="80">
+                                <img src="{{ asset('assets/img/icon/hijau.png') }}" alt="Logo Hijau" width="80">
+
                             </div>
                             <div class="logo-bawah-kiri">
-                                <img src="{{ asset('assets/img/icon/hijau.png') }}" alt="Logo Hijau" width="80">
+                                <img src="{{ asset('assets/img/icon/emas.png') }}" alt="Logo Emas" width="80">
                             </div>
                         </div>
                         <div class="text-center mb-4">
