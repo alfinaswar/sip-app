@@ -37,7 +37,7 @@
             justify-content: center;
             align-items: center;
             margin-bottom: 16px;
-            gap: 48px;
+            gap: 70px;
             /* Ubah gap menjadi lebih besar agar jarak antar logo lebih lebar */
         }
 
