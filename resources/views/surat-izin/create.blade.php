@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="container">
+        <a href="{{ url()->previous() }}" class="btn btn-secondary mb-3">
+            <i class="fa fa-arrow-left"></i> Kembali
+        </a>
         @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -356,20 +359,20 @@
     <script>
         let rowIdx = 1;
         const hubunganOptions = `
-                                                                                                <option value="">Pilih</option>
-                                                                                                <option value="Suami">Suami</option>
-                                                                                                <option value="Istri">Istri</option>
-                                                                                                <option value="Anak">Anak</option>
-                                                                                                <option value="Ayah">Ayah</option>
-                                                                                                <option value="Ibu">Ibu</option>
-                                                                                                <option value="Kakak">Kakak</option>
-                                                                                                <option value="Adik">Adik</option>
-                                                                                                <option value="Mertua">Mertua</option>
-                                                                                                <option value="Menantu">Menantu</option>
-                                                                                                <option value="Cucu">Cucu</option>
-                                                                                                <option value="Keponakan">Keponakan</option>
-                                                                                                <option value="Lainnya">Lainnya</option>
-                                                                                            `;
+                                                                                                    <option value="">Pilih</option>
+                                                                                                    <option value="Suami">Suami</option>
+                                                                                                    <option value="Istri">Istri</option>
+                                                                                                    <option value="Anak">Anak</option>
+                                                                                                    <option value="Ayah">Ayah</option>
+                                                                                                    <option value="Ibu">Ibu</option>
+                                                                                                    <option value="Kakak">Kakak</option>
+                                                                                                    <option value="Adik">Adik</option>
+                                                                                                    <option value="Mertua">Mertua</option>
+                                                                                                    <option value="Menantu">Menantu</option>
+                                                                                                    <option value="Cucu">Cucu</option>
+                                                                                                    <option value="Keponakan">Keponakan</option>
+                                                                                                    <option value="Lainnya">Lainnya</option>
+                                                                                                `;
 
         document.getElementById('addRow').addEventListener('click', function () {
             if (rowIdx >= 6) return alert("Maksimal 6 anggota keluarga");
@@ -378,23 +381,23 @@
             const row = document.createElement('tr');
 
             row.innerHTML = `
-                                                                                                    <td><input type="text" name="AnggotaKeluarga[${rowIdx}][nama]" class="form-control"></td>
-                                                                                                    <td><input type="number" name="AnggotaKeluarga[${rowIdx}][umur]" class="form-control"></td>
-                                                                                                    <td>
-                                                                                                        <select name="AnggotaKeluarga[${rowIdx}][jk]" class="form-control">
-                                                                                                            <option value="">Pilih</option>
-                                                                                                            <option value="Laki-laki">Laki-laki</option>
-                                                                                                            <option value="Perempuan">Perempuan</option>
-                                                                                                        </select>
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <select name="AnggotaKeluarga[${rowIdx}][hubungan]" class="form-control">
-                                                                                                            ${hubunganOptions}
-                                                                                                        </select>
-                                                                                                    </td>
-                                                                                                    <td><input type="text" name="AnggotaKeluarga[${rowIdx}][keterangan]" class="form-control"></td>
-                                                                                                    <td><button type="button" class="btn btn-sm btn-danger removeRow">−</button></td>
-                                                                                                `;
+                                                                                                        <td><input type="text" name="AnggotaKeluarga[${rowIdx}][nama]" class="form-control"></td>
+                                                                                                        <td><input type="number" name="AnggotaKeluarga[${rowIdx}][umur]" class="form-control"></td>
+                                                                                                        <td>
+                                                                                                            <select name="AnggotaKeluarga[${rowIdx}][jk]" class="form-control">
+                                                                                                                <option value="">Pilih</option>
+                                                                                                                <option value="Laki-laki">Laki-laki</option>
+                                                                                                                <option value="Perempuan">Perempuan</option>
+                                                                                                            </select>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <select name="AnggotaKeluarga[${rowIdx}][hubungan]" class="form-control">
+                                                                                                                ${hubunganOptions}
+                                                                                                            </select>
+                                                                                                        </td>
+                                                                                                        <td><input type="text" name="AnggotaKeluarga[${rowIdx}][keterangan]" class="form-control"></td>
+                                                                                                        <td><button type="button" class="btn btn-sm btn-danger removeRow">−</button></td>
+                                                                                                    `;
 
             tbody.appendChild(row);
             rowIdx++;
