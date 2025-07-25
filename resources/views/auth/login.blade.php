@@ -28,16 +28,17 @@
         .logo-bawah-kiri {
             position: static;
             display: inline-block;
-            margin: 0 10px;
             z-index: 10;
         }
 
+        /* Berikan jarak yang lebih besar antara logo kiri dan kanan */
         .logo-row {
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 16px;
-            gap: 16px;
+            gap: 48px;
+            /* Ubah gap menjadi lebih besar agar jarak antar logo lebih lebar */
         }
 
         .login-container {
@@ -59,7 +60,6 @@
                         <div class="logo-row mb-2">
                             <div class="logo-atas-kanan">
                                 <img src="{{ asset('assets/img/icon/hijau.png') }}" alt="Logo Hijau" width="80">
-
                             </div>
                             <div class="logo-bawah-kiri">
                                 <img src="{{ asset('assets/img/icon/emas.png') }}" alt="Logo Emas" width="80">
