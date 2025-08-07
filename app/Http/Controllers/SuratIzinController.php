@@ -24,7 +24,8 @@ class SuratIzinController extends Controller
      */
     public function create()
     {
-        return view('surat-izin.create');
+        $data = SuratIzin::latest()->get();
+        return view('surat-izin.create', compact('data'));
     }
 
     /**

@@ -92,13 +92,13 @@
 
 <body>
     <div class="watermark">
-        <img src="{{public_path('assets/img/icon/bgsurat.png')}}" alt="" width="100%" height="100%">
+        <img src="{{ public_path('assets/img/icon/bgsurat.png') }}" alt="" width="100%" height="100%">
     </div>
 
     <div class="text-al" style="text-align: center; margin-bottom: 10px;">
         <span style="font-size: 20px; font-weight: bold; letter-spacing: 2px;">SURAT IZIN PENGHUNIAN</span>
         <br>
-        <span style="font-size: 12px;">Nomor SIP {{$data->NomorSIP}}</span>
+        <span style="font-size: 12px;">Nomor SIP {{ $data->NomorSIP }}</span>
     </div>
     <div class="content">
         <div class="dasar" style="line-height: 20px;">
@@ -125,27 +125,27 @@
                         <td style="width: 3%;">1.</td>
                         <td style="width: 27%;">Nama</td>
                         <td style="width: 2%;">:</td>
-                        <td>{{$data->Nama}}</td>
+                        <td>{{ $data->Nama }}</td>
                         <td style="width: 10%;"></td>
                         <td style="width: 10%;">Korps</td>
                         <td style="width: 2%;">:</td>
-                        <td style="width: 20%;">{{$data->Korps}}</td>
+                        <td style="width: 20%;">{{ $data->Korps }}</td>
                     </tr>
                     <tr>
                         <td>2.</td>
                         <td>Pangkat</td>
                         <td>:</td>
-                        <td>{{$data->Pangkat}}</td>
+                        <td>{{ $data->Pangkat }}</td>
                         <td></td>
                         <td>NRP/NIP</td>
                         <td>:</td>
-                        <td>{{$data->NRPNIP}}</td>
+                        <td>{{ $data->NRPNIP }}</td>
                     </tr>
                     <tr>
                         <td>3.</td>
                         <td>Jabatan</td>
                         <td>:</td>
-                        <td>{{$data->Jabatan}}</td>
+                        <td>{{ $data->Jabatan }}</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -155,7 +155,7 @@
                         <td>4.</td>
                         <td>Kesatuan</td>
                         <td>:</td>
-                        <td>{{$data->Kesatuan}}</td>
+                        <td>{{ $data->Kesatuan }}</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -165,7 +165,7 @@
                         <td>5.</td>
                         <td>Nomor KTP</td>
                         <td>:</td>
-                        <td>{{$data->Ktp}}</td>
+                        <td>{{ $data->Ktp }}</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -175,7 +175,7 @@
                         <td>6.</td>
                         <td>Tempat tanggal lahir</td>
                         <td>:</td>
-                        <td>{{$data->Ttl}}</td>
+                        <td>{{ $data->Ttl }}</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -185,7 +185,7 @@
                         <td>7.</td>
                         <td>Status</td>
                         <td>:</td>
-                        <td>{{$data->Status}}</td>
+                        <td>{{ $data->Status }}</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -195,7 +195,7 @@
                         <td>8.</td>
                         <td>Jumlah keluarga yang menjadi tanggungan</td>
                         <td>:</td>
-                        <td>{{$data->JumlahTanggungan}} orang</td>
+                        <td>{{ $data->JumlahTanggungan }} orang</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -208,23 +208,23 @@
                 <table class="table-solid">
                     <thead>
                         <tr>
-                            <th>NO</th>
-                            <th>NAMA</th>
-                            <th>UMUR</th>
-                            <th>JENIS KELAMIN</th>
-                            <th>HUBUNGAN KELUARGA</th>
-                            <th>KET</th>
+                            <td>NO</td>
+                            <td>NAMA</td>
+                            <td>UMUR</td>
+                            <td>JENIS KELAMIN</td>
+                            <td>HUBUNGAN KELUARGA</td>
+                            <td>KET</td>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($data->AnggotaKeluarga as $key => $ak)
                             <tr class="table-row">
-                                <td>{{$key + 1}}</td>
-                                <td>{{$ak['nama']}}</td>
-                                <td>{{$ak['umur']}}</td>
-                                <td>{{$ak['jk']}}</td>
-                                <td>{{$ak['hubungan']}}</td>
-                                <td>{{$ak['keterangan']}}</td>
+                                <td>{{ $key + 1 }}</td>
+                                <td>{{ $ak['nama'] }}</td>
+                                <td>{{ $ak['umur'] }}</td>
+                                <td>{{ $ak['jk'] }}</td>
+                                <td>{{ $ak['hubungan'] }}</td>
+                                <td>{{ $ak['keterangan'] }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -237,43 +237,43 @@
                         <td>9.</td>
                         <td>Untuk menempati</td>
                         <td>:</td>
-                        <td>{{$data->UntukMenempati}}</td>
+                        <td>{{ $data->UntukMenempati }}</td>
                     </tr>
                     <tr>
                         <td>10.</td>
                         <td>Keterangan ruangan</td>
                         <td>:</td>
-                        <td>{{$data->Keterangan}}</td>
+                        <td>{{ $data->Keterangan }}</td>
                     </tr>
                     <tr>
                         <td>11.</td>
                         <td>Digunakan sebagai</td>
                         <td>:</td>
-                        <td>{{$data->DigunakanSebagai}}</td>
+                        <td>{{ $data->DigunakanSebagai }}</td>
                     </tr>
                     <tr>
                         <td>12.</td>
                         <td>Nama HPAD</td>
                         <td>:</td>
-                        <td>{{$data->Kpad}}</td>
+                        <td>{{ $data->Kpad }}</td>
                     </tr>
                     <tr>
                         <td>13.</td>
                         <td>Alamat rumah</td>
                         <td>:</td>
-                        <td>{{$data->AlamatRumah}}</td>
+                        <td>{{ $data->AlamatRumah }}</td>
                     </tr>
                     <tr>
                         <td>14.</td>
                         <td>Type dan luas</td>
                         <td>:</td>
-                        <td>{{$data->TypeLuas}}</td>
+                        <td>{{ $data->TypeLuas }}</td>
                     </tr>
                     <tr>
                         <td>15.</td>
                         <td>Menempati rumah TMT</td>
                         <td>:</td>
-                        <td>{{$data->Tmt}}</td>
+                        <td>{{ $data->Tmt }}</td>
                     </tr>
                 </table>
             </div>
@@ -295,14 +295,14 @@
                                     use Carbon\Carbon;
                                     $tanggalBerlaku = Carbon::parse($data->created_at)->addYear()->format('d-m-Y');
                                 @endphp
-                                {{$tanggalBerlaku}}
+                                {{ $tanggalBerlaku }}
                             </strong>
                         </div>
                         <div style="margin-top: 15px;">
                             <p><strong>Tembusan:</strong></p>
-                            @if(!empty($data->Tembusan))
-                                @foreach(explode(';', $data->Tembusan) as $tembusan)
-                                    <p>- {{$tembusan}}</p>
+                            @if (!empty($data->Tembusan))
+                                @foreach (explode(';', $data->Tembusan) as $tembusan)
+                                    <p>- {{ $tembusan }}</p>
                                 @endforeach
                             @endif
                         </div>
@@ -311,7 +311,7 @@
                     <!-- Kolom Tengah: Foto -->
                     <td style="vertical-align:top; width:50%; text-align:center;">
                         <div class="signature-box" style="margin-bottom: 10px;">
-                            @if(!empty($data->Foto))
+                            @if (!empty($data->Foto))
                                 <img src="{{ asset('storage/foto/' . $data->Foto) }}" alt="Foto"
                                     style="width:100px; height:120px; object-fit:cover; border:1px solid #000;">
                             @else
@@ -340,7 +340,7 @@
                                 'September',
                                 'Oktober',
                                 'November',
-                                'Desember'
+                                'Desember',
                             ];
                             $tanggalObj = date_create($data->created_at);
                             $hari = date_format($tanggalObj, 'd');
@@ -348,15 +348,16 @@
                             $tahun = date_format($tanggalObj, 'Y');
                             $tanggalIndonesia = $hari . ' ' . $bulanIndo[$bulan] . ' ' . $tahun;
                         @endphp
-                        <div class="date-location" style="margin-bottom: 20px;">pada tanggal {{$tanggalIndonesia}}</div>
+                        <div class="date-location" style="margin-bottom: 20px;">pada tanggal {{ $tanggalIndonesia }}
+                        </div>
                         <div class="signature-box" style="height: 60px; margin-bottom: 10px;">
 
                         </div>
                         <div class="name-title" style="font-weight: bold; margin-top: 2px; margin-bottom: 2px;">
-                            {{$data->TandaTangan}}
+                            {{ $data->TandaTangan }}
                         </div>
-                        <div class="rank-number" style="margin-top: 2px;">{{$data->Pangkat}} {{$data->Korps}}
-                            {{$data->NRPNIP}}
+                        <div class="rank-number" style="margin-top: 2px;">{{ $data->Pangkat }} {{ $data->Korps }}
+                            {{ $data->NRPNIP }}
                         </div>
 
                     </td>
