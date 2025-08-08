@@ -323,7 +323,7 @@
                         </div>
                     </td>
                     <!-- Kolom Kanan: Tanda Tangan Panglima -->
-                    <td style="vertical-align:top; width:30%; min-width:180px; text-align:left; padding:4px;">
+                    <td style="vertical-align:top; width:30%; min-width:180px; text-align:center; padding:4px;">
                         <div class="date-location" style="margin-bottom:2px;">Dikeluarkan di Jakarta</div>
                         @php
                             $bulanIndo = [
