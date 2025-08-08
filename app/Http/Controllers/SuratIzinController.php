@@ -165,6 +165,11 @@ class SuratIzinController extends Controller
 
         $suratIzin = SuratIzin::findOrFail($id);
 
+        // Simpan data lama ke history sebelum update
+        $dataLama = $suratIzin->toArray();
+        $dataLama['IdSurat'] = $id;
+        RiwayatUpdate::create($dataLama);
+
         if ($request->hasFile('Foto')) {
             $file = $request->file('Foto');
             $namaFile = time() . '_' . $file->getClientOriginalName();
@@ -175,8 +180,7 @@ class SuratIzinController extends Controller
         }
 
         $suratIzin->update($data);
-        $data['IdSurat'] = $id;
-        RiwayatUpdate::create($data);
+
         return redirect()->back()->with('success', 'Surat Izin Berhasil Diperbarui');
     }
     /**
