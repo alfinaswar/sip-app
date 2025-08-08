@@ -233,21 +233,21 @@
             <div class="requirements">
                 <table class="">
                     <tr>
-                        <td><strong>9.</strong></td>
-                        <td><strong>Untuk menempati</strong></td>
-                        <td><strong>:</strong></td>
+                        <td>9.</td>
+                        <td>Untuk menempati</td>
+                        <td>:</td>
                         <td><strong>Rumah Dinas TNI AD Golongan II</strong></td>
                     </tr>
                     <tr>
-                        <td><strong>10.</strong></td>
-                        <td><strong>Keterangan ruangan</strong></td>
-                        <td><strong>:</strong></td>
+                        <td>10.</td>
+                        <td>Keterangan ruangan</td>
+                        <td>:</td>
                         <td><strong>Seluruh Rumah Dinas</strong></td>
                     </tr>
                     <tr>
-                        <td><strong>11.</strong></td>
-                        <td><strong>Digunakan sebagai</strong></td>
-                        <td><strong>:</strong></td>
+                        <td>11.</td>
+                        <td>Digunakan sebagai</td>
+                        <td>:</td>
                         <td><strong>Tempat Tinggal</strong></td>
                     </tr>
                     <tr>
