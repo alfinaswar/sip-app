@@ -289,7 +289,7 @@
                     <!-- Kolom Kiri: Tembusan -->
                     <td style="vertical-align:top; width:30%; min-width:180px; border:0px solid #000; padding:8px;">
                         <div
-                            style="margin-top: 30px; border:1px solid #800080; background-color: #e6ccff; padding:8px; text-align:center;">
+                            style="margin-top: 10px; border:2px solid #800080; background-color: #ffffff; padding:8px; text-align:center;">
                             <strong>SIP BERLAKU S.D.</strong><br>
                             <strong>
                                 @php
@@ -346,10 +346,9 @@
                         <div class="signature-box" style="height: 60px; margin-bottom: 10px;">
 
                         </div>
-                        <div class="name-title" style="font-weight: bold; margin-top: 2px; margin-bottom: 2px;">
-                            {{ $data->TandaTangan }}
-                        </div>
-                        <div class="rank-number" style="margin-top: 2px;">Didid Yusnadi, M.Si<br>Kolonel Czi NRP
+
+                        <div class="rank-number" style="margin-top: 2px; font-size: 11px;">Didid Yusnadi,
+                            M.Si<br>Kolonel Czi NRP
                             11000050710979
                         </div>
 
