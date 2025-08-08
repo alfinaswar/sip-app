@@ -348,6 +348,10 @@
                         @endphp
                         <div class="date-location" style="margin-bottom: 20px;">pada tanggal {{ $tanggalIndonesia }}
                         </div>
+                        <div style="font-size:12px; font-weight:bold; margin-bottom:2px;">
+                            a.n. Panglima Kodam Jaya/Jayakarta<br>
+                            Asisten Logistik,
+                        </div>
                         <div class="signature-box" style="height: 60px; margin-bottom: 10px;">
 
                         </div>
