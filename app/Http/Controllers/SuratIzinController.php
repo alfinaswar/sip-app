@@ -7,6 +7,7 @@ use App\Models\SuratIzin;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Yajra\DataTables\Facades\DataTables;
 
 class SuratIzinController extends Controller
 {
@@ -24,10 +25,25 @@ class SuratIzinController extends Controller
      */
     public function create()
     {
+
         $data = SuratIzin::latest()->get();
         return view('surat-izin.create', compact('data'));
     }
+    public function Datatable(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = SuratIzin::query();
 
+
+            if ($request->filled('status')) {
+                $query->where('Status', $request->status);
+            }
+
+            return DataTables::of($query)
+                ->addIndexColumn()
+                ->make(true);
+        }
+    }
     /**
      * Store a newly created resource in storage.
      */

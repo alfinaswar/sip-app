@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Absensi</title>
+    <title>SIP</title>
     <link href="{{ asset('') }}assets/css/tabler.min.css?1692870487" rel="stylesheet" />
     <link href="{{ asset('') }}assets/css/tabler-flags.min.css?1692870487" rel="stylesheet" />
     <link href="{{ asset('') }}assets/css/tabler-payments.min.css?1692870487" rel="stylesheet" />
@@ -74,10 +74,10 @@
                 </button>
                 <h5 class="navbar-brand navbar-brand-autodark">
                     <a href=".">
-                        <img src="{{ asset('assets/img/icon/login-logo.png') }}" width="1000" height="1000"
-                            alt="Tabler" class="navbar-brand-image">
+                        <img src="{{ asset('assets/img/icon/login-logo.png') }}" width="1000" height="1000" alt="Tabler"
+                            class="navbar-brand-image">
                     </a>
-                    <span style="color: #1F573A; font-size: 18px">Sistem Absensi</span>
+                    <span style="color: #1F573A; font-size: 18px">Sistem KPAD</span>
                 </h5>
                 <div class="collapse navbar-collapse" id="sidebar-menu">
                     <ul class="navbar-nav pt-lg-3">
@@ -101,9 +101,9 @@
                             <a class="nav-link" href="">
                                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                                     <!-- Users icon -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="icon icon-tabler icons-tabler-outline icon-tabler-building-skyscraper">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M3 21l18 0" />
@@ -122,9 +122,9 @@
                             <a class="nav-link" href="">
                                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                                     <!-- Users icon -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="icon icon-tabler icons-tabler-outline icon-tabler-building-skyscraper">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M3 21l18 0" />
@@ -155,9 +155,8 @@
                             <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                                 aria-label="Open user menu">
                                 <span class="avatar avatar-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="#2465ff"
-                                        class="icon icon-tabler icons-tabler-filled icon-tabler-user">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="#2465ff" class="icon icon-tabler icons-tabler-filled icon-tabler-user">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
                                         <path

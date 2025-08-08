@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::resource('surat-izin', App\Http\Controllers\SuratIzinController::class);
+Route::get('/surat-datatable', [App\Http\Controllers\SuratIzinController::class, 'datatable'])->name('datatable');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/surat/export-excel', [App\Http\Controllers\SuratIzinController::class, 'exportExcel'])->name('exportExcel');
 Route::get('/surat/export-pdf', [App\Http\Controllers\SuratIzinController::class, 'exportPdf'])->name('exportPdf');
