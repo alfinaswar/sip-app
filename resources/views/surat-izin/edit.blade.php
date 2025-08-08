@@ -2,7 +2,7 @@
 
 @section('content')
             <div class="container">
-                <a href="{{ url()->previous() }}" class="btn btn-secondary mb-3">
+                <a href="{{route('surat-izin.create')}}" class="btn btn-secondary mb-3">
                     <i class="fa fa-arrow-left"></i> Kembali
                 </a>
                 <div class="card mb-4">
