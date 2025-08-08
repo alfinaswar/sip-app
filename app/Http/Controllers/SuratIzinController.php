@@ -109,6 +109,11 @@ class SuratIzinController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        if ($request->Kpad == 'Lainnya') {
+            $data['Kpad'] = $request->KpadLainnya;
+        } else {
+            $data['Kpad'] = $request->Kpad;
+        }
 
         if ($request->hasFile('Foto')) {
             $file = $request->file('Foto');
@@ -164,7 +169,11 @@ class SuratIzinController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-
+        if ($request->Kpad == 'Lainnya') {
+            $data['Kpad'] = $request->KpadLainnya;
+        } else {
+            $data['Kpad'] = $request->Kpad;
+        }
         $suratIzin = SuratIzin::findOrFail($id);
 
         // Simpan data lama ke history sebelum update
