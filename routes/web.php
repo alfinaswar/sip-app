@@ -20,6 +20,9 @@ Route::get('/', function () {
 Auth::routes();
 Route::resource('surat-izin', App\Http\Controllers\SuratIzinController::class);
 Route::get('/surat-datatable', [App\Http\Controllers\SuratIzinController::class, 'datatable'])->name('datatable');
+Route::get('/update-password', [App\Http\Controllers\SuratIzinController::class, 'updatepassword'])->name('updatepassword');
+Route::POST('/simpan-password', [App\Http\Controllers\SuratIzinController::class, 'simpanpassword'])->name('simpanpassword');
+Route::get('/history-datatable', [App\Http\Controllers\SuratIzinController::class, 'History'])->name('History');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/surat/export-excel', [App\Http\Controllers\SuratIzinController::class, 'exportExcel'])->name('exportExcel');
 Route::get('/surat/export-pdf', [App\Http\Controllers\SuratIzinController::class, 'exportPdf'])->name('exportPdf');

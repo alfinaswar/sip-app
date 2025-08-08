@@ -383,6 +383,7 @@
                                                 <th>Alamat Rumah</th>
                                                 <th>Type dan Luas</th>
                                                 <th>Menempati rumah TMT</th>
+                                                <th>Aksi</th>
                                                 <!-- tambah kolom lainnya -->
                                             </tr>
                                         </thead>
@@ -395,156 +396,239 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="tab-history">
-                        <h4>History</h4>
-                        <p>Riwayat perubahan atau aktivitas terkait penghuni rumah dinas.</p>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered align-middle" id="tablehistory"
+                                style="width:100%">
+                                <thead class="table-dark align-middle text-center">
+                                    <tr>
+                                        <th style="width: 5%;">No</th>
+                                        <th>Nama</th>
+                                        <th>Pangkat/Gol</th>
+                                        <th>Korps</th>
+                                        <th>NRP/NIP</th>
+                                        <th>Jabatan</th>
+                                        <th>Kesatuan</th>
+                                        <th>Nomor KTP</th>
+                                        <th>Tempat tanggal lahir</th>
+                                        <th>Status</th>
+                                        <th>Jumlah Keluarga yang menjadi tanggungan</th>
+                                        <th>Nama KPAD</th>
+                                        <th>Alamat Rumah</th>
+                                        <th>Type dan Luas</th>
+                                        <th>Menempati rumah TMT</th>
+
+                                        <!-- tambah kolom lainnya -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Data akan diisi oleh DataTables -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    @push('styles')
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css">
-        <style>
-            /* Tambahan styling agar datatable lebih rapi */
-            #dataTableSuratIzin th,
-            #dataTableSuratIzin td {
-                vertical-align: middle !important;
-                text-align: center;
-            }
-
-            #dataTableSuratIzin_wrapper .row {
-                margin-bottom: 0.5rem;
-            }
-
-            #dataTableSuratIzin_filter {
-                text-align: right !important;
-            }
-
-            #dataTableSuratIzin_filter input {
-                border-radius: 8px;
-            }
-        </style>
-    @endpush
-
-    @push('scripts')
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-        <script>
-            $(function () {
-                var table = $('#dataTableSuratIzin').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    responsive: true,
-                    autoWidth: false,
-                    ajax: {
-                        url: "{{ route('datatable') }}",
-                        data: function (d) {
-                            d.status = $('#filterStatus').val();
-                        }
-                    },
-                    columns: [
-                        { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false, className: 'align-middle text-center' },
-                        { data: 'Nama', name: 'Nama', className: 'align-middle' },
-                        { data: 'Pangkat', name: 'Pangkat', className: 'align-middle' },
-                        { data: 'Korps', name: 'Korps', className: 'align-middle' },
-                        { data: 'NRPNIP', name: 'NRPNIP', className: 'align-middle' },
-                        { data: 'Jabatan', name: 'Jabatan', className: 'align-middle' },
-                        { data: 'Kesatuan', name: 'Kesatuan', className: 'align-middle' },
-                        { data: 'Ktp', name: 'Ktp', className: 'align-middle' },
-                        { data: 'Ttl', name: 'Ttl', className: 'align-middle' },
-                        { data: 'Status', name: 'Status', className: 'align-middle' },
-                        { data: 'JumlahTanggungan', name: 'JumlahTanggungan', className: 'align-middle' },
-                        { data: 'Kpad', name: 'Kpad', className: 'align-middle' },
-                        { data: 'AlamatRumah', name: 'AlamatRumah', className: 'align-middle' },
-                        { data: 'TypeLuas', name: 'TypeLuas', className: 'align-middle' },
-                        { data: 'Tmt', name: 'Tmt', className: 'align-middle' },
-
-                    ],
-                    order: [[1, 'asc']],
-                    language: {
-                        "search": "Cari:",
-                        "lengthMenu": "Tampilkan _MENU_ data",
-                        "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                        "infoEmpty": "Tidak ada data",
-                        "zeroRecords": "Data tidak ditemukan",
-                        "paginate": {
-                            "first": "Pertama",
-                            "last": "Terakhir",
-                            "next": "Berikutnya",
-                            "previous": "Sebelumnya"
-                        }
-                    },
-                    dom: '<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 text-end"f>>rtip'
-                });
-
-                // Event untuk filter status
-                $('#filterStatus').on('change', function () {
-
-                    table.ajax.reload();
-                });
-            });
-        </script>
-        <script>
-            // Script untuk anggota keluarga tetap sama
-            let rowIdx = 1;
-            const hubunganOptions = `
-                                                                                                                                <option value="">Pilih</option>
-                                                                                                                                <option value="Suami">Suami</option>
-                                                                                                                                <option value="Istri">Istri</option>
-                                                                                                                                <option value="Anak">Anak</option>
-                                                                                                                                <option value="Ayah">Ayah</option>
-                                                                                                                                <option value="Ibu">Ibu</option>
-                                                                                                                                <option value="Kakak">Kakak</option>
-                                                                                                                                <option value="Adik">Adik</option>
-                                                                                                                                <option value="Mertua">Mertua</option>
-                                                                                                                                <option value="Menantu">Menantu</option>
-                                                                                                                                <option value="Cucu">Cucu</option>
-                                                                                                                                <option value="Keponakan">Keponakan</option>
-                                                                                                                                <option value="Lainnya">Lainnya</option>
-                                                                                                                            `;
-
-            document.getElementById('addRow').addEventListener('click', function () {
-                if (rowIdx >= 6) return alert("Maksimal 6 anggota keluarga");
-
-                const tbody = document.querySelector('#anggotaKeluargaTable tbody');
-                const row = document.createElement('tr');
-
-                row.innerHTML = `
-                                                                                                                                    <td><input type="text" name="AnggotaKeluarga[${rowIdx}][nama]" class="form-control"></td>
-                                                                                                                                    <td><input type="number" name="AnggotaKeluarga[${rowIdx}][umur]" class="form-control"></td>
-                                                                                                                                    <td>
-                                                                                                                                        <select name="AnggotaKeluarga[${rowIdx}][jk]" class="form-control">
-                                                                                                                                            <option value="">Pilih</option>
-                                                                                                                                            <option value="Laki-laki">Laki-laki</option>
-                                                                                                                                            <option value="Perempuan">Perempuan</option>
-                                                                                                                                        </select>
-                                                                                                                                    </td>
-                                                                                                                                    <td>
-                                                                                                                                        <select name="AnggotaKeluarga[${rowIdx}][hubungan]" class="form-control">
-                                                                                                                                            ${hubunganOptions}
-                                                                                                                                        </select>
-                                                                                                                                    </td>
-                                                                                                                                    <td><input type="text" name="AnggotaKeluarga[${rowIdx}][keterangan]" class="form-control"></td>
-                                                                                                                                    <td><button type="button" class="btn btn-sm btn-danger removeRow">−</button></td>
-                                                                                                                                `;
-
-                tbody.appendChild(row);
-                rowIdx++;
-            });
-
-            document.addEventListener('click', function (e) {
-                if (e.target.classList.contains('removeRow')) {
-                    e.target.closest('tr').remove();
-                    rowIdx--;
+        @push('styles')
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css">
+            <style>
+                /* Tambahan styling agar datatable lebih rapi */
+                #dataTableSuratIzin th,
+                #dataTableSuratIzin td {
+                    vertical-align: middle !important;
+                    text-align: center;
                 }
-            });
-        </script>
-    @endpush
+
+                #dataTableSuratIzin_wrapper .row {
+                    margin-bottom: 0.5rem;
+                }
+
+                #dataTableSuratIzin_filter {
+                    text-align: right !important;
+                }
+
+                #dataTableSuratIzin_filter input {
+                    border-radius: 8px;
+                }
+            </style>
+        @endpush
+
+        @push('scripts')
+            <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+            <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+            <script>
+                $(function () {
+                    var table = $('#dataTableSuratIzin').DataTable({
+                        processing: true,
+                        serverSide: true,
+                        responsive: true,
+                        autoWidth: false,
+                        ajax: {
+                            url: "{{ route('datatable') }}",
+                            data: function (d) {
+                                d.status = $('#filterStatus').val();
+                            }
+                        },
+                        columns: [
+                            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false, className: 'align-middle text-center' },
+                            { data: 'Nama', name: 'Nama', className: 'align-middle' },
+                            { data: 'Pangkat', name: 'Pangkat', className: 'align-middle' },
+                            { data: 'Korps', name: 'Korps', className: 'align-middle' },
+                            { data: 'NRPNIP', name: 'NRPNIP', className: 'align-middle' },
+                            { data: 'Jabatan', name: 'Jabatan', className: 'align-middle' },
+                            { data: 'Kesatuan', name: 'Kesatuan', className: 'align-middle' },
+                            { data: 'Ktp', name: 'Ktp', className: 'align-middle' },
+                            { data: 'Ttl', name: 'Ttl', className: 'align-middle' },
+                            { data: 'Status', name: 'Status', className: 'align-middle' },
+                            { data: 'JumlahTanggungan', name: 'JumlahTanggungan', className: 'align-middle' },
+                            { data: 'Kpad', name: 'Kpad', className: 'align-middle' },
+                            { data: 'AlamatRumah', name: 'AlamatRumah', className: 'align-middle' },
+                            { data: 'TypeLuas', name: 'TypeLuas', className: 'align-middle' },
+                            { data: 'Tmt', name: 'Tmt', className: 'align-middle' },
+                            { data: 'action', name: 'action', className: 'align-middle' },
+
+                        ],
+                        order: [[1, 'asc']],
+                        language: {
+                            "search": "Cari:",
+                            "lengthMenu": "Tampilkan _MENU_ data",
+                            "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                            "infoEmpty": "Tidak ada data",
+                            "zeroRecords": "Data tidak ditemukan",
+                            "paginate": {
+                                "first": "Pertama",
+                                "last": "Terakhir",
+                                "next": "Berikutnya",
+                                "previous": "Sebelumnya"
+                            }
+                        },
+                        dom: '<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 text-end"f>>rtip'
+                    });
+
+                    // Event untuk filter status
+                    $('#filterStatus').on('change', function () {
+
+                        table.ajax.reload();
+                    });
+                });
+            </script>
+            <script>
+                $(function () {
+                    var table = $('#tablehistory').DataTable({
+                        processing: true,
+                        serverSide: true,
+                        responsive: true,
+                        autoWidth: false,
+                        ajax: {
+                            url: "{{ route('History') }}",
+                            data: function (d) {
+                                d.status = $('#filterStatus').val();
+                            }
+                        },
+                        columns: [
+                            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false, className: 'align-middle text-center' },
+                            { data: 'Nama', name: 'Nama', className: 'align-middle' },
+                            { data: 'Pangkat', name: 'Pangkat', className: 'align-middle' },
+                            { data: 'Korps', name: 'Korps', className: 'align-middle' },
+                            { data: 'NRPNIP', name: 'NRPNIP', className: 'align-middle' },
+                            { data: 'Jabatan', name: 'Jabatan', className: 'align-middle' },
+                            { data: 'Kesatuan', name: 'Kesatuan', className: 'align-middle' },
+                            { data: 'Ktp', name: 'Ktp', className: 'align-middle' },
+                            { data: 'Ttl', name: 'Ttl', className: 'align-middle' },
+                            { data: 'Status', name: 'Status', className: 'align-middle' },
+                            { data: 'JumlahTanggungan', name: 'JumlahTanggungan', className: 'align-middle' },
+                            { data: 'Kpad', name: 'Kpad', className: 'align-middle' },
+                            { data: 'AlamatRumah', name: 'AlamatRumah', className: 'align-middle' },
+                            { data: 'TypeLuas', name: 'TypeLuas', className: 'align-middle' },
+                            { data: 'Tmt', name: 'Tmt', className: 'align-middle' },
+
+
+                        ],
+                        order: [[1, 'asc']],
+                        language: {
+                            "search": "Cari:",
+                            "lengthMenu": "Tampilkan _MENU_ data",
+                            "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                            "infoEmpty": "Tidak ada data",
+                            "zeroRecords": "Data tidak ditemukan",
+                            "paginate": {
+                                "first": "Pertama",
+                                "last": "Terakhir",
+                                "next": "Berikutnya",
+                                "previous": "Sebelumnya"
+                            }
+                        },
+                        dom: '<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 text-end"f>>rtip'
+                    });
+
+                    // Event untuk filter status
+                    $('#filterStatus').on('change', function () {
+
+                        table.ajax.reload();
+                    });
+                });
+            </script>
+            <script>
+                // Script untuk anggota keluarga tetap sama
+                let rowIdx = 1;
+                const hubunganOptions = `
+                                                                                                                                                                                                                <option value="">Pilih</option>
+                                                                                                                                                                                                                <option value="Suami">Suami</option>
+                                                                                                                                                                                                                <option value="Istri">Istri</option>
+                                                                                                                                                                                                                <option value="Anak">Anak</option>
+                                                                                                                                                                                                                <option value="Ayah">Ayah</option>
+                                                                                                                                                                                                                <option value="Ibu">Ibu</option>
+                                                                                                                                                                                                                <option value="Kakak">Kakak</option>
+                                                                                                                                                                                                                <option value="Adik">Adik</option>
+                                                                                                                                                                                                                <option value="Mertua">Mertua</option>
+                                                                                                                                                                                                                <option value="Menantu">Menantu</option>
+                                                                                                                                                                                                                <option value="Cucu">Cucu</option>
+                                                                                                                                                                                                                <option value="Keponakan">Keponakan</option>
+                                                                                                                                                                                                                <option value="Lainnya">Lainnya</option>
+                                                                                                                                                                                                            `;
+
+                document.getElementById('addRow').addEventListener('click', function () {
+                    if (rowIdx >= 6) return alert("Maksimal 6 anggota keluarga");
+
+                    const tbody = document.querySelector('#anggotaKeluargaTable tbody');
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                                                                                                                                                                                                                    <td><input type="text" name="AnggotaKeluarga[${rowIdx}][nama]" class="form-control"></td>
+                                                                                                                                                                                                                    <td><input type="number" name="AnggotaKeluarga[${rowIdx}][umur]" class="form-control"></td>
+                                                                                                                                                                                                                    <td>
+                                                                                                                                                                                                                        <select name="AnggotaKeluarga[${rowIdx}][jk]" class="form-control">
+                                                                                                                                                                                                                            <option value="">Pilih</option>
+                                                                                                                                                                                                                            <option value="Laki-laki">Laki-laki</option>
+                                                                                                                                                                                                                            <option value="Perempuan">Perempuan</option>
+                                                                                                                                                                                                                        </select>
+                                                                                                                                                                                                                    </td>
+                                                                                                                                                                                                                    <td>
+                                                                                                                                                                                                                        <select name="AnggotaKeluarga[${rowIdx}][hubungan]" class="form-control">
+                                                                                                                                                                                                                            ${hubunganOptions}
+                                                                                                                                                                                                                        </select>
+                                                                                                                                                                                                                    </td>
+                                                                                                                                                                                                                    <td><input type="text" name="AnggotaKeluarga[${rowIdx}][keterangan]" class="form-control"></td>
+                                                                                                                                                                                                                    <td><button type="button" class="btn btn-sm btn-danger removeRow">−</button></td>
+                                                                                                                                                                                                                `;
+
+                    tbody.appendChild(row);
+                    rowIdx++;
+                });
+
+                document.addEventListener('click', function (e) {
+                    if (e.target.classList.contains('removeRow')) {
+                        e.target.closest('tr').remove();
+                        rowIdx--;
+                    }
+                });
+            </script>
+        @endpush
 @endsection

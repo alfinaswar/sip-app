@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\PengajuanExport;
+use App\Models\RiwayatUpdate;
 use App\Models\SuratIzin;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -34,6 +35,34 @@ class SuratIzinController extends Controller
         if ($request->ajax()) {
             $query = SuratIzin::query();
 
+            if ($request->filled('status')) {
+                $query->where('Status', $request->status);
+            }
+
+            return DataTables::of($query)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $editUrl = route('surat-izin.edit', $row->id);
+                    $deleteUrl = route('surat-izin.destroy', $row->id);
+                    $printUrl = route('surat-izin.show', $row->id);
+
+                    $btn = '<a href="' . $editUrl . '" class="btn btn-sm btn-primary mr-1">Edit</a>';
+                    $btn .= '<form action="' . $deleteUrl . '" method="POST" style="display:inline-block;" onsubmit="return confirm(\'Apakah Anda yakin ingin menghapus data ini?\')">';
+                    $btn .= csrf_field();
+                    $btn .= method_field('DELETE');
+                    $btn .= '<button type="submit" class="btn btn-sm btn-danger mr-1">Delete</button>';
+                    $btn .= '</form>';
+                    $btn .= '<a href="' . $printUrl . '" class="btn btn-sm btn-success" target="_blank">Print</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+    public function History(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = RiwayatUpdate::query();
 
             if ($request->filled('status')) {
                 $query->where('Status', $request->status);
@@ -43,6 +72,36 @@ class SuratIzinController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
+    }
+    public function updatepassword(Request $request)
+    {
+        return view('surat-izin.update-password');
+    }
+    public function simpanpassword(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:6|confirmed',
+        ], [
+            'current_password.required' => 'Password lama wajib diisi.',
+            'new_password.required' => 'Password baru wajib diisi.',
+            'new_password.min' => 'Password baru minimal 6 karakter.',
+            'new_password.confirmed' => 'Konfirmasi password baru tidak cocok.',
+        ]);
+
+        $user = auth()->user();
+
+        // Cek password lama
+        if (!\Hash::check($request->current_password, $user->password)) {
+            return back()->with('error', 'Password lama tidak sesuai.');
+        }
+
+        // Update password
+        $user->password = bcrypt($request->new_password);
+        $user->save();
+
+        return back()->with('success', 'Password berhasil diubah.');
     }
     /**
      * Store a newly created resource in storage.
@@ -116,7 +175,8 @@ class SuratIzinController extends Controller
         }
 
         $suratIzin->update($data);
-
+        $data['IdSurat'] = $id;
+        RiwayatUpdate::create($data);
         return redirect()->back()->with('success', 'Surat Izin Berhasil Diperbarui');
     }
     /**

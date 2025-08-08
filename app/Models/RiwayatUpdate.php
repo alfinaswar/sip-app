@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class RiwayatUpdate extends Model
 {
     use HasFactory;
+    protected $table = 'riwayat_updates';
+    protected $guarded = ['id'];
+    protected $casts = [
+        'AnggotaKeluarga' => 'array',
+    ];
 }
