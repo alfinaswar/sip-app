@@ -252,7 +252,7 @@
                     </tr>
                     <tr>
                         <td>12.</td>
-                        <td>Nama HPAD</td>
+                        <td>Nama KPAD</td>
                         <td>:</td>
                         <td>{{ $data->Kpad }}</td>
                     </tr>
