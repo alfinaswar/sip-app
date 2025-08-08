@@ -199,6 +199,9 @@ class SuratIzinController extends Controller
      */
     public function destroy(SuratIzin $suratIzin)
     {
-        //
+
+        $suratIzin->delete();
+
+        return redirect()->route('surat-izin.index')->with('success', 'Surat Izin berhasil dihapus.');
     }
 }
