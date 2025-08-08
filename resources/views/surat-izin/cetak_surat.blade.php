@@ -305,12 +305,14 @@
 
                     </td>
                     <!-- Kolom Tengah: Foto -->
-                    <td style="vertical-align:top; width:50%; text-align:center;">
-                        <div class="signature-box"
-                            style="margin-bottom: 10px; width:90px; height:120px; border:1px solid #000; display:flex; align-items:center; justify-content:center;">
-                            <span style="font-size:12px;">Foto<br>3x4</span>
+                    <td style="vertical-align:top; width:40%; text-align:center; padding:0;">
+                        <div style="margin-top: 10px;">
+                            <div class="signature-box"
+                                style="margin-bottom: 10px; width:90px; height:120px; border:1px solid #000; display:flex; align-items:center; justify-content:center; margin-left:auto; margin-right:auto;">
+                                <span style="font-size:12px;">Foto<br>3x4</span>
+                            </div>
                         </div>
-                        <div class="name-title" style="margin-top: 10px;">
+                        <div class="name-title" style="margin-top: 10px; text-align: center;">
                             <strong></strong>
                         </div>
                     </td>
