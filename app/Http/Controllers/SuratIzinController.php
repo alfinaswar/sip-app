@@ -202,6 +202,6 @@ class SuratIzinController extends Controller
 
         $suratIzin->delete();
 
-        return redirect()->route('surat-izin.index')->with('success', 'Surat Izin berhasil dihapus.');
+        return redirect()->route('surat-izin.create')->with('success', 'Surat Izin berhasil dihapus.');
     }
 }
