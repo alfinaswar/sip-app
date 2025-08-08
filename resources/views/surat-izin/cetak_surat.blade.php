@@ -312,7 +312,7 @@
                     </td>
                     <!-- Kolom Tengah: Foto -->
                     <td style="vertical-align:top; width:40%; text-align:center; padding:0;">
-                        <div style="margin-top: 10px;">
+                        <div style="margin-top: 0px;">
                             <div class="signature-box"
                                 style="margin-bottom: 10px; width:90px; height:120px; border:1px solid #000; display:flex; align-items:center; justify-content:center; margin-left:auto; margin-right:auto;">
                                 <span style="font-size:12px;">Foto<br>3x4</span>
@@ -323,8 +323,8 @@
                         </div>
                     </td>
                     <!-- Kolom Kanan: Tanda Tangan Panglima -->
-                    <td style="vertical-align:top; width:30%; min-width:180px; text-align:left;">
-                        <div class="date-location" style="margin-bottom: 5px;">Dikeluarkan di Jakarta</div>
+                    <td style="vertical-align:top; width:30%; min-width:180px; text-align:left; padding:4px;">
+                        <div class="date-location" style="margin-bottom:2px;">Dikeluarkan di Jakarta</div>
                         @php
                             $bulanIndo = [
                                 1 => 'Januari',
@@ -346,21 +346,15 @@
                             $tahun = date_format($tanggalObj, 'Y');
                             $tanggalIndonesia = $hari . ' ' . $bulanIndo[$bulan] . ' ' . $tahun;
                         @endphp
-                        <div class="date-location" style="margin-bottom: 20px;">pada tanggal {{ $tanggalIndonesia }}
-                        </div>
-                        <div style="font-size:12px; font-weight:bold; margin-bottom:2px;">
+                        <div class="date-location" style="margin-bottom:8px;">pada tanggal {{ $tanggalIndonesia }}</div>
+                        <div style="font-size:10.5px; font-weight:bold; margin-bottom:1px; line-height:1.1;">
                             a.n. Panglima Kodam Jaya/Jayakarta<br>
                             Asisten Logistik,
                         </div>
-                        <div class="signature-box" style="height: 60px; margin-bottom: 10px;">
-
+                        <div class="signature-box" style="height: 40px; margin-bottom: 6px;"></div>
+                        <div class="rank-number" style="margin-top:1px; font-size:10.5px; line-height:1.1;">
+                            Didid Yusnadi, M.Si<br>Kolonel Czi NRP 11000050710979
                         </div>
-
-                        <div class="rank-number" style="margin-top: 2px; font-size: 11px;">Didid Yusnadi,
-                            M.Si<br>Kolonel Czi NRP
-                            11000050710979
-                        </div>
-
                     </td>
                 </tr>
             </table>

@@ -121,7 +121,9 @@ class SuratIzinController extends Controller
     }
 
     /**
-     * Display the specified resource.
+    /**
+     * Menampilkan resource yang dipilih.
+     * Ukuran kertas: F4 (210mm x 330mm)
      */
     public function show($id)
     {
@@ -129,10 +131,10 @@ class SuratIzinController extends Controller
 
         $namaPemilik = $data ? $data->Nama : 'Pemilik Tidak Diketahui';
 
-        // Ukuran kertas F4: 210mm x 330mm
+        // Ukuran kertas F4: 210mm x 330mm (dalam satuan point: 595.28 x 935.43)
         $pdf = Pdf::loadView('surat-izin.cetak_surat', compact('data', 'namaPemilik'))
-            ->setPaper([0, 0, 595.28, 935.43], 'portrait') // ukuran F4 dalam satuan point
-            ->setOption(['isRemoteEnabled' => true]); // remote enabled ditambahkan
+            ->setPaper([0, 0, 595.28, 935.43], 'portrait') // F4 portrait
+            ->setOption(['isRemoteEnabled' => true]);
 
         return $pdf->stream('SIP_' . $namaPemilik . '.pdf');
     }
