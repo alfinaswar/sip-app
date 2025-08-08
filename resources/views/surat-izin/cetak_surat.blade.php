@@ -324,7 +324,8 @@
                     </td>
                     <!-- Kolom Kanan: Tanda Tangan Panglima -->
                     <td style="vertical-align:top; width:30%; min-width:180px; text-align:center; padding:4px;">
-                        <div class="date-location" style="margin-bottom:2px;">Dikeluarkan di Jakarta</div>
+                        <div class="date-location" style="margin-bottom:2px; font-size:11px;">Dikeluarkan di Jakarta
+                        </div>
                         @php
                             $bulanIndo = [
                                 1 => 'Januari',
@@ -346,13 +347,14 @@
                             $tahun = date_format($tanggalObj, 'Y');
                             $tanggalIndonesia = $hari . ' ' . $bulanIndo[$bulan] . ' ' . $tahun;
                         @endphp
-                        <div class="date-location" style="margin-bottom:8px;">pada tanggal {{ $tanggalIndonesia }}</div>
-                        <div style="font-size:10.5px; font-weight:bold; margin-bottom:1px; line-height:1.1;">
+                        <div class="date-location" style="margin-bottom:8px; font-size:11px;">pada tanggal
+                            {{ $tanggalIndonesia }}</div>
+                        <div style="font-size:11px; font-weight:bold; margin-bottom:1px; line-height:1.1;">
                             a.n. Panglima Kodam Jaya/Jayakarta<br>
                             Asisten Logistik,
                         </div>
                         <div class="signature-box" style="height: 40px; margin-bottom: 6px;"></div>
-                        <div class="rank-number" style="margin-top:1px; font-size:10.5px; line-height:1.1;">
+                        <div class="rank-number" style="margin-top:1px; font-size:11px; line-height:1.1;">
                             Didid Yusnadi, M.Si<br>Kolonel Czi NRP 11000050710979
                         </div>
                     </td>
