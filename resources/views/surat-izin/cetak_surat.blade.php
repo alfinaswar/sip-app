@@ -283,7 +283,8 @@
                             <div style="margin-bottom: 4px;">
                                 <strong>SIP BERLAKU S.D.</strong>
                             </div>
-                            <hr style="border: 1.5px solid #800080; background-color: #800080;">
+                            <hr
+                                style="border: 1.5px solid #800080; background-color: #800080; margin-left:-8px; margin-right:-8px; width:calc(100% + 16px);">
                             <div>
                                 <strong>
                                     @php
