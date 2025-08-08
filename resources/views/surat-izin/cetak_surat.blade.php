@@ -290,14 +290,19 @@
                     <td style="vertical-align:top; width:30%; min-width:180px; border:0px solid #000; padding:8px;">
                         <div
                             style="margin-top: 10px; border:2px solid #800080; background-color: #ffffff; padding:8px; text-align:center;">
-                            <strong>SIP BERLAKU S.D.</strong><br>
-                            <strong>
-                                @php
-                                    use Carbon\Carbon;
-                                    $tanggalBerlaku = Carbon::parse($data->created_at)->addYear()->format('d-m-Y');
-                                @endphp
-                                {{ $tanggalBerlaku }}
-                            </strong>
+                            <div style="margin-bottom: 4px;">
+                                <strong>SIP BERLAKU S.D.</strong>
+                            </div>
+                            <hr style="border: 1.5px solid #800080; background-color: #800080;">
+                            <div>
+                                <strong>
+                                    @php
+                                        use Carbon\Carbon;
+                                        $tanggalBerlaku = Carbon::parse($data->created_at)->addYear()->format('d-m-Y');
+                                    @endphp
+                                    {{ $tanggalBerlaku }}
+                                </strong>
+                            </div>
                         </div>
                         <div style="margin-top: 15px;">
                             <p><strong>Tembusan:</strong></p>
