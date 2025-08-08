@@ -126,73 +126,64 @@
                         <td style="width: 27%;">Nama</td>
                         <td style="width: 2%;">:</td>
                         <td>{{ $data->Nama }}</td>
-                        <td style="width: 10%;"></td>
-                        <td style="width: 10%;">Korps</td>
-                        <td style="width: 2%;">:</td>
-                        <td style="width: 20%;">{{ $data->Korps }}</td>
                     </tr>
                     <tr>
                         <td>2.</td>
                         <td>Pangkat</td>
                         <td>:</td>
                         <td>{{ $data->Pangkat }}</td>
-                        <td></td>
-                        <td>NRP/NIP</td>
-                        <td>:</td>
-                        <td>{{ $data->NRPNIP }}</td>
                     </tr>
                     <tr>
                         <td>3.</td>
                         <td>Jabatan</td>
                         <td>:</td>
                         <td>{{ $data->Jabatan }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>4.</td>
                         <td>Kesatuan</td>
                         <td>:</td>
                         <td>{{ $data->Kesatuan }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>5.</td>
                         <td>Nomor KTP</td>
                         <td>:</td>
                         <td>{{ $data->Ktp }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>6.</td>
                         <td>Tempat tanggal lahir</td>
                         <td>:</td>
                         <td>{{ $data->Ttl }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>7.</td>
                         <td>Status</td>
                         <td>:</td>
                         <td>{{ $data->Status }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
-
                 </table>
+                <!-- Floating box untuk Korps dan NRP/NIP, bisa diposisikan di mana saja dengan drag (jika ingin interaktif, perlu JS tambahan) -->
+                <div id="floating-korps-nrp"
+                    style="position: absolute; top: 375px; left: 450px; padding: 10px 20px;  z-index: 1000;">
+                    <table border-collapse: collapse;">
+                        <tr>
+                            <td style="width: 40px;">Korps</td>
+                            <td style="width: 12px;">:</td>
+                            <td style="width: 10px;">{{ $data->Korps }}</td>
+                            <td style="width: 20px;"></td> <!-- Jarak tambahan antara Korps dan NRP/NIP -->
+                            <td style="width: 60px;">NRP/NIP</td>
+                            <td style="width: 12px;">:</td>
+                            <td style="width: 120px;">{{ $data->NRPNIP }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <!--
+                    Catatan:
+                    - Ubah nilai 'top' dan 'left' pada style div di atas untuk memindahkan posisi floating box sesuai kebutuhan.
+                    - Jika ingin bisa drag & drop, tambahkan script JS drag and drop.
+                -->
                 <table>
                     <tr>
                         <td>8.</td>
