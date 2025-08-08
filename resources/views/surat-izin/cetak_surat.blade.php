@@ -324,7 +324,8 @@
                     </td>
                     <!-- Kolom Kanan: Tanda Tangan Panglima -->
                     <td style="vertical-align:top; width:30%; min-width:180px; text-align:center; padding:4px;">
-                        <div class="date-location" style="margin-bottom:2px; font-size:11px;">Dikeluarkan di Jakarta
+                        <div class="date-location" style="margin-bottom:1px; font-size:11px; line-height:1.1;">
+                            Dikeluarkan di Jakarta
                         </div>
                         @php
                             $bulanIndo = [
@@ -347,8 +348,10 @@
                             $tahun = date_format($tanggalObj, 'Y');
                             $tanggalIndonesia = $hari . ' ' . $bulanIndo[$bulan] . ' ' . $tahun;
                         @endphp
-                        <div class="date-location" style="margin-bottom:8px; font-size:11px;">pada tanggal
-                            {{ $tanggalIndonesia }}</div>
+                        <div class="date-location" style="margin-bottom:3px; font-size:11px; line-height:1.1;">pada
+                            tanggal
+                            {{ $tanggalIndonesia }}
+                        </div>
                         <div style="font-size:11px; font-weight:bold; margin-bottom:1px; line-height:1.1;">
                             a.n. Panglima Kodam Jaya/Jayakarta<br>
                             Asisten Logistik,
