@@ -107,7 +107,7 @@
         <div class="login-wrapper">
             <!-- Logo kiri -->
             <div class="logo-side">
-                <img src="{{ asset('assets/img/icon/hijau.png') }}" alt="Logo Hijau">
+                <img src="{{ asset('assets/img/loghijau.png') }}" alt="Logo Hijau">
             </div>
 
             <!-- Form dan judul aplikasi -->
@@ -164,7 +164,7 @@
 
             <!-- Logo kanan -->
             <div class="logo-side">
-                <img src="{{ asset('assets/img/icon/emas.png') }}" alt="Logo Emas">
+                <img src="{{ asset('assets/img/logoemas.png') }}" alt="Logo Emas">
             </div>
         </div>
     </div>

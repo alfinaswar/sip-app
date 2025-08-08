@@ -92,7 +92,7 @@
 
 <body>
     <div class="watermark">
-        <img src="{{ public_path('assets/img/icon/bgsurat.png') }}" alt="" width="100%" height="100%">
+        <img src="{{ public_path('assets/img/bgdokumen.png') }}" alt="" width="100%" height="100%">
     </div>
 
     <div class="text-al" style="text-align: center; margin-bottom: 10px;">
@@ -234,22 +234,22 @@
             <div class="requirements">
                 <table class="">
                     <tr>
-                        <td>9.</td>
-                        <td>Untuk menempati</td>
-                        <td>:</td>
-                        <td>Rumah Dinas TNI AD Golongan II</td>
+                        <td><strong>9.</strong></td>
+                        <td><strong>Untuk menempati</strong></td>
+                        <td><strong>:</strong></td>
+                        <td><strong>Rumah Dinas TNI AD Golongan II</strong></td>
                     </tr>
                     <tr>
-                        <td>10.</td>
-                        <td>Keterangan ruangan</td>
-                        <td>:</td>
-                        <td>Seluruh Rumah Dinas</td>
+                        <td><strong>10.</strong></td>
+                        <td><strong>Keterangan ruangan</strong></td>
+                        <td><strong>:</strong></td>
+                        <td><strong>Seluruh Rumah Dinas</strong></td>
                     </tr>
                     <tr>
-                        <td>11.</td>
-                        <td>Digunakan sebagai</td>
-                        <td>:</td>
-                        <td>Tempat Tinggal</td>
+                        <td><strong>11.</strong></td>
+                        <td><strong>Digunakan sebagai</strong></td>
+                        <td><strong>:</strong></td>
+                        <td><strong>Tempat Tinggal</strong></td>
                     </tr>
                     <tr>
                         <td>12.</td>
@@ -288,7 +288,8 @@
                 <tr>
                     <!-- Kolom Kiri: Tembusan -->
                     <td style="vertical-align:top; width:30%; min-width:180px; border:0px solid #000; padding:8px;">
-                        <div style="margin-top: 30px; border:1px solid #000; padding:8px; text-align:center;">
+                        <div
+                            style="margin-top: 30px; border:1px solid #800080; background-color: #e6ccff; padding:8px; text-align:center;">
                             <strong>SIP BERLAKU S.D.</strong><br>
                             <strong>
                                 @php
