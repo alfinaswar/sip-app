@@ -237,19 +237,19 @@
                         <td>9.</td>
                         <td>Untuk menempati</td>
                         <td>:</td>
-                        <td>{{ $data->UntukMenempati }}</td>
+                        <td>Rumah Dinas TNI AD Golongan II</td>
                     </tr>
                     <tr>
                         <td>10.</td>
                         <td>Keterangan ruangan</td>
                         <td>:</td>
-                        <td>{{ $data->Keterangan }}</td>
+                        <td>Seluruh Rumah Dinas</td>
                     </tr>
                     <tr>
                         <td>11.</td>
                         <td>Digunakan sebagai</td>
                         <td>:</td>
-                        <td>{{ $data->DigunakanSebagai }}</td>
+                        <td>Tempat Tinggal</td>
                     </tr>
                     <tr>
                         <td>12.</td>
@@ -300,27 +300,17 @@
                         </div>
                         <div style="margin-top: 15px;">
                             <p><strong>Tembusan:</strong></p>
-                            @if (!empty($data->Tembusan))
-                                @foreach (explode(';', $data->Tembusan) as $tembusan)
-                                    <p>- {{ $tembusan }}</p>
-                                @endforeach
-                            @endif
+                            - Kazidam Jaya
                         </div>
 
                     </td>
                     <!-- Kolom Tengah: Foto -->
                     <td style="vertical-align:top; width:50%; text-align:center;">
-                        <div class="signature-box" style="margin-bottom: 10px;">
-                            @if (!empty($data->Foto))
-                                <img src="{{ asset('storage/foto/' . $data->Foto) }}" alt="Foto"
-                                    style="width:100px; height:120px; object-fit:cover; border:1px solid #000;">
-                            @else
-                                <img src="{{ asset('storage/foto/' . $data->Foto) }}" alt="Foto"
-                                    style="width:100px; height:120px; object-fit:cover; border:1px solid #000;">
-                            @endif
+                        <div class="signature-box"
+                            style="margin-bottom: 10px; width:90px; height:120px; border:1px solid #000; display:flex; align-items:center; justify-content:center;">
+                            <span style="font-size:12px;">Foto<br>3x4</span>
                         </div>
                         <div class="name-title" style="margin-top: 10px;">
-
                             <strong></strong>
                         </div>
                     </td>
@@ -356,8 +346,8 @@
                         <div class="name-title" style="font-weight: bold; margin-top: 2px; margin-bottom: 2px;">
                             {{ $data->TandaTangan }}
                         </div>
-                        <div class="rank-number" style="margin-top: 2px;">{{ $data->Pangkat }} {{ $data->Korps }}
-                            {{ $data->NRPNIP }}
+                        <div class="rank-number" style="margin-top: 2px;">Didid Yusnadi, M.Si<br>Kolonel Czi NRP
+                            11000050710979
                         </div>
 
                     </td>
