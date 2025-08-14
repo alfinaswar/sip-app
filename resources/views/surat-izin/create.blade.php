@@ -334,7 +334,7 @@
                                     untuk keperluan dokumentasi atau pelaporan. Silakan pilih salah satu tombol di bawah
                                     ini:
                                 </p>
-                                <div class="d-flex gap-2">
+                                <div class="d-flex gap-2 mb-2">
                                     <a href="{{ route('exportExcel') }}" class="btn btn-success btn-sm"
                                         title="Unduh data dalam format Excel">
                                         <i class="fa fa-file-excel-o"></i> Download Excel
@@ -346,6 +346,28 @@
                                 </div>
                                 <small class="text-secondary d-block mt-2">
                                     * Pastikan data sudah benar sebelum melakukan ekspor.
+                                </small>
+                                <hr>
+                                <p class="mb-2 text-muted">
+                                    Anda juga dapat melakukan <strong>import data</strong> dari file Excel untuk mempercepat
+                                    pengisian data penghuni rumah dinas. Silakan gunakan template yang telah disediakan,
+                                    lalu upload file Excel Anda melalui tombol di bawah ini:
+                                </p>
+                                <div class="d-flex gap-2 mb-2">
+
+                                    <form action="{{ route('importExcel') }}" method="POST" enctype="multipart/form-data"
+                                        class="d-inline">
+                                        @csrf
+                                        <input type="file" name="file" accept=".xlsx,.xls"
+                                            class="form-control form-control-sm d-inline"
+                                            style="width:auto; display:inline-block;" required>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-upload"></i> Import Excel
+                                        </button>
+                                    </form>
+                                </div>
+                                <small class="text-secondary d-block">
+                                    * Pastikan format file sesuai dengan template yang diberikan.
                                 </small>
                             </div>
                         </div>
@@ -404,6 +426,32 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="tab-history">
+                        <h4>All Data</h4>
+                        <div class="card mb-3">
+                            <div class="card-header bg-light">
+                                <strong> EKSPOR DATA HISTORY PENGHUNI RUMAH DINAS</strong>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-3 text-muted">
+                                    Anda dapat mengunduh seluruh history pengajuan rumah dinas dalam format Excel atau PDF
+                                    untuk keperluan dokumentasi atau pelaporan. Silakan pilih salah satu tombol di bawah
+                                    ini:
+                                </p>
+                                <div class="d-flex gap-2">
+                                    <a href="{{ route('exportExcelHistory') }}" class="btn btn-success btn-sm"
+                                        title="Unduh data dalam format Excel">
+                                        <i class="fa fa-file-excel-o"></i> Download Excel
+                                    </a>
+                                    <a href="{{ route('exportPdfHistory') }}" class="btn btn-danger btn-sm"
+                                        title="Unduh data dalam format PDF">
+                                        <i class="fa fa-file-pdf-o"></i> Download PDF
+                                    </a>
+                                </div>
+                                <small class="text-secondary d-block mt-2">
+                                    * Pastikan data sudah benar sebelum melakukan ekspor.
+                                </small>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered align-middle" id="tablehistory"
                                 style="width:100%">
@@ -569,6 +617,7 @@
                             { data: 'AlamatRumah', name: 'AlamatRumah', className: 'align-middle' },
                             { data: 'TypeLuas', name: 'TypeLuas', className: 'align-middle' },
                             { data: 'Tmt', name: 'Tmt', className: 'align-middle' },
+                            { data: 'action', name: 'action', className: 'align-middle' },
 
 
                         ],
@@ -600,20 +649,20 @@
                 // Script untuk anggota keluarga tetap sama
                 let rowIdx = 1;
                 const hubunganOptions = `
-                                                                                                                                                                                                                                                                                <option value="">Pilih</option>
-                                                                                                                                                                                                                                                                                <option value="Suami">Suami</option>
-                                                                                                                                                                                                                                                                                <option value="Istri">Istri</option>
-                                                                                                                                                                                                                                                                                <option value="Anak">Anak</option>
-                                                                                                                                                                                                                                                                                <option value="Ayah">Ayah</option>
-                                                                                                                                                                                                                                                                                <option value="Ibu">Ibu</option>
-                                                                                                                                                                                                                                                                                <option value="Kakak">Kakak</option>
-                                                                                                                                                                                                                                                                                <option value="Adik">Adik</option>
-                                                                                                                                                                                                                                                                                <option value="Mertua">Mertua</option>
-                                                                                                                                                                                                                                                                                <option value="Menantu">Menantu</option>
-                                                                                                                                                                                                                                                                                <option value="Cucu">Cucu</option>
-                                                                                                                                                                                                                                                                                <option value="Keponakan">Keponakan</option>
-                                                                                                                                                                                                                                                                                <option value="Lainnya">Lainnya</option>
-                                                                                                                                                                                                                                                                            `;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="">Pilih</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="Suami">Suami</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="Istri">Istri</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="Anak">Anak</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="Ayah">Ayah</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="Ibu">Ibu</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="Kakak">Kakak</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="Adik">Adik</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="Mertua">Mertua</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="Menantu">Menantu</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="Cucu">Cucu</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="Keponakan">Keponakan</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option value="Lainnya">Lainnya</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    `;
 
                 document.getElementById('addRow').addEventListener('click', function () {
                     if (rowIdx >= 6) return alert("Maksimal 6 anggota keluarga");
@@ -622,23 +671,23 @@
                     const row = document.createElement('tr');
 
                     row.innerHTML = `
-                                                                                                                                                                                                                                                                                    <td><input type="text" name="AnggotaKeluarga[${rowIdx}][nama]" class="form-control"></td>
-                                                                                                                                                                                                                                                                                    <td><input type="number" name="AnggotaKeluarga[${rowIdx}][umur]" class="form-control"></td>
-                                                                                                                                                                                                                                                                                    <td>
-                                                                                                                                                                                                                                                                                        <select name="AnggotaKeluarga[${rowIdx}][jk]" class="form-control">
-                                                                                                                                                                                                                                                                                            <option value="">Pilih</option>
-                                                                                                                                                                                                                                                                                            <option value="Laki-laki">Laki-laki</option>
-                                                                                                                                                                                                                                                                                            <option value="Perempuan">Perempuan</option>
-                                                                                                                                                                                                                                                                                        </select>
-                                                                                                                                                                                                                                                                                    </td>
-                                                                                                                                                                                                                                                                                    <td>
-                                                                                                                                                                                                                                                                                        <select name="AnggotaKeluarga[${rowIdx}][hubungan]" class="form-control">
-                                                                                                                                                                                                                                                                                            ${hubunganOptions}
-                                                                                                                                                                                                                                                                                        </select>
-                                                                                                                                                                                                                                                                                    </td>
-                                                                                                                                                                                                                                                                                    <td><input type="text" name="AnggotaKeluarga[${rowIdx}][keterangan]" class="form-control"></td>
-                                                                                                                                                                                                                                                                                    <td><button type="button" class="btn btn-sm btn-danger removeRow">−</button></td>
-                                                                                                                                                                                                                                                                                `;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <td><input type="text" name="AnggotaKeluarga[${rowIdx}][nama]" class="form-control"></td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <td><input type="number" name="AnggotaKeluarga[${rowIdx}][umur]" class="form-control"></td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <select name="AnggotaKeluarga[${rowIdx}][jk]" class="form-control">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option value="">Pilih</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option value="Laki-laki">Laki-laki</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option value="Perempuan">Perempuan</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </select>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <select name="AnggotaKeluarga[${rowIdx}][hubungan]" class="form-control">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ${hubunganOptions}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </select>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <td><input type="text" name="AnggotaKeluarga[${rowIdx}][keterangan]" class="form-control"></td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <td><button type="button" class="btn btn-sm btn-danger removeRow">−</button></td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        `;
 
                     tbody.appendChild(row);
                     rowIdx++;

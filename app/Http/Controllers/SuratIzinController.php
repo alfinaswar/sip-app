@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\PengajuanExport;
+use App\Exports\PengajuanExportHistory;
 use App\Models\RiwayatUpdate;
 use App\Models\SuratIzin;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -70,6 +71,21 @@ class SuratIzinController extends Controller
 
             return DataTables::of($query)
                 ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $editUrl = route('surat-izin-history.edit', $row->id);
+                    $deleteUrl = route('surat-izin-history.destroy', $row->id);
+                    $printUrl = route('surat-izin-history.show', $row->id);
+
+                    $btn = '<a href="' . $editUrl . '" class="btn btn-sm btn-primary mr-1">Edit</a>';
+                    $btn .= '<form action="' . $deleteUrl . '" method="POST" style="display:inline-block;" onsubmit="return confirm(\'Apakah Anda yakin ingin menghapus data ini?\')">';
+                    $btn .= csrf_field();
+                    $btn .= method_field('DELETE');
+                    $btn .= '<button type="submit" class="btn btn-sm btn-danger mr-1">Delete</button>';
+                    $btn .= '</form>';
+                    $btn .= '<a href="' . $printUrl . '" class="btn btn-sm btn-success" target="_blank">Print</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
     }
@@ -151,6 +167,14 @@ class SuratIzinController extends Controller
 
         return $pdf->stream('surat-izin.laporan_pdf_sip');
     }
+    public function exportPdfHistory()
+    {
+        $data = RiwayatUpdate::get();
+        $pdf = Pdf::loadView('surat-izin.laporan_pdf_sip', compact('data'))
+            ->setPaper([0, 0, 935.43, 595.28], 'landscape'); // F4 landscape
+
+        return $pdf->stream('surat-izin.laporan_pdf_sip');
+    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -162,6 +186,10 @@ class SuratIzinController extends Controller
     public function exportExcel()
     {
         return Excel::download(new PengajuanExport, 'data-pengajuan.xlsx');
+    }
+    public function exportExcelHistory()
+    {
+        return Excel::download(new PengajuanExportHistory, 'data-pengajuan.xlsx');
     }
     /**
      * Update the specified resource in storage.
@@ -193,6 +221,44 @@ class SuratIzinController extends Controller
         $suratIzin->update($data);
 
         return redirect()->back()->with('success', 'Surat Izin Berhasil Diperbarui');
+    }
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls|max:2048'
+        ]);
+
+        $data = Excel::toArray([], $request->file('file'));
+
+        foreach ($data[0] as $index => $row) {
+            if ($index == 0) {
+                continue;
+            }
+
+            SuratIzin::create([
+                'NomorSIP' => $row[1],
+                'Nama' => $row[2],
+                'Pangkat' => $row[3],
+                'Korps' => $row[4],
+                'NRPNIP' => $row[5],
+                'Jabatan' => $row[6],
+                'Kesatuan' => $row[7],
+                'Ktp' => $row[8],
+                'Ttl' => $row[9],
+                'Status' => $row[10],
+                'JumlahTanggungan' => $row[11],
+                'AnggotaKeluarga' => $row[12],
+                'UntukMenempati' => $row[13],
+                'Keterangan' => $row[14],
+                'DigunakanSebagai' => $row[15],
+                'Kpad' => $row[16],
+                'AlamatRumah' => $row[17],
+                'TypeLuas' => $row[18],
+                'Tmt' => $row[19],
+            ]);
+        }
+
+        return back()->with('success', 'Data berhasil diimport!');
     }
     /**
      * Remove the specified resource from storage.

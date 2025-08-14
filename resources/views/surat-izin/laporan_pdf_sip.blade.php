@@ -86,11 +86,22 @@
                     <th>Nomor SIP</th>
                     <th>Nama</th>
                     <th>Pangkat</th>
+                    <th>Korps</th>
                     <th>NRP/NIP</th>
                     <th>Jabatan</th>
                     <th>Kesatuan</th>
-                    <th>Alamat Rumah</th>
+                    <th>KTP</th>
+                    <th>TTL</th>
                     <th>Status</th>
+                    <th>Jumlah Tanggungan</th>
+                    <th>Anggota Keluarga</th>
+                    <th>Untuk Menempati</th>
+                    <th>Keterangan</th>
+                    <th>Digunakan Sebagai</th>
+                    <th>KPAD</th>
+                    <th>Alamat Rumah</th>
+                    <th>Type / Luas</th>
+                    <th>TMT</th>
                 </tr>
             </thead>
             <tbody>
@@ -100,11 +111,45 @@
                         <td>{{ $item->NomorSIP ?? '-' }}</td>
                         <td>{{ $item->Nama ?? '-' }}</td>
                         <td>{{ $item->Pangkat ?? '-' }}</td>
+                        <td>{{ $item->Korps ?? '-' }}</td>
                         <td>{{ $item->NRPNIP ?? '-' }}</td>
                         <td>{{ $item->Jabatan ?? '-' }}</td>
                         <td>{{ $item->Kesatuan ?? '-' }}</td>
-                        <td>{{ $item->AlamatRumah ?? '-' }}</td>
+                        <td>{{ $item->Ktp ?? '-' }}</td>
+                        <td>{{ $item->Ttl ?? '-' }}</td>
                         <td>{{ $item->Status ?? '-' }}</td>
+                        <td>
+                            @if(isset($item->JumlahTanggungan))
+                                {{ $item->JumlahTanggungan . ' orang' }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td>
+                            @php
+                                // Format anggota keluarga jika array/json
+                                $anggota = $item->AnggotaKeluarga ?? '-';
+                                if (is_string($anggota)) {
+                                    $decoded = json_decode($anggota, true);
+                                    if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                                        $anggota = implode(', ', array_map(function ($a) {
+                                            if (is_array($a)) {
+                                                return implode(' ', $a);
+                                            }
+                                            return $a;
+                                        }, $decoded));
+                                    }
+                                }
+                            @endphp
+                            {{ $anggota ?: '-' }}
+                        </td>
+                        <td>{{ $item->UntukMenempati ?? '-' }}</td>
+                        <td>{{ $item->Keterangan ?? '-' }}</td>
+                        <td>{{ $item->DigunakanSebagai ?? '-' }}</td>
+                        <td>{{ $item->Kpad ?? '-' }}</td>
+                        <td>{{ $item->AlamatRumah ?? '-' }}</td>
+                        <td>{{ $item->TypeLuas ?? '-' }}</td>
+                        <td>{{ $item->Tmt ?? '-' }}</td>
                     </tr>
                 @endforeach
             </tbody>

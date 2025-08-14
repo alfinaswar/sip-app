@@ -129,7 +129,7 @@
                     </tr>
                     <tr>
                         <td>2.</td>
-                        <td>Pangkat</td>
+                        <td>Pangkat/Gol</td>
                         <td>:</td>
                         <td>{{ $data->Pangkat }}</td>
                     </tr>
