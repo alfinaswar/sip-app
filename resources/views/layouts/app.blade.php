@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>SIP</title>
     <link href="{{ asset('assets/css/tabler.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/tabler-flags.min.css') }}" rel="stylesheet" />
@@ -183,16 +182,16 @@
             </main>
         </div>
     </div>
-    <script src="{{ asset('') }}assets/libs/apexcharts/dist/apexcharts.min.js" defer></script>
-    <script src="{{ asset('') }}assets/libs/jsvectormap/dist/js/jsvectormap.min.js" defer></script>
-    <script src="{{ asset('') }}assets/libs/jsvectormap/dist/maps/world.js" defer></script>
-    <script src="{{ asset('') }}assets/libs/jsvectormap/dist/maps/world-merc.js" defer></script>
-    <script src="{{ asset('') }}assets/libs/nouislider/dist/nouislider.min.js" defer></script>
-    <script src="{{ asset('') }}assets/libs/tom-select/dist/js/tom-select.base.min.js" defer></script>
-    <script src="{{ asset('') }}assets/libs/litepicker/dist/litepicker.js" defer></script>
+    <script src="{{ asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/jsvectormap/dist/js/jsvectormap.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/jsvectormap/dist/maps/world.js') }}"></script>
+    <script src="{{ asset('assets/libs/jsvectormap/dist/maps/world-merc.js') }}"></script>
+    <script src="{{ asset('assets/libs/nouislider/dist/nouislider.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/tom-select/dist/js/tom-select.base.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/litepicker/dist/litepicker.js') }}"></script>
     <!-- Tabler Core -->
-    <script src="{{ asset('') }}assets/js/tabler.min.js" defer></script>
-    <script src="{{ asset('') }}assets/js/demo.min.js" defer></script>
+    <script src="{{ asset('assets/js/tabler.min.js') }}"></script>
+    <script src="{{ asset('assets/js/demo.min.js') }}"></script>
     @stack('scripts')
 </body>
 
