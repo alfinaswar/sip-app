@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>SIP</title>
-    <link href="{{ asset('') }}assets/css/tabler.min.css?1692870487" rel="stylesheet" />
-    <link href="{{ asset('') }}assets/css/tabler-flags.min.css?1692870487" rel="stylesheet" />
-    <link href="{{ asset('') }}assets/css/tabler-payments.min.css?1692870487" rel="stylesheet" />
-    <link href="{{ asset('') }}assets/css/tabler-vendors.min.css?1692870487" rel="stylesheet" />
-    <link href="{{ asset('') }}assets/css/demo.min.css?1692870487" rel="stylesheet" />
+    <link href="{{ asset('assets/css/tabler.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/tabler-flags.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/tabler-payments.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/tabler-vendors.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/demo.min.css') }}" rel="stylesheet" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -183,16 +183,16 @@
             </main>
         </div>
     </div>
-    <script src="{{ asset('') }}assets/libs/apexcharts/dist/apexcharts.min.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/libs/jsvectormap/dist/js/jsvectormap.min.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/libs/jsvectormap/dist/maps/world.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/libs/jsvectormap/dist/maps/world-merc.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/libs/nouislider/dist/nouislider.min.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/libs/tom-select/dist/js/tom-select.base.min.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/libs/litepicker/dist/litepicker.js?1692870487" defer></script>
+    <script src="{{ asset('') }}assets/libs/apexcharts/dist/apexcharts.min.js" defer></script>
+    <script src="{{ asset('') }}assets/libs/jsvectormap/dist/js/jsvectormap.min.js" defer></script>
+    <script src="{{ asset('') }}assets/libs/jsvectormap/dist/maps/world.js" defer></script>
+    <script src="{{ asset('') }}assets/libs/jsvectormap/dist/maps/world-merc.js" defer></script>
+    <script src="{{ asset('') }}assets/libs/nouislider/dist/nouislider.min.js" defer></script>
+    <script src="{{ asset('') }}assets/libs/tom-select/dist/js/tom-select.base.min.js" defer></script>
+    <script src="{{ asset('') }}assets/libs/litepicker/dist/litepicker.js" defer></script>
     <!-- Tabler Core -->
-    <script src="{{ asset('') }}assets/js/tabler.min.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/js/demo.min.js?1692870487" defer></script>
+    <script src="{{ asset('') }}assets/js/tabler.min.js" defer></script>
+    <script src="{{ asset('') }}assets/js/demo.min.js" defer></script>
     @stack('scripts')
 </body>
 
