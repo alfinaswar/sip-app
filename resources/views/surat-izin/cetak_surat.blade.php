@@ -207,6 +207,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $jumlahAnggota = count($data->AnggotaKeluarga);
+                        @endphp
                         @foreach ($data->AnggotaKeluarga as $key => $ak)
                             <tr class="table-row">
                                 <td>{{ $key + 1 }}</td>
@@ -214,7 +217,11 @@
                                 <td>{{ $ak['umur'] }}</td>
                                 <td>{{ $ak['jk'] }}</td>
                                 <td>{{ $ak['hubungan'] }}</td>
-                                <td>{{ $ak['keterangan'] }}</td>
+                                @if ($key == 0)
+                                    <td rowspan="{{ $jumlahAnggota }}" style="vertical-align: top;">
+                                        {{ $data->Keterangan }}
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
