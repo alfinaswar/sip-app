@@ -5,7 +5,7 @@
         <a href="{{ url()->previous() }}" class="btn btn-secondary mb-3">
             <i class="fa fa-arrow-left"></i> Kembali
         </a>
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
@@ -47,59 +47,55 @@
                                     placeholder="Masukkan Nama Lengkap" value="{{ old('Nama', $suratIzin->Nama) }}">
                             </div>
                             <div class="form-group mb-3">
-                                <label for="NRPNIP">NRP / NIP</label>
-                                <input type="text" name="NRPNIP" id="NRPNIP" class="form-control"
-                                    placeholder="Masukkan NRP / NIP Lengkap"
-                                    value="{{ old('NRPNIP', $suratIzin->NRPNIP) }}">
-                            </div>
-                            <div class="form-group mb-3">
                                 <label for="Pangkat">Pangkat</label>
                                 <select name="Pangkat" id="Pangkat" class="form-control">
                                     <option value="">Pilih Pangkat</option>
                                     @php
                                         $pangkatList = [
-                                            "Jenderal TNI",
-                                            "Letnan Jenderal TNI",
-                                            "Mayor Jenderal TNI",
-                                            "Brigadir Jenderal TNI",
-                                            "Kolonel",
-                                            "Letnan Kolonel",
-                                            "Mayor",
-                                            "Kapten",
-                                            "Letnan Satu",
-                                            "Letnan Dua",
-                                            "Pembantu Letnan Satu",
-                                            "Pembantu Letnan Dua",
-                                            "Sersan Mayor",
-                                            "Sersan Kepala",
-                                            "Sersan Satu",
-                                            "Sersan Dua",
-                                            "Kopral Kepala",
-                                            "Kopral Satu",
-                                            "Kopral Dua",
-                                            "Prajurit Kepala",
-                                            "Prajurit Satu",
-                                            "Prajurit Dua",
-                                            "PNS IV/d",
-                                            "PNS IV/c",
-                                            "PNS IV/b",
-                                            "PNS IV/a",
-                                            "PNS III/d",
-                                            "PNS III/c",
-                                            "PNS III/b",
-                                            "PNS III/a",
-                                            "PNS II/d",
-                                            "PNS II/c",
-                                            "PNS II/b",
-                                            "PNS II/a",
-                                            "PNS I/d",
-                                            "PNS I/c",
-                                            "PNS I/b",
-                                            "PNS I/a"
+                                            'Jenderal TNI',
+                                            'Letnan Jenderal TNI',
+                                            'Mayor Jenderal TNI',
+                                            'Brigadir Jenderal TNI',
+                                            'Kolonel',
+                                            'Letnan Kolonel',
+                                            'Mayor',
+                                            'Kapten',
+                                            'Letnan Satu',
+                                            'Letnan Dua',
+                                            'Pembantu Letnan Satu',
+                                            'Pembantu Letnan Dua',
+                                            'Sersan Mayor',
+                                            'Sersan Kepala',
+                                            'Sersan Satu',
+                                            'Sersan Dua',
+                                            'Kopral Kepala',
+                                            'Kopral Satu',
+                                            'Kopral Dua',
+                                            'Prajurit Kepala',
+                                            'Prajurit Satu',
+                                            'Prajurit Dua',
+                                            'PNS IV/d',
+                                            'PNS IV/c',
+                                            'PNS IV/b',
+                                            'PNS IV/a',
+                                            'PNS III/d',
+                                            'PNS III/c',
+                                            'PNS III/b',
+                                            'PNS III/a',
+                                            'PNS II/d',
+                                            'PNS II/c',
+                                            'PNS II/b',
+                                            'PNS II/a',
+                                            'PNS I/d',
+                                            'PNS I/c',
+                                            'PNS I/b',
+                                            'PNS I/a',
                                         ];
                                     @endphp
-                                    @foreach($pangkatList as $pangkat)
-                                        <option value="{{ $pangkat }}" {{ old('Pangkat', $suratIzin->Pangkat) == $pangkat ? 'selected' : '' }}>{{ $pangkat }}</option>
+                                    @foreach ($pangkatList as $pangkat)
+                                        <option value="{{ $pangkat }}"
+                                            {{ old('Pangkat', $suratIzin->Pangkat) == $pangkat ? 'selected' : '' }}>
+                                            {{ $pangkat }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -108,13 +104,39 @@
                                 <select name="Korps" id="Korps" class="form-control">
                                     <option value="">Pilih Korps</option>
                                     @php
-                                        $korpsList = ["Inf", "Arh", "Arm", "Kav", "Czi", "Cke", "Cpl", "Cba", "Ckm", "Ctp", "Cku", "Caj", "Chk", "Cpm", "Cpn"];
+                                        $korpsList = [
+                                            'Inf',
+                                            'Arh',
+                                            'Arm',
+                                            'Kav',
+                                            'Czi',
+                                            'Cke',
+                                            'Cpl',
+                                            'Cba',
+                                            'Ckm',
+                                            'Ctp',
+                                            'Cku',
+                                            'Caj',
+                                            'Chk',
+                                            'Cpm',
+                                            'Cpn',
+                                        ];
                                     @endphp
-                                    @foreach($korpsList as $korps)
-                                        <option value="{{ $korps }}" {{ old('Korps', $suratIzin->Korps) == $korps ? 'selected' : '' }}>{{ $korps }}</option>
+                                    @foreach ($korpsList as $korps)
+                                        <option value="{{ $korps }}"
+                                            {{ old('Korps', $suratIzin->Korps) == $korps ? 'selected' : '' }}>
+                                            {{ $korps }}</option>
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="form-group mb-3">
+                                <label for="NRPNIP">NRP / NIP</label>
+                                <input type="text" name="NRPNIP" id="NRPNIP" class="form-control"
+                                    placeholder="Masukkan NRP / NIP Lengkap"
+                                    value="{{ old('NRPNIP', $suratIzin->NRPNIP) }}">
+                            </div>
+
+
 
                             <div class="form-group mb-3">
                                 <label for="Jabatan">Jabatan</label>
@@ -130,8 +152,8 @@
 
                             <div class="form-group mb-3">
                                 <label for="Ktp">No. KTP</label>
-                                <input type="text" name="Ktp" id="Ktp" class="form-control" placeholder="Masukkan Nomor KTP"
-                                    value="{{ old('Ktp', $suratIzin->Ktp) }}">
+                                <input type="text" name="Ktp" id="Ktp" class="form-control"
+                                    placeholder="Masukkan Nomor KTP" value="{{ old('Ktp', $suratIzin->Ktp) }}">
                             </div>
 
                             <div class="form-group mb-3">
@@ -145,10 +167,20 @@
                                 <select name="Status" id="Status" class="form-control">
                                     <option value="">Pilih Status</option>
                                     @php
-                                        $statusList = ["AKTIF", "PURNAWIRAWAN", "WARAKAWURI", "WREDATAMA", "JANDA WREDATAMA", "DUDA WREDATAMA", "DUDA"];
+                                        $statusList = [
+                                            'AKTIF',
+                                            'PURNAWIRAWAN',
+                                            'WARAKAWURI',
+                                            'WREDATAMA',
+                                            'JANDA WREDATAMA',
+                                            'DUDA WREDATAMA',
+                                            'DUDA',
+                                        ];
                                     @endphp
-                                    @foreach($statusList as $status)
-                                        <option value="{{ $status }}" {{ old('Status', $suratIzin->Status) == $status ? 'selected' : '' }}>{{ $status }}</option>
+                                    @foreach ($statusList as $status)
+                                        <option value="{{ $status }}"
+                                            {{ old('Status', $suratIzin->Status) == $status ? 'selected' : '' }}>
+                                            {{ $status }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -187,8 +219,8 @@
 
                             <div class="form-group mb-3">
                                 <label for="Kpad">KPAD</label>
-                                <input type="text" name="Kpad" id="Kpad" class="form-control" placeholder="Masukkan KPAD"
-                                    value="{{ old('Kpad', $suratIzin->Kpad) }}">
+                                <input type="text" name="Kpad" id="Kpad" class="form-control"
+                                    placeholder="Masukkan KPAD" value="{{ old('Kpad', $suratIzin->Kpad) }}">
                             </div>
 
                             <div class="form-group mb-3">
@@ -206,8 +238,8 @@
 
                             <div class="form-group mb-3">
                                 <label for="Tmt">TMT</label>
-                                <input type="text" name="Tmt" id="Tmt" class="form-control" placeholder="Masukkan TMT"
-                                    value="{{ old('Tmt', $suratIzin->Tmt) }}">
+                                <input type="text" name="Tmt" id="Tmt" class="form-control"
+                                    placeholder="Masukkan TMT" value="{{ old('Tmt', $suratIzin->Tmt) }}">
                             </div>
 
                             <div class="form-group mb-3">
@@ -229,11 +261,13 @@
                                 <div id="foto-drop-area" class="border border-2 border-primary rounded p-4 text-center"
                                     style="background: #f8f9fa; cursor: pointer;">
                                     <i class="fa fa-cloud-upload-alt fa-2x mb-2 text-primary"></i>
-                                    <p id="foto-drop-text" class="mb-2">Seret dan lepas foto di sini atau klik untuk memilih
+                                    <p id="foto-drop-text" class="mb-2">Seret dan lepas foto di sini atau klik untuk
+                                        memilih
                                         file</p>
-                                    <input type="file" name="Foto" id="Foto" class="d-none" accept="image/*">
+                                    <input type="file" name="Foto" id="Foto" class="d-none"
+                                        accept="image/*">
                                     <div id="foto-preview" class="mt-2">
-                                        @if($suratIzin->Foto)
+                                        @if ($suratIzin->Foto)
                                             <img src="{{ asset('storage/' . $suratIzin->Foto) }}" alt="Preview Foto"
                                                 class="img-thumbnail mt-2" style="max-width: 200px;">
                                         @endif
@@ -241,7 +275,7 @@
                                 </div>
                             </div>
                             <script>
-                                document.addEventListener('DOMContentLoaded', function () {
+                                document.addEventListener('DOMContentLoaded', function() {
                                     const dropArea = document.getElementById('foto-drop-area');
                                     const fileInput = document.getElementById('Foto');
                                     const preview = document.getElementById('foto-preview');
@@ -265,12 +299,12 @@
                                     });
 
                                     // Klik area untuk pilih file
-                                    dropArea.addEventListener('click', function () {
+                                    dropArea.addEventListener('click', function() {
                                         fileInput.click();
                                     });
 
                                     // Drag & drop file
-                                    dropArea.addEventListener('drop', function (e) {
+                                    dropArea.addEventListener('drop', function(e) {
                                         e.preventDefault();
                                         e.stopPropagation();
                                         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
@@ -280,7 +314,7 @@
                                     });
 
                                     // Pilih file manual
-                                    fileInput.addEventListener('change', function () {
+                                    fileInput.addEventListener('change', function() {
                                         if (fileInput.files && fileInput.files[0]) {
                                             tampilkanPreview(fileInput.files[0]);
                                         }
@@ -292,8 +326,9 @@
                                             return;
                                         }
                                         const reader = new FileReader();
-                                        reader.onload = function (e) {
-                                            preview.innerHTML = `<img src="${e.target.result}" alt="Preview Foto" class="img-thumbnail mt-2" style="max-width: 200px;">`;
+                                        reader.onload = function(e) {
+                                            preview.innerHTML =
+                                                `<img src="${e.target.result}" alt="Preview Foto" class="img-thumbnail mt-2" style="max-width: 200px;">`;
                                             dropText.textContent = "Foto berhasil dipilih. Ganti dengan drag & drop atau klik lagi.";
                                         }
                                         reader.readAsDataURL(file);
@@ -327,37 +362,65 @@
                                 @php
                                     $anggotaKeluarga = old('AnggotaKeluarga', $suratIzin->AnggotaKeluarga ?? []);
                                     if (!is_array($anggotaKeluarga) || count($anggotaKeluarga) == 0) {
-                                        $anggotaKeluarga = [['nama' => '', 'umur' => '', 'jk' => '', 'hubungan' => '', 'keterangan' => '']];
+                                        $anggotaKeluarga = [
+                                            [
+                                                'nama' => '',
+                                                'umur' => '',
+                                                'jk' => '',
+                                                'hubungan' => '',
+                                                'keterangan' => '',
+                                            ],
+                                        ];
                                     }
                                 @endphp
-                                @foreach($anggotaKeluarga as $i => $anggota)
+                                @foreach ($anggotaKeluarga as $i => $anggota)
                                     <tr>
-                                        <td><input type="text" name="AnggotaKeluarga[{{ $i }}][nama]" class="form-control"
-                                                value="{{ $anggota['nama'] ?? '' }}"></td>
-                                        <td><input type="number" name="AnggotaKeluarga[{{ $i }}][umur]" class="form-control"
-                                                value="{{ $anggota['umur'] ?? '' }}"></td>
+                                        <td><input type="text" name="AnggotaKeluarga[{{ $i }}][nama]"
+                                                class="form-control" value="{{ $anggota['nama'] ?? '' }}"></td>
+                                        <td><input type="number" name="AnggotaKeluarga[{{ $i }}][umur]"
+                                                class="form-control" value="{{ $anggota['umur'] ?? '' }}"></td>
                                         <td>
                                             <select name="AnggotaKeluarga[{{ $i }}][jk]" class="form-control">
                                                 <option value="">Pilih</option>
-                                                <option value="Laki-laki" {{ ($anggota['jk'] ?? '') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                                                <option value="Perempuan" {{ ($anggota['jk'] ?? '') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                                <option value="Laki-laki"
+                                                    {{ ($anggota['jk'] ?? '') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki
+                                                </option>
+                                                <option value="Perempuan"
+                                                    {{ ($anggota['jk'] ?? '') == 'Perempuan' ? 'selected' : '' }}>Perempuan
+                                                </option>
                                             </select>
                                         </td>
                                         <td>
-                                            <select name="AnggotaKeluarga[{{ $i }}][hubungan]" class="form-control">
+                                            <select name="AnggotaKeluarga[{{ $i }}][hubungan]"
+                                                class="form-control">
                                                 @php
-                                                    $hubunganList = ["Suami", "Istri", "Anak", "Ayah", "Ibu", "Kakak", "Adik", "Mertua", "Menantu", "Cucu", "Keponakan", "Lainnya"];
+                                                    $hubunganList = [
+                                                        'Suami',
+                                                        'Istri',
+                                                        'Anak',
+                                                        'Ayah',
+                                                        'Ibu',
+                                                        'Kakak',
+                                                        'Adik',
+                                                        'Mertua',
+                                                        'Menantu',
+                                                        'Cucu',
+                                                        'Keponakan',
+                                                        'Lainnya',
+                                                    ];
                                                 @endphp
                                                 <option value="">Pilih</option>
-                                                @foreach($hubunganList as $hub)
-                                                    <option value="{{ $hub }}" {{ ($anggota['hubungan'] ?? '') == $hub ? 'selected' : '' }}>{{ $hub }}</option>
+                                                @foreach ($hubunganList as $hub)
+                                                    <option value="{{ $hub }}"
+                                                        {{ ($anggota['hubungan'] ?? '') == $hub ? 'selected' : '' }}>
+                                                        {{ $hub }}</option>
                                                 @endforeach
                                             </select>
                                         </td>
-                                        <td><input type="text" name="AnggotaKeluarga[{{ $i }}][keterangan]" class="form-control"
-                                                value="{{ $anggota['keterangan'] ?? '' }}"></td>
+                                        <td><input type="text" name="AnggotaKeluarga[{{ $i }}][keterangan]"
+                                                class="form-control" value="{{ $anggota['keterangan'] ?? '' }}"></td>
                                         <td>
-                                            @if($i > 0)
+                                            @if ($i > 0)
                                                 <button type="button" class="btn btn-sm btn-danger removeRow">−</button>
                                             @endif
                                         </td>
@@ -393,7 +456,7 @@
                         <option value="Lainnya">Lainnya</option>
                     `;
 
-        document.getElementById('addRow').addEventListener('click', function () {
+        document.getElementById('addRow').addEventListener('click', function() {
             if (rowIdx >= 6) return alert("Maksimal 6 anggota keluarga");
 
             const tbody = document.querySelector('#anggotaKeluargaTable tbody');
@@ -422,7 +485,7 @@
             rowIdx++;
         });
 
-        document.addEventListener('click', function (e) {
+        document.addEventListener('click', function(e) {
             if (e.target.classList.contains('removeRow')) {
                 e.target.closest('tr').remove();
                 rowIdx--;

@@ -67,11 +67,6 @@
                                                     placeholder="Masukkan Nama Lengkap">
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="Nama">NRP / NIP</label>
-                                                <input type="number" name="NRPNIP" id="NRPNIP" class="form-control"
-                                                    placeholder="Masukkan NRP / NIP Lengkap">
-                                            </div>
-                                            <div class="form-group mb-3">
                                                 <label for="Pangkat">Pangkat</label>
                                                 <select name="Pangkat" id="Pangkat" class="form-control">
                                                     <option value="">Pilih Pangkat</option>
@@ -137,6 +132,13 @@
                                                     <option value="-">Tidak Ada</option>
                                                 </select>
                                             </div>
+
+                                            <div class="form-group mb-3">
+                                                <label for="Nama">NRP / NIP</label>
+                                                <input type="number" name="NRPNIP" id="NRPNIP" class="form-control"
+                                                    placeholder="Masukkan NRP / NIP Lengkap">
+                                            </div>
+
 
                                             <div class="form-group mb-3">
                                                 <label for="Jabatan">Jabatan</label>

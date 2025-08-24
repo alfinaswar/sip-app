@@ -108,7 +108,7 @@
                 </li>
                 <li>Peraturan Kasad Nomor 57 Tahun 2022 tanggal 5 Desember 2022 tentang Pembinaan Rumah Negara di
                     lingkungan TNI AD;</li>
-                <li>Surat Telegram Kasad Nomor ST/273/2022 tanggal 8 Februari 2022 tentang Perintah tertib penghunian
+                <li>Surat Telegram Kasad Nomor ST/273/2022 tanggal 8 Februari 2022 tentang Perintah tertib penggunaan
                     aset BMN berupa rumah dinas TNI AD.</li>
             </ol>
             <hr>
