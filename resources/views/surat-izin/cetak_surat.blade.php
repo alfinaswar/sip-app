@@ -195,7 +195,7 @@
             </div>
             <br>
             <div class="table-container">
-                <table class="table-solid">
+                <table class="table-solid" width="100%">
                     <thead>
                         <tr>
                             <td>NO</td>
