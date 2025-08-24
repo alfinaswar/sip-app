@@ -74,7 +74,7 @@
             </div>
         </div>
 
-        <!-- Menu Grid -->
+        {{-- <!-- Menu Grid -->
         <div class="row justify-content-center text-center">
             <div class="col-6 col-md-2 mb-4">
                 <a href="{{route('surat-izin.create')}}" class="text-decoration-none">
@@ -97,7 +97,7 @@
                     </div>
                 </a>
             </div>
-        </div>
+        </div> --}}
         <div class="row justify-content-center mt-4">
             <div class="col-md-6 text-center">
                 <button class="army-btn" disabled>

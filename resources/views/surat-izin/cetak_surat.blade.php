@@ -92,7 +92,7 @@
 
 <body>
     <div class="watermark">
-        <img src="{{ public_path('assets/img/icon/bgsurat.png') }}" alt="" width="100%" height="100%">
+        <img src="{{ public_path('assets/img/bgdokumen.png') }}" alt="" width="100%" height="100%">
     </div>
 
     <div class="text-al" style="text-align: center; margin-bottom: 10px;">
@@ -126,80 +126,70 @@
                         <td style="width: 27%;">Nama</td>
                         <td style="width: 2%;">:</td>
                         <td>{{ $data->Nama }}</td>
-                        <td style="width: 10%;"></td>
-                        <td style="width: 10%;">Korps</td>
-                        <td style="width: 2%;">:</td>
-                        <td style="width: 20%;">{{ $data->Korps }}</td>
                     </tr>
                     <tr>
                         <td>2.</td>
-                        <td>Pangkat</td>
+                        <td>Pangkat/Gol</td>
                         <td>:</td>
                         <td>{{ $data->Pangkat }}</td>
-                        <td></td>
-                        <td>NRP/NIP</td>
-                        <td>:</td>
-                        <td>{{ $data->NRPNIP }}</td>
                     </tr>
                     <tr>
                         <td>3.</td>
                         <td>Jabatan</td>
                         <td>:</td>
                         <td>{{ $data->Jabatan }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>4.</td>
                         <td>Kesatuan</td>
                         <td>:</td>
                         <td>{{ $data->Kesatuan }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>5.</td>
                         <td>Nomor KTP</td>
                         <td>:</td>
                         <td>{{ $data->Ktp }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>6.</td>
                         <td>Tempat tanggal lahir</td>
                         <td>:</td>
                         <td>{{ $data->Ttl }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>7.</td>
                         <td>Status</td>
                         <td>:</td>
                         <td>{{ $data->Status }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
+                </table>
+                <!-- Floating box untuk Korps dan NRP/NIP, bisa diposisikan di mana saja dengan drag (jika ingin interaktif, perlu JS tambahan) -->
+                <div id="floating-korps-nrp"
+                    style="position: absolute; top: 375px; left: 450px; padding: 10px 20px;  z-index: 1000;">
+                    <table border-collapse: collapse;">
+                        <tr>
+                            <td style="width: 40px;">Korps</td>
+                            <td style="width: 12px;">:</td>
+                            <td style="width: 10px;">{{ $data->Korps }}</td>
+                            <td style="width: 20px;"></td> <!-- Jarak tambahan antara Korps dan NRP/NIP -->
+                            <td style="width: 60px;">NRP/NIP</td>
+                            <td style="width: 12px;">:</td>
+                            <td style="width: 120px;">{{ $data->NRPNIP }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <!--
+                    Catatan:
+                    - Ubah nilai 'top' dan 'left' pada style div di atas untuk memindahkan posisi floating box sesuai kebutuhan.
+                    - Jika ingin bisa drag & drop, tambahkan script JS drag and drop.
+                -->
+                <table>
                     <tr>
                         <td>8.</td>
                         <td>Jumlah keluarga yang menjadi tanggungan</td>
                         <td>:</td>
                         <td>{{ $data->JumlahTanggungan }} orang</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
                 </table>
             </div>
@@ -217,6 +207,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $jumlahAnggota = count($data->AnggotaKeluarga);
+                        @endphp
                         @foreach ($data->AnggotaKeluarga as $key => $ak)
                             <tr class="table-row">
                                 <td>{{ $key + 1 }}</td>
@@ -224,7 +217,11 @@
                                 <td>{{ $ak['umur'] }}</td>
                                 <td>{{ $ak['jk'] }}</td>
                                 <td>{{ $ak['hubungan'] }}</td>
-                                <td>{{ $ak['keterangan'] }}</td>
+                                @if ($key == 0)
+                                    <td rowspan="{{ $jumlahAnggota }}" style="vertical-align: top;">
+                                        {{ $data->Keterangan }}
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
@@ -237,23 +234,23 @@
                         <td>9.</td>
                         <td>Untuk menempati</td>
                         <td>:</td>
-                        <td>{{ $data->UntukMenempati }}</td>
+                        <td><strong>Rumah Dinas TNI AD Golongan II</strong></td>
                     </tr>
                     <tr>
                         <td>10.</td>
                         <td>Keterangan ruangan</td>
                         <td>:</td>
-                        <td>{{ $data->Keterangan }}</td>
+                        <td><strong>Seluruh Rumah Dinas</strong></td>
                     </tr>
                     <tr>
                         <td>11.</td>
                         <td>Digunakan sebagai</td>
                         <td>:</td>
-                        <td>{{ $data->DigunakanSebagai }}</td>
+                        <td><strong>Tempat Tinggal</strong></td>
                     </tr>
                     <tr>
                         <td>12.</td>
-                        <td>Nama HPAD</td>
+                        <td>Nama KPAD</td>
                         <td>:</td>
                         <td>{{ $data->Kpad }}</td>
                     </tr>
@@ -288,45 +285,46 @@
                 <tr>
                     <!-- Kolom Kiri: Tembusan -->
                     <td style="vertical-align:top; width:30%; min-width:180px; border:0px solid #000; padding:8px;">
-                        <div style="margin-top: 30px; border:1px solid #000; padding:8px; text-align:center;">
-                            <strong>SIP BERLAKU S.D.</strong><br>
-                            <strong>
-                                @php
-                                    use Carbon\Carbon;
-                                    $tanggalBerlaku = Carbon::parse($data->created_at)->addYear()->format('d-m-Y');
-                                @endphp
-                                {{ $tanggalBerlaku }}
-                            </strong>
+                        <div
+                            style="margin-top: 10px; border:2px solid #800080; background-color: #ffffff; padding:8px; text-align:center;">
+                            <div style="margin-bottom: 4px;">
+                                <strong>SIP BERLAKU S.D.</strong>
+                            </div>
+                            <hr
+                                style="border: 1.5px solid #800080; background-color: #800080; margin-left:-8px; margin-right:-8px; width:calc(100% + 16px);">
+                            <div>
+                                <strong>
+                                    @php
+                                        use Carbon\Carbon;
+                                        $tanggalBerlaku = Carbon::parse($data->created_at)->addYear()->format('d-m-Y');
+                                    @endphp
+                                    {{ $tanggalBerlaku }}
+                                </strong>
+                            </div>
                         </div>
                         <div style="margin-top: 15px;">
                             <p><strong>Tembusan:</strong></p>
-                            @if (!empty($data->Tembusan))
-                                @foreach (explode(';', $data->Tembusan) as $tembusan)
-                                    <p>- {{ $tembusan }}</p>
-                                @endforeach
-                            @endif
+                            - Kazidam Jaya
                         </div>
 
                     </td>
                     <!-- Kolom Tengah: Foto -->
-                    <td style="vertical-align:top; width:50%; text-align:center;">
-                        <div class="signature-box" style="margin-bottom: 10px;">
-                            @if (!empty($data->Foto))
-                                <img src="{{ asset('storage/foto/' . $data->Foto) }}" alt="Foto"
-                                    style="width:100px; height:120px; object-fit:cover; border:1px solid #000;">
-                            @else
-                                <img src="{{ asset('storage/foto/' . $data->Foto) }}" alt="Foto"
-                                    style="width:100px; height:120px; object-fit:cover; border:1px solid #000;">
-                            @endif
+                    <td style="vertical-align:top; width:25%; text-align:center; padding:0;">
+                        <div style="margin-top: 0px;">
+                            <div class="signature-box"
+                                style="margin-bottom: 10px; width:90px; height:120px; border:1px solid #000; display:flex; align-items:center; justify-content:center; margin-left:auto; margin-right:auto;">
+                                <span style="font-size:12px;">Foto<br>3x4</span>
+                            </div>
                         </div>
-                        <div class="name-title" style="margin-top: 10px;">
-
+                        <div class="name-title" style="margin-top: 10px; text-align: center;">
                             <strong></strong>
                         </div>
                     </td>
                     <!-- Kolom Kanan: Tanda Tangan Panglima -->
-                    <td style="vertical-align:top; width:30%; min-width:180px; text-align:left;">
-                        <div class="date-location" style="margin-bottom: 5px;">Dikeluarkan di Jakarta</div>
+                    <td style="vertical-align:top; width:30%; min-width:180px; text-align:left; padding:4px;">
+                        <div class="date-location" style="margin-bottom:1px; font-size:12px; line-height:1.1;">
+                            Dikeluarkan di Jakarta
+                        </div>
                         @php
                             $bulanIndo = [
                                 1 => 'Januari',
@@ -348,18 +346,20 @@
                             $tahun = date_format($tanggalObj, 'Y');
                             $tanggalIndonesia = $hari . ' ' . $bulanIndo[$bulan] . ' ' . $tahun;
                         @endphp
-                        <div class="date-location" style="margin-bottom: 20px;">pada tanggal {{ $tanggalIndonesia }}
+                        <div class="date-location" style="margin-bottom:3px; font-size:12px; line-height:1.1;">pada
+                            tanggal
+                            {{ $tanggalIndonesia }}
                         </div>
-                        <div class="signature-box" style="height: 60px; margin-bottom: 10px;">
-
+                        <hr style="width: 60%; margin-left: 0;">
+                        <div style="font-size:12px; margin-bottom:1px; line-height:1.1; text-align:center;">
+                            a.n. Panglima Kodam Jaya/Jayakarta<br>
+                            Asisten Logistik,
                         </div>
-                        <div class="name-title" style="font-weight: bold; margin-top: 2px; margin-bottom: 2px;">
-                            {{ $data->TandaTangan }}
+                        <div class="signature-box" style="height: 40px; margin-bottom: 6px;"></div>
+                        <div class="rank-number"
+                            style="margin-top:1px; font-size:12px; line-height:1.1; text-align:center;">
+                            Didid Yusnadi, M.Si<br>Kolonel Czi NRP 11000050710979
                         </div>
-                        <div class="rank-number" style="margin-top: 2px;">{{ $data->Pangkat }} {{ $data->Korps }}
-                            {{ $data->NRPNIP }}
-                        </div>
-
                     </td>
                 </tr>
             </table>

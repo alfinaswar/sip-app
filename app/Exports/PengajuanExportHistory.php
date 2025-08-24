@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\RiwayatUpdate;
 use App\Models\SuratIzin;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -14,7 +15,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 
-class PengajuanExport implements
+class PengajuanExportHistory implements
     FromCollection,
     WithHeadings,
     WithStyles,
@@ -26,7 +27,7 @@ class PengajuanExport implements
      */
     public function collection()
     {
-        return SuratIzin::all()->map(function ($item, $index) {
+        return RiwayatUpdate::all()->map(function ($item, $index) {
             return [
                 $index + 1, // No urut
                 $item->NomorSIP ?? '-',

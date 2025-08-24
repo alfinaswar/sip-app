@@ -4,13 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Absensi</title>
-    <link href="{{ asset('') }}assets/css/tabler.min.css?1692870487" rel="stylesheet" />
-    <link href="{{ asset('') }}assets/css/tabler-flags.min.css?1692870487" rel="stylesheet" />
-    <link href="{{ asset('') }}assets/css/tabler-payments.min.css?1692870487" rel="stylesheet" />
-    <link href="{{ asset('') }}assets/css/tabler-vendors.min.css?1692870487" rel="stylesheet" />
-    <link href="{{ asset('') }}assets/css/demo.min.css?1692870487" rel="stylesheet" />
+    <title>SIP</title>
+    <link href="{{ asset('assets/css/tabler.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/tabler-flags.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/tabler-payments.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/tabler-vendors.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/demo.min.css') }}" rel="stylesheet" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -74,10 +73,10 @@
                 </button>
                 <h5 class="navbar-brand navbar-brand-autodark">
                     <a href=".">
-                        <img src="{{ asset('assets/img/icon/login-logo.png') }}" width="1000" height="1000"
-                            alt="Tabler" class="navbar-brand-image">
+                        <img src="{{ asset('assets/img/icon/login-logo.png') }}" width="1000" height="1000" alt="Tabler"
+                            class="navbar-brand-image">
                     </a>
-                    <span style="color: #1F573A; font-size: 18px">Sistem Absensi</span>
+                    <span style="color: #1F573A; font-size: 18px">Sistem KPAD</span>
                 </h5>
                 <div class="collapse navbar-collapse" id="sidebar-menu">
                     <ul class="navbar-nav pt-lg-3">
@@ -101,9 +100,9 @@
                             <a class="nav-link" href="">
                                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                                     <!-- Users icon -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="icon icon-tabler icons-tabler-outline icon-tabler-building-skyscraper">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M3 21l18 0" />
@@ -119,24 +118,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="{{ route('updatepassword') }}">
                                 <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                    <!-- Users icon -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-building-skyscraper">
+                                    <!-- Icon kunci/password -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="icon icon-tabler icon-tabler-key">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M3 21l18 0" />
-                                        <path d="M5 21v-14l8 -4v18" />
-                                        <path d="M19 21v-10l-6 -4" />
-                                        <path d="M9 9l0 .01" />
-                                        <path d="M9 12l0 .01" />
-                                        <path d="M9 15l0 .01" />
-                                        <path d="M9 18l0 .01" />
+                                        <circle cx="8" cy="15" r="4" />
+                                        <path d="M10.85 12.15l5.65 -5.65a2.121 2.121 0 1 1 3 3l-5.65 5.65" />
+                                        <path d="M15 7l3 3" />
                                     </svg>
                                 </span>
-                                <span class="nav-link-title">Update Password</span>
+                                <span class="nav-link-title">Ubah Password</span>
                             </a>
                         </li>
                     </ul>
@@ -155,9 +149,8 @@
                             <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                                 aria-label="Open user menu">
                                 <span class="avatar avatar-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="#2465ff"
-                                        class="icon icon-tabler icons-tabler-filled icon-tabler-user">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="#2465ff" class="icon icon-tabler icons-tabler-filled icon-tabler-user">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
                                         <path
@@ -189,16 +182,16 @@
             </main>
         </div>
     </div>
-    <script src="{{ asset('') }}assets/libs/apexcharts/dist/apexcharts.min.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/libs/jsvectormap/dist/js/jsvectormap.min.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/libs/jsvectormap/dist/maps/world.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/libs/jsvectormap/dist/maps/world-merc.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/libs/nouislider/dist/nouislider.min.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/libs/tom-select/dist/js/tom-select.base.min.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/libs/litepicker/dist/litepicker.js?1692870487" defer></script>
+    <script src="{{ asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/jsvectormap/dist/js/jsvectormap.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/jsvectormap/dist/maps/world.js') }}"></script>
+    <script src="{{ asset('assets/libs/jsvectormap/dist/maps/world-merc.js') }}"></script>
+    <script src="{{ asset('assets/libs/nouislider/dist/nouislider.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/tom-select/dist/js/tom-select.base.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/litepicker/dist/litepicker.js') }}"></script>
     <!-- Tabler Core -->
-    <script src="{{ asset('') }}assets/js/tabler.min.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/js/demo.min.js?1692870487" defer></script>
+    <script src="{{ asset('assets/js/tabler.min.js') }}"></script>
+    <script src="{{ asset('assets/js/demo.min.js') }}"></script>
     @stack('scripts')
 </body>
 
