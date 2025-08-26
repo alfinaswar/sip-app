@@ -15,5 +15,6 @@ class SuratIzin extends Model
 
     protected $casts = [
         'AnggotaKeluarga' => 'array',
+
     ];
 }

@@ -98,7 +98,7 @@
     <div class="text-al" style="text-align: center; margin-bottom: 10px;">
         <span style="font-size: 20px; font-weight: bold; letter-spacing: 2px;">SURAT IZIN PENGHUNIAN</span>
         <br>
-        <span style="font-size: 12px;">Nomor SIP {{ $data->NomorSIP }}</span>
+        <span style="font-size: 15px;">Nomor SIP {!! $data->NomorSIP !!}</span>
     </div>
     <div class="content">
         <div class="dasar" style="line-height: 20px;">
@@ -122,43 +122,43 @@
             <div class="detail-list">
                 <table style="width:100%; border-collapse: collapse;">
                     <tr>
-                        <td style="width: 3%;">1.</td>
+                        <td style="width: 3%; text-align: right;">1.</td>
                         <td style="width: 27%;">Nama</td>
                         <td style="width: 2%;">:</td>
                         <td>{{ $data->Nama }}</td>
                     </tr>
                     <tr>
-                        <td>2.</td>
+                        <td style="text-align: right;">2.</td>
                         <td>Pangkat/Gol</td>
                         <td>:</td>
                         <td>{{ $data->Pangkat }}</td>
                     </tr>
                     <tr>
-                        <td>3.</td>
+                        <td style="text-align: right;">3.</td>
                         <td>Jabatan</td>
                         <td>:</td>
                         <td>{{ $data->Jabatan }}</td>
                     </tr>
                     <tr>
-                        <td>4.</td>
+                        <td style="text-align: right;">4.</td>
                         <td>Kesatuan</td>
                         <td>:</td>
                         <td>{{ $data->Kesatuan }}</td>
                     </tr>
                     <tr>
-                        <td>5.</td>
+                        <td style="text-align: right;">5.</td>
                         <td>Nomor KTP</td>
                         <td>:</td>
                         <td>{{ $data->Ktp }}</td>
                     </tr>
                     <tr>
-                        <td>6.</td>
+                        <td style="text-align: right;">6.</td>
                         <td>Tempat tanggal lahir</td>
                         <td>:</td>
                         <td>{{ $data->Ttl }}</td>
                     </tr>
                     <tr>
-                        <td>7.</td>
+                        <td style="text-align: right;">7.</td>
                         <td>Status</td>
                         <td>:</td>
                         <td>{{ $data->Status }}</td>
@@ -186,7 +186,7 @@
                 -->
                 <table>
                     <tr>
-                        <td>8.</td>
+                        <td style="width: 3%; text-align: right;">8.</td>
                         <td>Jumlah keluarga yang menjadi tanggungan</td>
                         <td>:</td>
                         <td>{{ $data->JumlahTanggungan }} orang</td>
@@ -229,45 +229,45 @@
             </div>
             <br>
             <div class="requirements">
-                <table class="">
+                <table style="width:100%; border-collapse: collapse;">
                     <tr>
-                        <td>9.</td>
-                        <td>Untuk menempati</td>
-                        <td>:</td>
+                        <td style="width: 3%; text-align: right;">9.</td>
+                        <td style="width: 27%;">Untuk menempati</td>
+                        <td style="width: 2%;">:</td>
                         <td><strong>Rumah Dinas TNI AD Golongan II</strong></td>
                     </tr>
                     <tr>
-                        <td>10.</td>
+                        <td style="text-align: right;">10.</td>
                         <td>Keterangan ruangan</td>
                         <td>:</td>
                         <td><strong>Seluruh Rumah Dinas</strong></td>
                     </tr>
                     <tr>
-                        <td>11.</td>
+                        <td style="text-align: right;">11.</td>
                         <td>Digunakan sebagai</td>
                         <td>:</td>
                         <td><strong>Tempat Tinggal</strong></td>
                     </tr>
                     <tr>
-                        <td>12.</td>
+                        <td style="text-align: right;">12.</td>
                         <td>Nama KPAD</td>
                         <td>:</td>
                         <td>{{ $data->Kpad }}</td>
                     </tr>
                     <tr>
-                        <td>13.</td>
+                        <td style="text-align: right;">13.</td>
                         <td>Alamat rumah</td>
                         <td>:</td>
                         <td>{{ $data->AlamatRumah }}</td>
                     </tr>
                     <tr>
-                        <td>14.</td>
+                        <td style="text-align: right;">14.</td>
                         <td>Type dan luas</td>
                         <td>:</td>
                         <td>{{ $data->TypeLuas }}</td>
                     </tr>
                     <tr>
-                        <td>15.</td>
+                        <td style="text-align: right;">15.</td>
                         <td>Menempati rumah TMT</td>
                         <td>:</td>
                         <td>{{ $data->Tmt }}</td>
@@ -296,15 +296,33 @@
                                 <strong>
                                     @php
                                         use Carbon\Carbon;
-                                        $tanggalBerlaku = Carbon::parse($data->created_at)->addYear()->format('d-m-Y');
+                                        $bulanIndo = [
+                                            1 => 'Januari',
+                                            2 => 'Februari',
+                                            3 => 'Maret',
+                                            4 => 'April',
+                                            5 => 'Mei',
+                                            6 => 'Juni',
+                                            7 => 'Juli',
+                                            8 => 'Agustus',
+                                            9 => 'September',
+                                            10 => 'Oktober',
+                                            11 => 'November',
+                                            12 => 'Desember',
+                                        ];
+                                        $tanggalBerlakuObj = Carbon::parse($data->created_at)->addYear();
+                                        $hariBerlaku = $tanggalBerlakuObj->format('d');
+                                        $bulanBerlaku = (int) $tanggalBerlakuObj->format('m');
+                                        $tahunBerlaku = $tanggalBerlakuObj->format('Y');
+                                        $tanggalBerlaku = $hariBerlaku . ' ' . $bulanIndo[$bulanBerlaku] . ' ' . $tahunBerlaku;
                                     @endphp
                                     {{ $tanggalBerlaku }}
                                 </strong>
                             </div>
                         </div>
                         <div style="margin-top: 15px;">
-                            <p><strong>Tembusan:</strong></p>
-                            - Kazidam Jaya
+                            <p>Tembusan:</strong></p>
+                            <span style="text-decoration: underline;">- Kazidam Jaya</span>
                         </div>
 
                     </td>
@@ -328,17 +346,17 @@
                         @php
                             $bulanIndo = [
                                 1 => 'Januari',
-                                'Februari',
-                                'Maret',
-                                'April',
-                                'Mei',
-                                'Juni',
-                                'Juli',
-                                'Agustus',
-                                'September',
-                                'Oktober',
-                                'November',
-                                'Desember',
+                                2 => 'Februari',
+                                3 => 'Maret',
+                                4 => 'April',
+                                5 => 'Mei',
+                                6 => 'Juni',
+                                7 => 'Juli',
+                                8 => 'Agustus',
+                                9 => 'September',
+                                10 => 'Oktober',
+                                11 => 'November',
+                                12 => 'Desember',
                             ];
                             $tanggalObj = date_create($data->created_at);
                             $hari = date_format($tanggalObj, 'd');
@@ -346,11 +364,12 @@
                             $tahun = date_format($tanggalObj, 'Y');
                             $tanggalIndonesia = $hari . ' ' . $bulanIndo[$bulan] . ' ' . $tahun;
                         @endphp
+                        @endphp
                         <div class="date-location" style="margin-bottom:3px; font-size:12px; line-height:1.1;">pada
                             tanggal
                             {{ $tanggalIndonesia }}
                         </div>
-                        <hr style="width: 60%; margin-left: 0;">
+                        <hr style="width: 95%; margin-left: 0;">
                         <div style="font-size:12px; margin-bottom:1px; line-height:1.1; text-align:center;">
                             a.n. Panglima Kodam Jaya/Jayakarta<br>
                             Asisten Logistik,
