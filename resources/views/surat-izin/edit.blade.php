@@ -35,11 +35,32 @@
                     <div class="row">
                         <!-- KIRI -->
                         <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label for="NomorSIP">Nomor SIP</label>
-                                <input type="text" name="NomorSIP" id="NomorSIP" class="form-control"
-                                    placeholder="Masukkan Nomor SIP" value="{{ old('NomorSIP', $suratIzin->NomorSIP) }}">
-                            </div>
+                           <div class="form-group mb-3">
+                                                <label for="NomorSIP">Nomor SIP</label>
+                                                <textarea name="NomorSIP" id="NomorSIP" class="form-control"
+                                                    placeholder="Masukkan Nomor SIP">{{ old('NomorSIP', $suratIzin->NomorSIP) }}</textarea>
+                                                <!-- Rich editor paling simpel, ambil nilai HTML saja -->
+                                                <script>
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        // Pakai contenteditable div yang sangat simpel
+                                                        var textarea = document.getElementById('NomorSIP');
+                                                        // Buat div editor
+                                                        var editor = document.createElement('div');
+                                                        editor.setAttribute('contenteditable', 'true');
+                                                        editor.setAttribute('style', 'min-height:100px;border:1px solid #ced4da;padding:8px;border-radius:4px;background:#fff;margin-bottom:4px;');
+                                                        editor.className = 'mb-2';
+                                                        // Isi editor dengan value dari textarea (sudah diisi dari data lama)
+                                                        editor.innerHTML = textarea.value;
+                                                        textarea.style.display = 'none';
+                                                        textarea.parentNode.insertBefore(editor, textarea);
+
+                                                        // Sync isi editor ke textarea sebelum submit
+                                                        textarea.form.addEventListener('submit', function () {
+                                                            textarea.value = editor.innerHTML;
+                                                        });
+                                                    });
+                                                </script>
+                                            </div>
 
                             <div class="form-group mb-3">
                                 <label for="Nama">Nama</label>
@@ -893,7 +914,7 @@
                                                                     name="AnggotaKeluarga[{{ $i }}][nama]"
                                                                     class="form-control"
                                                                     value="{{ $anggota['nama'] ?? '' }}"></td>
-                                                            <td><input type="number"
+                                                            <td><input type="text"
                                                                     name="AnggotaKeluarga[{{ $i }}][umur]"
                                                                     class="form-control"
                                                                     value="{{ $anggota['umur'] ?? '' }}"></td>
@@ -996,7 +1017,7 @@
 
                                             row.innerHTML = `
                                                     <td><input type="text" name="AnggotaKeluarga[${rowIdx}][nama]" class="form-control"></td>
-                                                    <td><input type="number" name="AnggotaKeluarga[${rowIdx}][umur]" class="form-control"></td>
+                                                    <td><input type="text" name="AnggotaKeluarga[${rowIdx}][umur]" class="form-control"></td>
                                                     <td>
                                                         <select name="AnggotaKeluarga[${rowIdx}][jk]" class="form-control">
                                                             <option value="">Pilih</option>

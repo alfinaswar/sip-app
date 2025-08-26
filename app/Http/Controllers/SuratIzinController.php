@@ -124,6 +124,11 @@ class SuratIzinController extends Controller
      */
     public function store(Request $request)
     {
+        // Cek apakah No KTP sudah terdaftar
+        $cekKtp = SuratIzin::where('Ktp', $request->Ktp)->first();
+        if ($cekKtp) {
+            return redirect()->back()->withInput()->with('error', 'Nomor KTP sudah terdaftar pada data Surat Izin lain.');
+        }
         $data = $request->all();
         if ($request->Kpad == 'Lainnya') {
             $data['Kpad'] = $request->KpadLainnya;
