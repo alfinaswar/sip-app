@@ -364,7 +364,7 @@
                             $tahun = date_format($tanggalObj, 'Y');
                             $tanggalIndonesia = $hari . ' ' . $bulanIndo[$bulan] . ' ' . $tahun;
                         @endphp
-                        @endphp
+
                         <div class="date-location" style="margin-bottom:3px; font-size:12px; line-height:1.1;">pada
                             tanggal
                             {{ $tanggalIndonesia }}
