@@ -98,16 +98,16 @@
     <div class="text-al" style="text-align: center; margin-bottom: 10px;">
         <span style="font-size: 20px; font-weight: bold; letter-spacing: 2px;">SURAT IZIN PENGHUNIAN</span>
         <br>
-        <span style="font-size: 15px;">Nomor SIP {!! $data->NomorSIP !!}</span>
+        <span style="font-size: 20px;">Nomor SIP {!! $data->NomorSIP !!}</span>
     </div>
     <div class="content">
         <div class="dasar" style="line-height: 20px;">
             <h3>Dasar:</h3>
             <ol>
-                <li>Peraturan Menhan RI Nomor 13 Tahun 2018 tentang Pembinaan Rumah Negara di lingkungan Kemhan dan TNI;
+                <li>Peraturan Menhan RI Nomor 13 Tahun 2018 tentang Pembinaan Rumah Negara di lingkungan Kemhan dan TNI.
                 </li>
                 <li>Peraturan Kasad Nomor 57 Tahun 2022 tanggal 5 Desember 2022 tentang Pembinaan Rumah Negara di
-                    lingkungan TNI AD;</li>
+                    lingkungan TNI AD.</li>
                 <li>Surat Telegram Kasad Nomor ST/273/2022 tanggal 8 Februari 2022 tentang Perintah tertib penggunaan
                     aset BMN berupa rumah dinas TNI AD.</li>
             </ol>

@@ -225,7 +225,7 @@ class SuratIzinController extends Controller
 
         $suratIzin->update($data);
 
-        return redirect()->back()->with('success', 'Surat Izin Berhasil Diperbarui');
+        return redirect()->route('surat-izin.create')->with('success', 'Surat Izin Berhasil Diperbarui');
     }
     public function importExcel(Request $request)
     {
