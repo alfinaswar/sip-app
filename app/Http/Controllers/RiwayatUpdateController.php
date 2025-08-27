@@ -93,8 +93,10 @@ class RiwayatUpdateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RiwayatUpdate $RiwayatUpdate)
+    public function destroy($id)
     {
+        $RiwayatUpdate = RiwayatUpdate::find($id);
+        // dd($RiwayatUpdate);
         $RiwayatUpdate->delete();
         return redirect()->route('surat-izin.create')->with('success', 'History berhasil dihapus.');
     }

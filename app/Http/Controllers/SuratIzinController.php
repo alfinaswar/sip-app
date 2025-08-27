@@ -18,7 +18,7 @@ class SuratIzinController extends Controller
      */
     public function index()
     {
-        $data = SuratIzin::latest()->get();
+        $data = SuratIzin::orrderBy('id', 'DESC')->get();
         return view('surat-izin.index', compact('data'));
     }
 
