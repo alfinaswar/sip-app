@@ -98,7 +98,7 @@
     <div class="text-al" style="text-align: center; margin-bottom: 10px;">
         <span style="font-size: 20px; font-weight: bold; letter-spacing: 2px;">SURAT IZIN PENGHUNIAN</span>
         <br>
-        <span style="font-size: 20px;">Nomor SIP {!! $data->NomorSIP !!}</span>
+        <span style="font-size: 19px;">Nomor SIP {!! $data->NomorSIP !!}</span>
     </div>
     <div class="content">
         <div class="dasar" style="line-height: 20px;">
