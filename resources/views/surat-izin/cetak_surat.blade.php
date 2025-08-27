@@ -213,7 +213,7 @@
                         @endphp
                         @foreach ($data->AnggotaKeluarga as $key => $ak)
                             <tr class="table-row">
-                                <td style="text-align: center;">{{ $key + 1 }}.</td>
+                                <td style="text-align: left;">{{ $key + 1 }}.</td>
                                 <td style="text-align: center;">{{ $ak['nama'] }}</td>
                                 <td style="text-align: center;">{{ $ak['umur'] }}</td>
                                 <td style="text-align: center;">
@@ -225,7 +225,8 @@
                                 </td>
                                 <td style="text-align: center;">{{ $ak['hubungan'] }}</td>
                                 @if ($key == 0)
-                                    <td rowspan="{{ $jumlahAnggota }}" style="vertical-align: top;">
+                                    <td style="text-align: justify;" rowspan="{{ $jumlahAnggota }}"
+                                        style="vertical-align: top;">
                                         {{ $data->Keterangan }}
                                     </td>
                                 @endif
