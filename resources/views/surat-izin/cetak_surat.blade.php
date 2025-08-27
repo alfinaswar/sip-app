@@ -203,7 +203,7 @@
                             <td style="text-align: center;">NAMA</td>
                             <td style="text-align: center;">UMUR</td>
                             <td style="text-align: center;">JK</td>
-                            <td style="text-align: center;">HUB. KEL</td>
+                            <td style="text-align: center;">HUBUNGAN KELUARGA</td>
                             <td style="text-align: center;">KET</td>
                         </tr>
                     </thead>
