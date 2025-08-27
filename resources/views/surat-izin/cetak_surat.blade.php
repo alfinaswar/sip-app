@@ -120,46 +120,46 @@
             </div>
 
             <div class="detail-list">
-                <table style="width:100%; border-collapse: collapse; line-height: 22px;">
+                <table style="width:100%; border-collapse: collapse; line-height: 20px;">
                     <tr>
                         <td style="width: 3%; text-align: right;">1.</td>
-                        <td style="width: 27%;">Nama</td>
+                        <td style="width: 27%;">&nbsp;Nama</td>
                         <td style="width: 2%;">:</td>
                         <td>{{ $data->Nama }}</td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">2.</td>
-                        <td>Pangkat/Gol</td>
+                        <td>&nbsp;Pangkat/Gol</td>
                         <td>:</td>
                         <td>{{ $data->Pangkat }}</td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">3.</td>
-                        <td>Jabatan</td>
+                        <td>&nbsp;Jabatan</td>
                         <td>:</td>
                         <td>{{ $data->Jabatan }}</td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">4.</td>
-                        <td>Kesatuan</td>
+                        <td>&nbsp;Kesatuan</td>
                         <td>:</td>
                         <td>{{ $data->Kesatuan }}</td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">5.</td>
-                        <td>Nomor KTP</td>
+                        <td>&nbsp;Nomor KTP</td>
                         <td>:</td>
                         <td>{{ $data->Ktp }}</td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">6.</td>
-                        <td>Tempat tanggal lahir</td>
+                        <td>&nbsp;Tempat tanggal lahir</td>
                         <td>:</td>
                         <td>{{ $data->Ttl }}</td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">7.</td>
-                        <td>Status</td>
+                        <td>&nbsp;Status</td>
                         <td>:</td>
                         <td>{{ $data->Status }}</td>
                     </tr>
@@ -188,7 +188,7 @@
                 <table style="margin-left: 4px;">
                     <tr>
                         <td style="width: 3%; text-align: right;">8.</td>
-                        <td>Jumlah keluarga yang menjadi tanggungan</td>
+                        <td>&nbsp;Jumlah keluarga yang menjadi tanggungan</td>
                         <td>:</td>
                         <td>{{ $data->JumlahTanggungan }} orang</td>
                     </tr>
@@ -230,46 +230,46 @@
             </div>
             <br>
             <div class="requirements">
-                <table style="width:100%; border-collapse: collapse; line-height: 22px;">
+                <table style="width:100%; border-collapse: collapse;">
                     <tr>
                         <td style="width: 3%; text-align: right;">9.</td>
-                        <td style="width: 27%;">Untuk menempati</td>
+                        <td style="width: 27%;">&nbsp;Untuk menempati</td>
                         <td style="width: 2%;">:</td>
                         <td><strong>Rumah Dinas TNI AD Golongan II</strong></td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">10.</td>
-                        <td>Keterangan ruangan</td>
+                        <td>&nbsp;Keterangan ruangan</td>
                         <td>:</td>
                         <td><strong>Seluruh Rumah Dinas</strong></td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">11.</td>
-                        <td>Digunakan sebagai</td>
+                        <td>&nbsp;Digunakan sebagai</td>
                         <td>:</td>
                         <td><strong>Tempat Tinggal</strong></td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">12.</td>
-                        <td>Nama KPAD</td>
+                        <td>&nbsp;Nama KPAD</td>
                         <td>:</td>
                         <td>{{ $data->Kpad }}</td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">13.</td>
-                        <td>Alamat rumah</td>
+                        <td>&nbsp;Alamat rumah</td>
                         <td>:</td>
                         <td>{{ $data->AlamatRumah }}</td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">14.</td>
-                        <td>Type dan luas</td>
+                        <td>&nbsp;Type dan luas</td>
                         <td>:</td>
                         <td>{{ $data->TypeLuas }}</td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">15.</td>
-                        <td>Menempati rumah TMT</td>
+                        <td>&nbsp;Menempati rumah TMT</td>
                         <td>:</td>
                         <td>{{ $data->Tmt }}</td>
                     </tr>
