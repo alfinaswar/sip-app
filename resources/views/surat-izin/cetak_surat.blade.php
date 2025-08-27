@@ -213,8 +213,8 @@
                         @endphp
                         @foreach ($data->AnggotaKeluarga as $key => $ak)
                             <tr class="table-row">
-                                <td style="text-align: left;">{{ $key + 1 }}.</td>
-                                <td style="text-align: center;">{{ $ak['nama'] }}</td>
+                                <td style="text-align: center;">{{ $key + 1 }}.</td>
+                                <td style="text-align: left;">{{ $ak['nama'] }}</td>
                                 <td style="text-align: center;">{{ $ak['umur'] }}</td>
                                 <td style="text-align: center;">
                                     @if(strtolower($ak['jk']) == 'perempuan')
