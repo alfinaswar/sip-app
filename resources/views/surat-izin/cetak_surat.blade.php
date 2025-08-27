@@ -199,12 +199,12 @@
                 <table class="table-solid" width="100%">
                     <thead>
                         <tr>
-                            <td>NO</td>
-                            <td>NAMA</td>
-                            <td>UMUR</td>
-                            <td>JENIS KELAMIN</td>
-                            <td>HUBUNGAN KELUARGA</td>
-                            <td>KET</td>
+                            <td style="text-align: center;">NO</td>
+                            <td style="text-align: center;">NAMA</td>
+                            <td style="text-align: center;">UMUR</td>
+                            <td style="text-align: center;">JENIS KELAMIN</td>
+                            <td style="text-align: center;">HUBUNGAN KELUARGA</td>
+                            <td style="text-align: center;">KET</td>
                         </tr>
                     </thead>
                     <tbody>
