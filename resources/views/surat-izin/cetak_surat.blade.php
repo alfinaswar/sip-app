@@ -184,7 +184,8 @@
                     - Ubah nilai 'top' dan 'left' pada style div di atas untuk memindahkan posisi floating box sesuai kebutuhan.
                     - Jika ingin bisa drag & drop, tambahkan script JS drag and drop.
                 -->
-                $nbsp; $nbsp;<table>
+
+                <table style="margin-left: 4px;">
                     <tr>
                         <td style="width: 3%; text-align: right;">8.</td>
                         <td>Jumlah keluarga yang menjadi tanggungan</td>
