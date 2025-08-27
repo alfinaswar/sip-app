@@ -48,14 +48,22 @@
         .table-solid {
             border-collapse: collapse;
             width: 100%;
-            border: 1px solid #000;
         }
 
+        /* border hanya untuk header */
         .table-solid th {
-            border: 1px solid #000 !important;
+            border: 1px solid #000;
             line-height: 1.1;
             padding: 2px 6px;
         }
+
+        /* body tanpa border */
+        .table-solid td {
+            border: none;
+            padding: 4px 6px;
+            /* biar tetap rapi */
+        }
+
 
         .signature-section {
             display: flex;
