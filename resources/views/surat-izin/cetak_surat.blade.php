@@ -52,7 +52,7 @@
         }
 
         .table-solid th {
-            border: 1px solid #000;
+            border: 1px solid #000 !important;
             line-height: 1.1;
             padding: 2px 6px;
         }
