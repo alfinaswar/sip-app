@@ -199,7 +199,7 @@
                 <table class="table-solid" width="100%">
                     <thead>
                         <tr>
-                            <td style="text-align: center;">NO</td>
+                            <td width="40%" style="text-align: center;">NO</td>
                             <td style="text-align: center;">NAMA</td>
                             <td style="text-align: center;">UMUR</td>
                             <td style="text-align: center;">JK</td>
