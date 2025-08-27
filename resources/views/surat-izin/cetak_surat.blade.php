@@ -202,8 +202,8 @@
                             <td style="text-align: center;">NO</td>
                             <td style="text-align: center;">NAMA</td>
                             <td style="text-align: center;">UMUR</td>
-                            <td style="text-align: center;">JENIS KELAMIN</td>
-                            <td style="text-align: center;">HUBUNGAN KELUARGA</td>
+                            <td style="text-align: center;">JK</td>
+                            <td style="text-align: center;">HUB. KEL</td>
                             <td style="text-align: center;">KET</td>
                         </tr>
                     </thead>
@@ -216,7 +216,13 @@
                                 <td>{{ $key + 1 }}.</td>
                                 <td>{{ $ak['nama'] }}</td>
                                 <td>{{ $ak['umur'] }}</td>
-                                <td>{{ $ak['jk'] }}</td>
+                                <td>
+                                    @if(strtolower($ak['jk']) == 'perempuan')
+                                        PR
+                                    @else
+                                        LK
+                                    @endif
+                                </td>
                                 <td>{{ $ak['hubungan'] }}</td>
                                 @if ($key == 0)
                                     <td rowspan="{{ $jumlahAnggota }}" style="vertical-align: top;">
@@ -256,10 +262,10 @@
                         <td>{{ $data->Kpad }}</td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">13.</td>
-                        <td>&nbsp;Alamat rumah</td>
-                        <td>:</td>
-                        <td>{{ $data->AlamatRumah }}</td>
+                        <td style="text-align: right; vertical-align: top;">13.</td>
+                        <td style="vertical-align: top; white-space: nowrap;">&nbsp;Alamat rumah</td>
+                        <td style="vertical-align: top;">:</td>
+                        <td style="vertical-align: top;">{{ $data->AlamatRumah }}</td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">14.</td>
