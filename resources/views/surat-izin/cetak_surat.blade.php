@@ -48,10 +48,10 @@
         .table-solid {
             border-collapse: collapse;
             width: 100%;
+            border: 1px solid #000;
         }
 
-        .table-solid th,
-        .table-solid td {
+        .table-solid th {
             border: 1px solid #000;
             line-height: 1.1;
             padding: 2px 6px;
