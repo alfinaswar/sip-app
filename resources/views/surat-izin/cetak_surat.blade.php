@@ -213,7 +213,7 @@
                         @endphp
                         @foreach ($data->AnggotaKeluarga as $key => $ak)
                             <tr class="table-row">
-                                <td>{{ $key + 1 }}</td>
+                                <td>{{ $key + 1 }}.</td>
                                 <td>{{ $ak['nama'] }}</td>
                                 <td>{{ $ak['umur'] }}</td>
                                 <td>{{ $ak['jk'] }}</td>
@@ -372,7 +372,7 @@
                         </div>
                         <hr style="width: 95%; margin-left: 0;">
                         <div style="font-size:13px; margin-bottom:1px; line-height:1.1; text-align:center;">
-                            &nbsp;a.n. Panglima Kodam Jaya/Jayakarta<br>
+                            a.n. Panglima Kodam Jaya/Jayakarta<br>
                             Asisten Logistik,
                         </div>
                         <div class="signature-box" style="height: 40px; margin-bottom: 6px;"></div>
