@@ -63,12 +63,9 @@ class RiwayatUpdateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Ambil data history yang akan diupdate
         $riwayat = RiwayatUpdate::findOrFail($id);
-
         $data = $request->all();
         // dd($data);
-
         // Penyesuaian field Kpad jika 'Lainnya'
         if ($request->Kpad == 'Lainnya') {
             $data['Kpad'] = $request->KpadLainnya;
