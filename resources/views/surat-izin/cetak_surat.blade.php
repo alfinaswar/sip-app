@@ -120,7 +120,7 @@
             </div>
 
             <div class="detail-list">
-                <table style="width:100%; border-collapse: collapse; line-height: 20px;">
+                <table style="width:100%; border-collapse: collapse; line-height: 22px;">
                     <tr>
                         <td style="width: 3%; text-align: right;">1.</td>
                         <td style="width: 27%;">Nama</td>
@@ -230,7 +230,7 @@
             </div>
             <br>
             <div class="requirements">
-                <table style="width:100%; border-collapse: collapse;">
+                <table style="width:100%; border-collapse: collapse; line-height: 22px;">
                     <tr>
                         <td style="width: 3%; text-align: right;">9.</td>
                         <td style="width: 27%;">Untuk menempati</td>
