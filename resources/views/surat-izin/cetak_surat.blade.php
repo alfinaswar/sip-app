@@ -200,7 +200,7 @@
                     <thead>
                         <tr>
                             <td style="text-align: center;">NO</td>
-                            <td width="35%" style="text-align: center;">NAMA</td>
+                            <td style="text-align: center;">NAMA</td>
                             <td style="text-align: center;">UMUR</td>
                             <td style="text-align: center;">JK</td>
                             <td style="text-align: center;">HUB. KEL</td>
