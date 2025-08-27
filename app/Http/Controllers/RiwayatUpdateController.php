@@ -55,7 +55,7 @@ class RiwayatUpdateController extends Controller
     public function edit($id)
     {
         $suratIzin = RiwayatUpdate::find($id);
-        return view('surat-izin.edit', compact('suratIzin'));
+        return view('surat-izin.edit-history', compact('suratIzin'));
     }
 
     /**
@@ -64,30 +64,16 @@ class RiwayatUpdateController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        // dd($data);
         if ($request->Kpad == 'Lainnya') {
             $data['Kpad'] = $request->KpadLainnya;
         } else {
             $data['Kpad'] = $request->Kpad;
         }
         $suratIzin = RiwayatUpdate::findOrFail($id);
-
-        // Simpan data lama ke history sebelum update
-        $dataLama = $suratIzin->toArray();
-        $dataLama['IdSurat'] = $id;
-        RiwayatUpdate::create($dataLama);
-
-        if ($request->hasFile('Foto')) {
-            $file = $request->file('Foto');
-            $namaFile = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('foto', $namaFile, 'public');
-            $data['Foto'] = $namaFile;
-        } else {
-            unset($data['Foto']);
-        }
-
         $suratIzin->update($data);
 
-        return redirect()->back()->with('success', 'Surat Izin Berhasil Diperbarui');
+        return redirect()->route('surat-izin.create')->with('success', 'Surat Izin Berhasil Diperbarui');
     }
 
     /**
