@@ -7,11 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>APLIKASI SIP RUMAH DINAS KPAD KODAM JAYA/JAYAKARTA</title>
     <!-- CSS files -->
-    <link href="{{ asset('') }}assets/css/tabler.min.css?1692870487" rel="stylesheet" />
-    <link href="{{ asset('') }}assets/css/tabler-flags.min.css?1692870487" rel="stylesheet" />
-    <link href="{{ asset('') }}assets/css/tabler-payments.min.css?1692870487" rel="stylesheet" />
-    <link href="{{ asset('') }}assets/css/tabler-vendors.min.css?1692870487" rel="stylesheet" />
-    <link href="{{ asset('') }}assets/css/demo.min.css?1692870487" rel="stylesheet" />
+    <link href="{{ asset('assets/css/tabler.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/tabler-flags.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/tabler-payments.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/tabler-vendors.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/demo.min.css') }}" rel="stylesheet" type="text/css" />
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -102,7 +102,7 @@
 </head>
 
 <body class="d-flex flex-column login-container">
-    <script src="./dist/js/demo-theme.min.js?1692870487"></script>
+    <script src="{{ asset('assets/js/demo-theme.min.js')}}"></script>
     <div class="centered-content">
         <div class="login-wrapper">
             <!-- Logo kiri -->
@@ -170,8 +170,8 @@
     </div>
 
     <!-- Libs JS -->
-    <script src="{{ asset('') }}assets/js/tabler.min.js?1692870487" defer></script>
-    <script src="{{ asset('') }}assets/js/demo.min.js?1692870487" defer></script>
+    <script src="{{ asset('') }}assets/js/tabler.min.js" defer></script>
+    <script src="{{ asset('') }}assets/js/demo.min.js" defer></script>
 </body>
 
 </html>
