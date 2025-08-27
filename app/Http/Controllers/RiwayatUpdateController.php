@@ -67,6 +67,7 @@ class RiwayatUpdateController extends Controller
         $riwayat = RiwayatUpdate::findOrFail($id);
 
         $data = $request->all();
+        // dd($data);
 
         // Penyesuaian field Kpad jika 'Lainnya'
         if ($request->Kpad == 'Lainnya') {
