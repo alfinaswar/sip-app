@@ -7,11 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>APLIKASI SIP RUMAH DINAS KPAD KODAM JAYA/JAYAKARTA</title>
     <!-- CSS files -->
-    <link href="{{ asset('assets/css/tabler.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/tabler-flags.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/tabler-payments.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/tabler-vendors.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/demo.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url('assets/css/tabler.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url('assets/css/tabler-flags.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url('assets/css/tabler-payments.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url('assets/css/tabler-vendors.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url('assets/css/demo.min.css') }}" rel="stylesheet" type="text/css" />
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -102,12 +102,12 @@
 </head>
 
 <body class="d-flex flex-column login-container">
-    <script src="{{ asset('assets/js/demo-theme.min.js')}}"></script>
+    <script src="{{ url('assets/js/demo-theme.min.js')}}"></script>
     <div class="centered-content">
         <div class="login-wrapper">
             <!-- Logo kiri -->
             <div class="logo-side">
-                <img src="{{ asset('assets/img/loghijau.png') }}" alt="Logo Hijau">
+                <img src="{{ url('assets/img/loghijau.png') }}" alt="Logo Hijau">
             </div>
 
             <!-- Form dan judul aplikasi -->
@@ -164,14 +164,14 @@
 
             <!-- Logo kanan -->
             <div class="logo-side">
-                <img src="{{ asset('assets/img/logoemas.png') }}" alt="Logo Emas">
+                <img src="{{ url('assets/img/logoemas.png') }}" alt="Logo Emas">
             </div>
         </div>
     </div>
 
     <!-- Libs JS -->
-    <script src="{{ asset('') }}assets/js/tabler.min.js" defer></script>
-    <script src="{{ asset('') }}assets/js/demo.min.js" defer></script>
+    <script src="{{ url('') }}assets/js/tabler.min.js" defer></script>
+    <script src="{{ url('') }}assets/js/demo.min.js" defer></script>
 </body>
 
 </html>

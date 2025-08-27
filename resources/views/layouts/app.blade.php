@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>SIP</title>
-    <link href="{{ asset('assets/css/tabler.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/tabler-flags.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/tabler-payments.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/tabler-vendors.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/demo.min.css') }}" rel="stylesheet" />
+    <link href="{{ url('assets/css/tabler.min.css') }}" rel="stylesheet" />
+    <link href="{{ url('assets/css/tabler-flags.min.css') }}" rel="stylesheet" />
+    <link href="{{ url('assets/css/tabler-payments.min.css') }}" rel="stylesheet" />
+    <link href="{{ url('assets/css/tabler-vendors.min.css') }}" rel="stylesheet" />
+    <link href="{{ url('assets/css/demo.min.css') }}" rel="stylesheet" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -62,7 +62,7 @@
 </head>
 
 <body>
-    <script src="{{ asset('') }}assets/js/demo-theme.min.js?1692870487"></script>
+    <script src="{{ url('') }}assets/js/demo-theme.min.js?1692870487"></script>
     <div class="page">
         <!-- Sidebar -->
         <aside class="navbar navbar-vertical navbar-expand-lg">
@@ -73,7 +73,7 @@
                 </button>
                 <h5 class="navbar-brand navbar-brand-autodark">
                     <a href=".">
-                        <img src="{{ asset('assets/img/icon/login-logo.png') }}" width="1000" height="1000" alt="Tabler"
+                        <img src="{{ url('assets/img/icon/login-logo.png') }}" width="1000" height="1000" alt="Tabler"
                             class="navbar-brand-image">
                     </a>
                     <span style="color: #1F573A; font-size: 18px">Sistem KPAD</span>
@@ -182,16 +182,16 @@
             </main>
         </div>
     </div>
-    <script src="{{ asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/jsvectormap/dist/js/jsvectormap.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/jsvectormap/dist/maps/world.js') }}"></script>
-    <script src="{{ asset('assets/libs/jsvectormap/dist/maps/world-merc.js') }}"></script>
-    <script src="{{ asset('assets/libs/nouislider/dist/nouislider.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/tom-select/dist/js/tom-select.base.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/litepicker/dist/litepicker.js') }}"></script>
+    <script src="{{ url('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
+    <script src="{{ url('assets/libs/jsvectormap/dist/js/jsvectormap.min.js') }}"></script>
+    <script src="{{ url('assets/libs/jsvectormap/dist/maps/world.js') }}"></script>
+    <script src="{{ url('assets/libs/jsvectormap/dist/maps/world-merc.js') }}"></script>
+    <script src="{{ url('assets/libs/nouislider/dist/nouislider.min.js') }}"></script>
+    <script src="{{ url('assets/libs/tom-select/dist/js/tom-select.base.min.js') }}"></script>
+    <script src="{{ url('assets/libs/litepicker/dist/litepicker.js') }}"></script>
     <!-- Tabler Core -->
-    <script src="{{ asset('assets/js/tabler.min.js') }}"></script>
-    <script src="{{ asset('assets/js/demo.min.js') }}"></script>
+    <script src="{{ url('assets/js/tabler.min.js') }}"></script>
+    <script src="{{ url('assets/js/demo.min.js') }}"></script>
     @stack('scripts')
 </body>
 
