@@ -50,20 +50,12 @@
             width: 100%;
         }
 
-        /* border hanya untuk header */
-        .table-solid th {
+        .table-solid th,
+        .table-solid td {
             border: 1px solid #000;
             line-height: 1.1;
             padding: 2px 6px;
         }
-
-        /* body tanpa border */
-        .table-solid td {
-            border: none;
-            padding: 4px 6px;
-            /* biar tetap rapi */
-        }
-
 
         .signature-section {
             display: flex;
@@ -208,7 +200,7 @@
                     <thead>
                         <tr>
                             <td style="text-align: center;">NO</td>
-                            <td width="30%" style="text-align: center;">NAMA</td>
+                            <td width="35%" style="text-align: center;">NAMA</td>
                             <td style="text-align: center;">UMUR</td>
                             <td style="text-align: center;">JK</td>
                             <td style="text-align: center;">HUB. KEL</td>
@@ -221,17 +213,17 @@
                         @endphp
                         @foreach ($data->AnggotaKeluarga as $key => $ak)
                             <tr class="table-row">
-                                <td>{{ $key + 1 }}.</td>
-                                <td>{{ $ak['nama'] }}</td>
-                                <td>{{ $ak['umur'] }}</td>
-                                <td>
+                                <td style="text-align: center;">{{ $key + 1 }}.</td>
+                                <td style="text-align: center;">{{ $ak['nama'] }}</td>
+                                <td style="text-align: center;">{{ $ak['umur'] }}</td>
+                                <td style="text-align: center;">
                                     @if(strtolower($ak['jk']) == 'perempuan')
-                                        PR
+                                        Pr
                                     @else
-                                        LK
+                                        Lk
                                     @endif
                                 </td>
-                                <td>{{ $ak['hubungan'] }}</td>
+                                <td style="text-align: center;">{{ $ak['hubungan'] }}</td>
                                 @if ($key == 0)
                                     <td rowspan="{{ $jumlahAnggota }}" style="vertical-align: top;">
                                         {{ $data->Keterangan }}
