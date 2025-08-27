@@ -185,7 +185,7 @@
                     - Jika ingin bisa drag & drop, tambahkan script JS drag and drop.
                 -->
 
-                <table style="margin-left: 4px;">
+                <table style="margin-left: 3px;">
                     <tr>
                         <td style="width: 3%; text-align: right;">8.</td>
                         <td>&nbsp;Jumlah keluarga yang menjadi tanggungan</td>
@@ -372,13 +372,13 @@
                         </div>
                         <hr style="width: 95%; margin-left: 0;">
                         <div style="font-size:13px; margin-bottom:1px; line-height:1.1; text-align:center;">
-                            a.n. Panglima Kodam Jaya/Jayakarta<br>
+                            &nbsp;a.n. Panglima Kodam Jaya/Jayakarta<br>
                             Asisten Logistik,
                         </div>
                         <div class="signature-box" style="height: 40px; margin-bottom: 6px;"></div>
                         <div class="rank-number"
                             style="margin-top:1px; font-size:13px; line-height:1.1; text-align:center;">
-                            Didid Yusnadi, M.Si<br>Kolonel Czi NRP 11000050710979
+                            Didid Yusnadi, M.Si<br>&nbsp;Kolonel Czi NRP 11000050710979
                         </div>
                     </td>
                 </tr>
