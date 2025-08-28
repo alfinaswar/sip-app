@@ -295,12 +295,12 @@
                     <td style="vertical-align:top; width:30%; min-width:180px; border:0px solid #000; padding:8px;">
                         <div
                             style="margin-top: 10px; border:2px solid #800080; background-color: #ffffff; padding:8px; text-align:center;">
-                            <div style="margin-bottom: 4px;">
+                            <div style="margin-bottom: 4px; font-size: 20PX;">
                                 <strong>SIP BERLAKU S.D.</strong>
                             </div>
                             <hr
                                 style="border: 1.5px solid #800080; background-color: #800080; margin-left:-8px; margin-right:-8px; width:calc(100% + 16px);">
-                            <div>
+                            <div style="text-transform: uppercase; font-size: 20PX;">
                                 <strong>
                                     @php
                                         use Carbon\Carbon;
@@ -385,7 +385,7 @@
                         <div class="signature-box" style="height: 40px; margin-bottom: 6px;"></div>
                         <div class="rank-number"
                             style="margin-top:1px; font-size:13px; line-height:1.1; text-align:center;">
-                            Didid Yusnadi, M.Si<br>&nbsp;Kolonel Czi NRP 11000050710979
+                            {{$data->NamaTtd ?? '-'}}<br>&nbsp;{{$data->NamaTtd2 ?? '-'}}
                         </div>
                     </td>
                 </tr>

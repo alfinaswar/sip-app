@@ -34,7 +34,7 @@ class SuratIzinController extends Controller
     public function Datatable(Request $request)
     {
         if ($request->ajax()) {
-            $query = SuratIzin::query();
+            $query = SuratIzin::orderBy('id', 'DESC');
 
             if ($request->filled('status')) {
                 $query->where('Status', $request->status);

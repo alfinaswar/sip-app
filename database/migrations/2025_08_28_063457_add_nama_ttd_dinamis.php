@@ -11,7 +11,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('surat_izins', function (Blueprint $table) {
-            $table->text('Keterangan')->nullable()->after('id');
+            $table->string('NamaTtd')->nullable()->after('Tembusan');
+            $table->string('NamaTtd2')->nullable()->after('NamaTtd');
         });
     }
 
@@ -20,10 +21,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        if (Schema::hasColumn('surat_izins', 'Keterangan')) {
-            Schema::table('surat_izins', function (Blueprint $table) {
-                $table->dropColumn('Keterangan');
-            });
-        }
+        //
     }
 };

@@ -326,6 +326,18 @@
                                                 <input type="text" name="Tmt" id="Tmt" class="form-control"
                                                     placeholder="Masukkan TMT" value="{{ old('Tmt', $suratIzin->Tmt) }}">
                                             </div>
+                                            <div class="form-group mb-3">
+                                                <label for="Tmt">Nama Tanda Tangan</label>
+                                                <input type="text" name="NamaTtd" id="NamaTtd" class="form-control"
+                                                    value="{{ old('NamaTtd', $suratIzin->NamaTtd) }}"
+                                                    placeholder="Nama yg bertanda tangan">
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label for="Tmt">Pangkat NRP / NIP</label>
+                                                <input type="text" name="NamaTtd2" id="NamaTtd2" class="form-control"
+                                                    value="{{ old('NamaTtd2', $suratIzin->NamaTtd2) }}"
+                                                    placeholder=" Kolonel Czi NRP 11000050710979">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group mb-3 mt-3">
@@ -578,20 +590,20 @@
                 // Script untuk anggota keluarga update: batasi maksimal 7 baris (0-6) berdasarkan jumlah baris di tabel
                 document.addEventListener('DOMContentLoaded', function () {
                     const hubunganOptions = `
-                                            <option value="">Pilih</option>
-                                            <option value="Suami">Suami</option>
-                                            <option value="Istri">Istri</option>
-                                            <option value="Anak">Anak</option>
-                                            <option value="Ayah">Ayah</option>
-                                            <option value="Ibu">Ibu</option>
-                                            <option value="Kakak">Kakak</option>
-                                            <option value="Adik">Adik</option>
-                                            <option value="Mertua">Mertua</option>
-                                            <option value="Menantu">Menantu</option>
-                                            <option value="Cucu">Cucu</option>
-                                            <option value="Keponakan">Keponakan</option>
-                                            <option value="Lainnya">Lainnya</option>
-                                        `;
+                                                                <option value="">Pilih</option>
+                                                                <option value="Suami">Suami</option>
+                                                                <option value="Istri">Istri</option>
+                                                                <option value="Anak">Anak</option>
+                                                                <option value="Ayah">Ayah</option>
+                                                                <option value="Ibu">Ibu</option>
+                                                                <option value="Kakak">Kakak</option>
+                                                                <option value="Adik">Adik</option>
+                                                                <option value="Mertua">Mertua</option>
+                                                                <option value="Menantu">Menantu</option>
+                                                                <option value="Cucu">Cucu</option>
+                                                                <option value="Keponakan">Keponakan</option>
+                                                                <option value="Lainnya">Lainnya</option>
+                                                            `;
 
                     const anggotaTable = document.getElementById('anggotaKeluargaTable');
                     const addRowBtn = document.getElementById('addRow');
@@ -628,22 +640,22 @@
                         const tbody = anggotaTable.querySelector('tbody');
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                                                <td><input type="text" name="AnggotaKeluarga[${nextIdx}][nama]" class="form-control"></td>
-                                                <td><input type="text" name="AnggotaKeluarga[${nextIdx}][umur]" class="form-control"></td>
-                                                <td>
-                                                    <select name="AnggotaKeluarga[${nextIdx}][jk]" class="form-control">
-                                                        <option value="">Pilih</option>
-                                                        <option value="Laki-laki">Laki-laki</option>
-                                                        <option value="Perempuan">Perempuan</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <select name="AnggotaKeluarga[${nextIdx}][hubungan]" class="form-control">
-                                                        ${hubunganOptions}
-                                                    </select>
-                                                </td>
-                                                <td><button type="button" class="btn btn-sm btn-danger removeRow">−</button></td>
-                                            `;
+                                                                    <td><input type="text" name="AnggotaKeluarga[${nextIdx}][nama]" class="form-control"></td>
+                                                                    <td><input type="text" name="AnggotaKeluarga[${nextIdx}][umur]" class="form-control"></td>
+                                                                    <td>
+                                                                        <select name="AnggotaKeluarga[${nextIdx}][jk]" class="form-control">
+                                                                            <option value="">Pilih</option>
+                                                                            <option value="Laki-laki">Laki-laki</option>
+                                                                            <option value="Perempuan">Perempuan</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td>
+                                                                        <select name="AnggotaKeluarga[${nextIdx}][hubungan]" class="form-control">
+                                                                            ${hubunganOptions}
+                                                                        </select>
+                                                                    </td>
+                                                                    <td><button type="button" class="btn btn-sm btn-danger removeRow">−</button></td>
+                                                                `;
                         tbody.appendChild(row);
                     });
 
