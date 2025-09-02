@@ -200,10 +200,11 @@
                     <thead>
                         <tr>
                             <td style="text-align: center; width: 5%;">NO</td>
-                            <td style="text-align: center; width: 25%;">NAMA</td>
-                            <td style="text-align: center; width: 10%;">UMUR</td>
+                            <td style="text-align: center; width: 20%;">NAMA</td>
+                            <td style="text-align: center; width: 15%;">UMUR</td>
                             <td style="text-align: center; width: 8%;">JK</td>
-                            <td style="text-align: center; width: 20%;">HUB KEL</td>
+                            <td style="text-align: center; width: 20%;">HB. KELUARGA</td>
+                            </td>
                             <td style="text-align: center; width: 37%;">KET</td>
                         </tr>
                     </thead>
