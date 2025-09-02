@@ -199,12 +199,12 @@
                 <table class="table-solid" width="100%">
                     <thead>
                         <tr>
-                            <td style="text-align: center;">NO</td>
-                            <td style="text-align: center;">NAMA</td>
-                            <td style="text-align: center;">UMUR</td>
-                            <td style="text-align: center;">JK</td>
-                            <td style="text-align: center;">HUBUNGAN KELUARGA</td>
-                            <td style="text-align: center;">KET</td>
+                            <td style="text-align: center; width: 5%;">NO</td>
+                            <td style="text-align: center; width: 25%;">NAMA</td>
+                            <td style="text-align: center; width: 10%;">UMUR</td>
+                            <td style="text-align: center; width: 8%;">JK</td>
+                            <td style="text-align: center; width: 20%;">HUBUNGAN KELUARGA</td>
+                            <td style="text-align: center; width: 37%;">KET</td>
                         </tr>
                     </thead>
                     <tbody>
