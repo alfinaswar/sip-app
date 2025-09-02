@@ -63,7 +63,8 @@ class SuratIzinController extends Controller
     public function History(Request $request)
     {
         if ($request->ajax()) {
-            $query = RiwayatUpdate::query();
+            // Urutkan dari data terbaru
+            $query = RiwayatUpdate::orderBy('id', 'DESC');
 
             if ($request->filled('status')) {
                 $query->where('Status', $request->status);
