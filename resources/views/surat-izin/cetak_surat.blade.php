@@ -197,6 +197,34 @@
 
             <div class="table-container">
                 @if(is_null($data->AnggotaKeluarga[0]['nama']))
+                    <br>
+                    <table class="table-solid" width="100%">
+                        <thead>
+                            <tr>
+                                <td style="text-align: center; width: 5%;">NO</td>
+                                <td style="text-align: center; width: 20%;">NAMA</td>
+                                <td style="text-align: center; width: 15%;">UMUR</td>
+                                <td style="text-align: center; width: 8%;">JK</td>
+                                <td style="text-align: center; width: 20%;">HB. KELUARGA</td>
+                                </td>
+                                <td style="text-align: center; width: 37%;">KET</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-row">
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: left;">&nbsp;</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;">&nbsp;</td>
+
+                                <td style="text-align: justify;" rowspan="" style="vertical-align: top;">
+                                    &nbsp;
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
                 @else
                     <br>
                     <table class="table-solid" width="100%">
