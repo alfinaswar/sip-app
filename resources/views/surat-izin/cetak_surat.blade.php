@@ -14,8 +14,8 @@
             font-family: 'Arial', sans-serif;
             margin-top: 2.0cm;
             margin-bottom: 0.5cm;
-            margin-left: 2cm;
-            margin-right: 2cm;
+            margin-left: 0.8cm;
+            margin-right: 0.8cm;
             font-size: 14px;
             text-align: justify;
             line-height: 0.7cm;
@@ -196,16 +196,16 @@
             </div>
 
             <div class="table-container">
-                @if(is_null($data->AnggotaKeluarga[0]['nama']))
+                @if (is_null($data->AnggotaKeluarga[0]['nama']))
                     <br>
                     <table class="table-solid" width="100%">
                         <thead>
                             <tr>
                                 <td style="text-align: center; width: 5%;">NO</td>
-                                <td style="text-align: center; width: 20%;">NAMA</td>
+                                <td style="text-align: center; width: 25%;">NAMA</td>
                                 <td style="text-align: center; width: 15%;">UMUR</td>
                                 <td style="text-align: center; width: 8%;">JK</td>
-                                <td style="text-align: center; width: 20%;">HB. KELUARGA</td>
+                                <td style="text-align: center; width: 20%;">HUBUNGANKELUARGA</td>
                                 </td>
                                 <td style="text-align: center; width: 37%;">KET</td>
                             </tr>
@@ -234,7 +234,7 @@
                                 <td style="text-align: center; width: 20%;">NAMA</td>
                                 <td style="text-align: center; width: 15%;">UMUR</td>
                                 <td style="text-align: center; width: 8%;">JK</td>
-                                <td style="text-align: center; width: 20%;">HB. KELUARGA</td>
+                                <td style="text-align: center; width: 20%;">HUBUNGAN KELUARGA</td>
                                 </td>
                                 <td style="text-align: center; width: 37%;">KET</td>
                             </tr>
@@ -249,7 +249,7 @@
                                     <td style="text-align: left;">{{ $ak['nama'] }}</td>
                                     <td style="text-align: center;">{{ $ak['umur'] }}</td>
                                     <td style="text-align: center;">
-                                        @if(strtolower($ak['jk']) == 'perempuan')
+                                        @if (strtolower($ak['jk']) == 'perempuan')
                                             Pr
                                         @else
                                             Lk
@@ -355,7 +355,8 @@
                                         $hariBerlaku = $tanggalBerlakuObj->format('d');
                                         $bulanBerlaku = (int) $tanggalBerlakuObj->format('m');
                                         $tahunBerlaku = $tanggalBerlakuObj->format('Y');
-                                        $tanggalBerlaku = $hariBerlaku . ' ' . $bulanIndo[$bulanBerlaku] . ' ' . $tahunBerlaku;
+                                        $tanggalBerlaku =
+                                            $hariBerlaku . ' ' . $bulanIndo[$bulanBerlaku] . ' ' . $tahunBerlaku;
                                     @endphp
                                     {{ $tanggalBerlaku }}
                                 </strong>
@@ -418,7 +419,7 @@
                         <div class="signature-box" style="height: 40px; margin-bottom: 6px;"></div>
                         <div class="rank-number"
                             style="margin-top:1px; font-size:13px; line-height:1.1; text-align:center;">
-                            {{$data->NamaTtd ?? '-'}}<br>&nbsp;{{$data->NamaTtd2 ?? '-'}}
+                            {{ $data->NamaTtd ?? '-' }}<br>&nbsp;{{ $data->NamaTtd2 ?? '-' }}
                         </div>
                     </td>
                 </tr>
