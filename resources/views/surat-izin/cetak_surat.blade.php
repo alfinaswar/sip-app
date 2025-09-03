@@ -194,47 +194,51 @@
                     </tr>
                 </table>
             </div>
-            <br>
+
             <div class="table-container">
-                <table class="table-solid" width="100%">
-                    <thead>
-                        <tr>
-                            <td style="text-align: center; width: 5%;">NO</td>
-                            <td style="text-align: center; width: 20%;">NAMA</td>
-                            <td style="text-align: center; width: 15%;">UMUR</td>
-                            <td style="text-align: center; width: 8%;">JK</td>
-                            <td style="text-align: center; width: 20%;">HB. KELUARGA</td>
-                            </td>
-                            <td style="text-align: center; width: 37%;">KET</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                            $jumlahAnggota = count($data->AnggotaKeluarga);
-                        @endphp
-                        @foreach ($data->AnggotaKeluarga as $key => $ak)
-                            <tr class="table-row">
-                                <td style="text-align: center;">{{ $key + 1 }}.</td>
-                                <td style="text-align: left;">{{ $ak['nama'] }}</td>
-                                <td style="text-align: center;">{{ $ak['umur'] }}</td>
-                                <td style="text-align: center;">
-                                    @if(strtolower($ak['jk']) == 'perempuan')
-                                        Pr
-                                    @else
-                                        Lk
-                                    @endif
+                @if(is_null($data->AnggotaKeluarga[0]['nama']))
+                @else
+                    <br>
+                    <table class="table-solid" width="100%">
+                        <thead>
+                            <tr>
+                                <td style="text-align: center; width: 5%;">NO</td>
+                                <td style="text-align: center; width: 20%;">NAMA</td>
+                                <td style="text-align: center; width: 15%;">UMUR</td>
+                                <td style="text-align: center; width: 8%;">JK</td>
+                                <td style="text-align: center; width: 20%;">HB. KELUARGA</td>
                                 </td>
-                                <td style="text-align: center;">{{ $ak['hubungan'] }}</td>
-                                @if ($key == 0)
-                                    <td style="text-align: justify;" rowspan="{{ $jumlahAnggota }}"
-                                        style="vertical-align: top;">
-                                        {{ $data->Keterangan }}
-                                    </td>
-                                @endif
+                                <td style="text-align: center; width: 37%;">KET</td>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @php
+                                $jumlahAnggota = count($data->AnggotaKeluarga);
+                            @endphp
+                            @foreach ($data->AnggotaKeluarga as $key => $ak)
+                                <tr class="table-row">
+                                    <td style="text-align: center;">{{ $key + 1 }}.</td>
+                                    <td style="text-align: left;">{{ $ak['nama'] }}</td>
+                                    <td style="text-align: center;">{{ $ak['umur'] }}</td>
+                                    <td style="text-align: center;">
+                                        @if(strtolower($ak['jk']) == 'perempuan')
+                                            Pr
+                                        @else
+                                            Lk
+                                        @endif
+                                    </td>
+                                    <td style="text-align: center;">{{ $ak['hubungan'] }}</td>
+                                    @if ($key == 0)
+                                        <td style="text-align: justify;" rowspan="{{ $jumlahAnggota }}"
+                                            style="vertical-align: top;">
+                                            {{ $data->Keterangan }}
+                                        </td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
             </div>
             <br>
             <div class="requirements">
@@ -301,7 +305,7 @@
                             </div>
                             <hr
                                 style="border: 1.5px solid #800080; background-color: #800080; margin-left:-8px; margin-right:-8px; width:calc(100% + 16px);">
-                            <div style="text-transform: uppercase; font-size: 20PX;">
+                            <div style="text-transform: uppercase; font-size: 18PX;">
                                 <strong>
                                     @php
                                         use Carbon\Carbon;
