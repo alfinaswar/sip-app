@@ -197,7 +197,7 @@
 
             <div class="table-container">
                 @if (is_null($data->AnggotaKeluarga[0]['nama']))
-                    <br>
+
                     <table class="table-solid" width="100%">
                         <thead>
                             <tr>
@@ -226,7 +226,7 @@
                         </tbody>
                     </table>
                 @else
-                    <br>
+
                     <table class="table-solid" width="100%">
                         <thead>
                             <tr>
