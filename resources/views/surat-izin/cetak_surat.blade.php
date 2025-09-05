@@ -185,7 +185,7 @@
                     - Jika ingin bisa drag & drop, tambahkan script JS drag and drop.
                 -->
 
-                <table style="margin-left: 3px;">
+                <table style="margin-left: 4px;">
                     <tr>
                         <td style="width: 3%; text-align: right;">8.</td>
                         <td>&nbsp;Jumlah keluarga yang menjadi tanggungan</td>
