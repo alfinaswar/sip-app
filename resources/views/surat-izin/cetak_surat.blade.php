@@ -232,7 +232,7 @@
                             <tr>
                                 <td style="text-align: center; width: 5%;">NO</td>
                                 <td style="text-align: center; width: 20%;">NAMA</td>
-                                <td style="text-align: center; width: 15%;">UMUR</td>
+                                <td style="text-align: center; width: 10%;">UMUR</td>
                                 <td style="text-align: center; width: 8%;">JK</td>
                                 <td style="text-align: center; width: 20%;">HUBUNGAN KELUARGA</td>
                                 </td>
