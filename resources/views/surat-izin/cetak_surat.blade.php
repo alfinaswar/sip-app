@@ -268,7 +268,6 @@
                     </table>
                 @endif
             </div>
-            <br>
             <div class="requirements">
                 <table style="width:100%; border-collapse: collapse;">
                     <tr>
