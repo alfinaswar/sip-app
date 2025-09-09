@@ -231,10 +231,10 @@
                         <thead>
                             <tr>
                                 <td style="text-align: center; width: 5%;">NO</td>
-                                <td style="text-align: center; width: 20%;">NAMA</td>
-                                <td style="text-align: center; width: 10%;">UMUR</td>
+                                <td style="text-align: center; width: 30%;">NAMA</td>
+                                <td style="text-align: center; width: 8%;">UMUR</td>
                                 <td style="text-align: center; width: 8%;">JK</td>
-                                <td style="text-align: center; width: 20%;">HUBUNGAN KELUARGA</td>
+                                <td style="text-align: center; width: 12%;">HUBUNGAN KELUARGA</td>
                                 </td>
                                 <td style="text-align: center; width: 37%;">KET</td>
                             </tr>
