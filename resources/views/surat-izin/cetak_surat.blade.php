@@ -179,11 +179,7 @@
                         </tr>
                     </table>
                 </div>
-                <!--
-                    Catatan:
-                    - Ubah nilai 'top' dan 'left' pada style div di atas untuk memindahkan posisi floating box sesuai kebutuhan.
-                    - Jika ingin bisa drag & drop, tambahkan script JS drag and drop.
-                -->
+
 
                 <table style="margin-left: 6px;">
                     <tr>
