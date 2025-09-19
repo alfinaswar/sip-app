@@ -328,7 +328,7 @@
                             </div>
                             <hr
                                 style="border: 1.5px solid #800080; background-color: #800080; margin-left:-8px; margin-right:-8px; width:calc(100% + 16px);">
-                            <div style="text-transform: uppercase; font-size: 18PX;">
+                            <div style="text-transform: uppercase; font-size: 20PX;">
                                 <strong>
                                     @php
                                         use Carbon\Carbon;
