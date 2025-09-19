@@ -237,7 +237,7 @@
                         </thead>
                         <tbody>
                             @php
-                                $jumlahAnggota = count($data->AnggotaKeluarga);
+    $jumlahAnggota = count($data->AnggotaKeluarga);
                             @endphp
                             @foreach ($data->AnggotaKeluarga as $key => $ak)
                                 <tr class="table-row">
@@ -331,27 +331,27 @@
                             <div style="text-transform: uppercase; font-size: 18PX;">
                                 <strong>
                                     @php
-                                        use Carbon\Carbon;
-                                        $bulanIndo = [
-                                            1 => 'Januari',
-                                            2 => 'Februari',
-                                            3 => 'Maret',
-                                            4 => 'April',
-                                            5 => 'Mei',
-                                            6 => 'Juni',
-                                            7 => 'Juli',
-                                            8 => 'Agustus',
-                                            9 => 'September',
-                                            10 => 'Oktober',
-                                            11 => 'November',
-                                            12 => 'Desember',
-                                        ];
-                                        $tanggalBerlakuObj = Carbon::parse($data->created_at)->addYear();
-                                        $hariBerlaku = $tanggalBerlakuObj->format('d');
-                                        $bulanBerlaku = (int) $tanggalBerlakuObj->format('m');
-                                        $tahunBerlaku = $tanggalBerlakuObj->format('Y');
-                                        $tanggalBerlaku =
-                                            $hariBerlaku . ' ' . $bulanIndo[$bulanBerlaku] . ' ' . $tahunBerlaku;
+use Carbon\Carbon;
+$bulanIndo = [
+    1 => 'Januari',
+    2 => 'Februari',
+    3 => 'Maret',
+    4 => 'April',
+    5 => 'Mei',
+    6 => 'Juni',
+    7 => 'Juli',
+    8 => 'Agustus',
+    9 => 'September',
+    10 => 'Oktober',
+    11 => 'November',
+    12 => 'Desember',
+];
+$tanggalBerlakuObj = Carbon::parse($data->created_at)->addYear();
+$hariBerlaku = $tanggalBerlakuObj->format('d');
+$bulanBerlaku = (int) $tanggalBerlakuObj->format('m');
+$tahunBerlaku = $tanggalBerlakuObj->format('Y');
+$tanggalBerlaku =
+    $hariBerlaku . ' ' . $bulanIndo[$bulanBerlaku] . ' ' . $tahunBerlaku;
                                     @endphp
                                     {{ $tanggalBerlaku }}
                                 </strong>
@@ -381,25 +381,25 @@
                             Dikeluarkan di Jakarta
                         </div>
                         @php
-                            $bulanIndo = [
-                                1 => 'Januari',
-                                2 => 'Februari',
-                                3 => 'Maret',
-                                4 => 'April',
-                                5 => 'Mei',
-                                6 => 'Juni',
-                                7 => 'Juli',
-                                8 => 'Agustus',
-                                9 => 'September',
-                                10 => 'Oktober',
-                                11 => 'November',
-                                12 => 'Desember',
-                            ];
-                            $tanggalObj = date_create($data->created_at);
-                            $hari = date_format($tanggalObj, 'd');
-                            $bulan = (int) date_format($tanggalObj, 'm');
-                            $tahun = date_format($tanggalObj, 'Y');
-                            $tanggalIndonesia = $hari . ' ' . $bulanIndo[$bulan] . ' ' . $tahun;
+$bulanIndo = [
+    1 => 'Januari',
+    2 => 'Februari',
+    3 => 'Maret',
+    4 => 'April',
+    5 => 'Mei',
+    6 => 'Juni',
+    7 => 'Juli',
+    8 => 'Agustus',
+    9 => 'September',
+    10 => 'Oktober',
+    11 => 'November',
+    12 => 'Desember',
+];
+$tanggalObj = date_create($data->created_at);
+$hari = date_format($tanggalObj, 'd');
+$bulan = (int) date_format($tanggalObj, 'm');
+$tahun = date_format($tanggalObj, 'Y');
+$tanggalIndonesia = $hari . ' ' . $bulanIndo[$bulan] . ' ' . $tahun;
                         @endphp
 
                         <div class="date-location" style="margin-bottom:3px; font-size:13px; line-height:1.1;">pada
@@ -407,9 +407,9 @@
                             {{ $tanggalIndonesia }}
                         </div>
                         <hr style="width: 95%; margin-left: 0;">
-                        <div style="font-size:13px; margin-bottom:1px; line-height:1.1; text-align:center;">
+                        <div style="font-size:13px; margin-bottom:1px; line-height:1.1; text-align:left;">
                             a.n. Panglima Kodam Jaya/Jayakarta<br>
-                            Asisten Logistik,
+                            <center>Asisten Logistik,</center>
                         </div>
                         <div class="signature-box" style="height: 40px; margin-bottom: 6px;"></div>
                         <div class="rank-number"
