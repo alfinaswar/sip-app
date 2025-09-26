@@ -202,22 +202,15 @@
                                 <td style="text-align: center; width: 15%;">UMUR</td>
                                 <td style="text-align: center; width: 8%;">JK</td>
                                 <td style="text-align: center; width: 20%;">HUBUNGANKELUARGA</td>
-                                </td>
                                 <td style="text-align: center; width: 37%;">KET</td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="table-row">
-                                <td style="text-align: center;">&nbsp;</td>
-                                <td style="text-align: left;">&nbsp;</td>
-                                <td style="text-align: center;">&nbsp;</td>
-                                <td style="text-align: center;">&nbsp;</td>
-                                <td style="text-align: center;">&nbsp;</td>
-
-                                <td style="text-align: justify;" rowspan="" style="vertical-align: top;">
-                                    &nbsp;
+                                <td colspan="5" style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: justify; vertical-align: top;">
+                                    {{ $data->Keterangan }}
                                 </td>
-
                             </tr>
                         </tbody>
                     </table>
