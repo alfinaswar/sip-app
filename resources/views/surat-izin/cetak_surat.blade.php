@@ -166,7 +166,7 @@
                 </table>
                 <!-- Floating box untuk Korps dan NRP/NIP, bisa diposisikan di mana saja dengan drag (jika ingin interaktif, perlu JS tambahan) -->
                 <div id="floating-korps-nrp"
-                    style="position: absolute; top: 395px; left: 400px; padding: 10px 20px;  z-index: 1000;">
+                    style="position: absolute; top: 395px; left: 435px; padding: 10px 20px;  z-index: 1000;">
                     <table border-collapse: collapse;">
                         <tr>
                             <td style="width: 40px;">Korps</td>
