@@ -170,11 +170,11 @@
                     <table border-collapse: collapse;">
                         <tr>
                             <td style="width: 40px;">Korps</td>
-                            <td style="width: 12px;">:</td>
+                            <td style="width: 5px;">:</td>
                             <td style="width: 10px;">{{ $data->Korps }}</td>
                             <td style="width: 20px;"></td> <!-- Jarak tambahan antara Korps dan NRP/NIP -->
                             <td style="width: 60px;">NRP/NIP</td>
-                            <td style="width: 12px;">:</td>
+                            <td style="width: 5px;">:</td>
                             <td style="width: 120px;">{{ $data->NRPNIP }}</td>
                         </tr>
                     </table>
@@ -215,7 +215,6 @@
                         </tbody>
                     </table>
                 @else
-
                     <table class="table-solid" width="100%">
                         <thead>
                             <tr>
