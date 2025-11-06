@@ -191,10 +191,39 @@
                 </table>
             </div>
 
+            <style>
+                .custom-table {
+                    border-collapse: collapse;
+                    width: 100%;
+                    border: 1px solid #000;
+                }
+
+                .custom-table thead tr td {
+                    border: 1px solid #000;
+                }
+
+                .custom-table tbody tr td {
+                    border-left: 1px solid #000;
+                    border-right: 1px solid #000;
+                    border-top: none !important;
+                    border-bottom: none !important;
+                }
+
+                .custom-table tbody tr:last-child td {
+                    border-bottom: none;
+                }
+
+                .custom-table tbody tr td:first-child {
+                    border-left: 1px solid #000;
+                }
+
+                .custom-table tbody tr td:last-child {
+                    border-right: 1px solid #000;
+                }
+            </style>
             <div class="table-container">
                 @if (is_null($data->AnggotaKeluarga[0]['nama']))
-
-                    <table class="table-solid" width="100%">
+                    <table class="custom-table">
                         <thead>
                             <tr>
                                 <td style="text-align: center; width: 5%;">NO</td>
@@ -215,7 +244,7 @@
                         </tbody>
                     </table>
                 @else
-                    <table class="table-solid" width="100%">
+                    <table class="custom-table">
                         <thead>
                             <tr>
                                 <td style="text-align: center; width: 5%;">NO</td>
@@ -223,7 +252,6 @@
                                 <td style="text-align: center; width: 8%;">UMUR</td>
                                 <td style="text-align: center; width: 8%;">JK</td>
                                 <td style="text-align: center; width: 12%;">HUBUNGAN KELUARGA</td>
-                                </td>
                                 <td style="text-align: center; width: 37%;">KET</td>
                             </tr>
                         </thead>
@@ -360,11 +388,11 @@
                         </div>
 
                     </td>
-                    <!-- Kolom Tengah: Foto -->
+
                     <td style="vertical-align:top; width:25%; text-align:center; padding:0;">
-                        <div style="margin-top: 0px;">
+                        <div style="margin-top: 45px;">
                             <div class="signature-box"
-                                style="margin-bottom: 10px; width:90px; height:120px; border:1px solid #000; display:flex; align-items:center; justify-content:center; margin-left:auto; margin-right:auto;">
+                                style="margin-bottom: 0px; width:90px; height:120px; border:1px solid #000; display:flex; align-items:center; justify-content:center; margin-left:auto; margin-right:auto;">
                                 <span style="font-size:12px;">Foto<br>3x4</span>
                             </div>
                         </div>
