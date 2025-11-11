@@ -95,7 +95,7 @@
         <img src="{{ public_path('assets/img/bgdokumen.png') }}" alt="" width="100%" height="100%">
     </div>
 
-    <div class="text-al" style="text-align: center; margin-bottom: 10px;">
+    <div class="text-al" style="text-align: center; margin-bottom: 5px;">
         <span style="font-size: 20px; font-weight: bold; letter-spacing: 2px;">SURAT IZIN PENGHUNIAN</span>
         <br>
         <span style="font-size: 19px;">Nomor SIP {!! $data->NomorSIP !!}</span>
