@@ -337,7 +337,7 @@
             </div>
 
 
-            <table style="width:100%; margin-top:30px;">
+            <table style="width:100%; margin-top:20px;">
                 <tr>
                     <!-- Kolom Kiri: Tembusan -->
                     <td style="vertical-align:top; width:30%; min-width:180px; border:0px solid #000; padding:8px;">
