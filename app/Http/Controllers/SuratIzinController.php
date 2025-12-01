@@ -137,6 +137,12 @@ class SuratIzinController extends Controller
             $data['Kpad'] = $request->Kpad;
         }
 
+        if ($request->Korps == 'lainnya') {
+            $data['Korps'] = $request->Korps_lainnya;
+        } else {
+            $data['Korps'] = $request->Korps;
+        }
+
         if ($request->hasFile('Foto')) {
             $file = $request->file('Foto');
             $namaFile = time() . '_' . $file->getClientOriginalName();
@@ -207,6 +213,11 @@ class SuratIzinController extends Controller
             $data['Kpad'] = $request->KpadLainnya;
         } else {
             $data['Kpad'] = $request->Kpad;
+        }
+        if ($request->Korps == 'lainnya') {
+            $data['Korps'] = $request->Korps_lainnya;
+        } else {
+            $data['Korps'] = $request->Korps;
         }
         $suratIzin = SuratIzin::findOrFail($id);
 

@@ -45,24 +45,25 @@
                                             <!-- ... (form kiri tetap) ... -->
                                             <div class="form-group mb-3">
                                                 <label for="NomorSIP">Nomor SIP</label>
-                                                <textarea name="NomorSIP" id="NomorSIP" class="form-control"
-                                                    placeholder="Masukkan Nomor SIP"></textarea>
+                                                <textarea name="NomorSIP" id="NomorSIP" class="form-control" placeholder="Masukkan Nomor SIP"></textarea>
                                                 <!-- Rich editor paling simpel, ambil nilai HTML saja -->
                                                 <script>
-                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                    document.addEventListener("DOMContentLoaded", function() {
                                                         // Pakai contenteditable div yang sangat simpel
                                                         var textarea = document.getElementById('NomorSIP');
                                                         // Buat div editor
                                                         var editor = document.createElement('div');
                                                         editor.setAttribute('contenteditable', 'true');
-                                                        editor.setAttribute('style', 'min-height:100px;border:1px solid #ced4da;padding:8px;border-radius:4px;background:#fff;margin-bottom:4px;');
+                                                        editor.setAttribute('style',
+                                                            'min-height:100px;border:1px solid #ced4da;padding:8px;border-radius:4px;background:#fff;margin-bottom:4px;'
+                                                            );
                                                         editor.className = 'mb-2';
                                                         editor.innerHTML = textarea.value;
                                                         textarea.style.display = 'none';
                                                         textarea.parentNode.insertBefore(editor, textarea);
 
                                                         // Sync isi editor ke textarea sebelum submit
-                                                        textarea.form.addEventListener('submit', function () {
+                                                        textarea.form.addEventListener('submit', function() {
                                                             textarea.value = editor.innerHTML;
                                                         });
                                                     });
@@ -120,7 +121,8 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="Korps">Korps</label>
-                                                <select name="Korps" id="Korps" class="form-control">
+                                                <select name="Korps" id="Korps" class="form-control"
+                                                    onchange="toggleKorpsLainnya(this)">
                                                     <option value="">Pilih Korps</option>
                                                     <option value="Inf">Inf</option>
                                                     <option value="Arh">Arh</option>
@@ -137,9 +139,25 @@
                                                     <option value="Chk">Chk</option>
                                                     <option value="Cpm">Cpm</option>
                                                     <option value="Cpn">Cpn</option>
-                                                    <option value="-">Tidak Ada</option>
+                                                    <option value="lainnya">Lainnya (isi sendiri)</option>
                                                 </select>
+                                                <input type="text" name="Korps_lainnya" id="Korps_lainnya"
+                                                    class="form-control mt-2"
+                                                    placeholder="Isi Korps jika tidak ada di daftar"
+                                                    style="display:none;">
                                             </div>
+                                            <script>
+                                                function toggleKorpsLainnya(select) {
+                                                    const input = document.getElementById('Korps_lainnya');
+                                                    if (select.value === 'lainnya') {
+                                                        input.style.display = 'block';
+                                                        input.required = true;
+                                                    } else {
+                                                        input.style.display = 'none';
+                                                        input.required = false;
+                                                    }
+                                                }
+                                            </script>
                                             <div class="form-group mb-3">
                                                 <label for="Nama">NRP / NIP</label>
                                                 <input type="text" name="NRPNIP" id="NRPNIP" class="form-control"
@@ -154,8 +172,8 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="Kesatuan">Kesatuan</label>
-                                                <input type="text" name="Kesatuan" id="Kesatuan" class="form-control"
-                                                    placeholder="Masukkan Kesatuan">
+                                                <input type="text" name="Kesatuan" id="Kesatuan"
+                                                    class="form-control" placeholder="Masukkan Kesatuan">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="Ktp">No. KTP</label>
@@ -269,19 +287,19 @@
                                             </div>
                                             <div class="form-group mb-3" id="kpadLainnyaDiv" style="display: none;">
                                                 <label for="KpadLainnya">Nama KPAD Lainnya</label>
-                                                <input type="text" name="KpadLainnya" id="KpadLainnya" class="form-control"
-                                                    placeholder="Masukkan Nama KPAD Lainnya">
+                                                <input type="text" name="KpadLainnya" id="KpadLainnya"
+                                                    class="form-control" placeholder="Masukkan Nama KPAD Lainnya">
                                             </div>
 
                                             <div class="form-group mb-3">
                                                 <label for="AlamatRumah">Alamat Rumah</label>
-                                                <input type="text" name="AlamatRumah" id="AlamatRumah" class="form-control"
-                                                    placeholder="Masukkan Alamat Rumah">
+                                                <input type="text" name="AlamatRumah" id="AlamatRumah"
+                                                    class="form-control" placeholder="Masukkan Alamat Rumah">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="TypeLuas">Type / Luas</label>
-                                                <input type="text" name="TypeLuas" id="TypeLuas" class="form-control"
-                                                    placeholder="Contoh: 36/72">
+                                                <input type="text" name="TypeLuas" id="TypeLuas"
+                                                    class="form-control" placeholder="Contoh: 36/72">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="Tmt">TMT</label>
@@ -296,8 +314,8 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="Tmt">Pangkat NRP / NIP</label>
-                                                <input type="text" name="NamaTtd2" id="NamaTtd2" class="form-control"
-                                                    placeholder=" Kolonel Czi NRP 11000050710979">
+                                                <input type="text" name="NamaTtd2" id="NamaTtd2"
+                                                    class="form-control" placeholder=" Kolonel Czi NRP 11000050710979">
                                             </div>
                                         </div>
                                     </div>
@@ -355,8 +373,7 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="AlamatRumah">Keterangan</label>
-                                        <textarea name="Keterangan" id="Keterangan" class="form-control" rows="2"
-                                            placeholder="Masukkan Keterangan"></textarea>
+                                        <textarea name="Keterangan" id="Keterangan" class="form-control" rows="2" placeholder="Masukkan Keterangan"></textarea>
                                     </div>
                                     <button type="submit" class="btn btn-success mt-3 w-100">Simpan</button>
                                 </form>
@@ -396,8 +413,8 @@
                                 </p>
                                 <div class="d-flex gap-2 mb-2">
 
-                                    <form action="{{ route('importExcel') }}" method="POST" enctype="multipart/form-data"
-                                        class="d-inline">
+                                    <form action="{{ route('importExcel') }}" method="POST"
+                                        enctype="multipart/form-data" class="d-inline">
                                         @csrf
                                         <input type="file" name="file" accept=".xlsx,.xls"
                                             class="form-control form-control-sm d-inline"
@@ -561,10 +578,10 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
             <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
             <script>
-                document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function() {
                     var kpadSelect = document.getElementById('Kpad');
                     var kpadLainnyaDiv = document.getElementById('kpadLainnyaDiv');
-                    kpadSelect.addEventListener('change', function () {
+                    kpadSelect.addEventListener('change', function() {
                         if (this.value === 'Lainnya') {
                             kpadLainnyaDiv.style.display = 'block';
                         } else {
@@ -574,7 +591,7 @@
                 });
             </script>
             <script>
-                $(function () {
+                $(function() {
                     var table = $('#dataTableSuratIzin').DataTable({
                         processing: true,
                         serverSide: true,
@@ -582,30 +599,97 @@
                         autoWidth: false,
                         ajax: {
                             url: "{{ route('datatable') }}",
-                            data: function (d) {
+                            data: function(d) {
                                 d.status = $('#filterStatus').val();
                             }
                         },
-                        columns: [
-                            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false, className: 'align-middle text-center' },
-                            { data: 'Nama', name: 'Nama', className: 'align-middle' },
-                            { data: 'Pangkat', name: 'Pangkat', className: 'align-middle' },
-                            { data: 'Korps', name: 'Korps', className: 'align-middle' },
-                            { data: 'NRPNIP', name: 'NRPNIP', className: 'align-middle' },
-                            { data: 'Jabatan', name: 'Jabatan', className: 'align-middle' },
-                            { data: 'Kesatuan', name: 'Kesatuan', className: 'align-middle' },
-                            { data: 'Ktp', name: 'Ktp', className: 'align-middle' },
-                            { data: 'Ttl', name: 'Ttl', className: 'align-middle' },
-                            { data: 'Status', name: 'Status', className: 'align-middle' },
-                            { data: 'JumlahTanggungan', name: 'JumlahTanggungan', className: 'align-middle' },
-                            { data: 'Kpad', name: 'Kpad', className: 'align-middle' },
-                            { data: 'AlamatRumah', name: 'AlamatRumah', className: 'align-middle' },
-                            { data: 'TypeLuas', name: 'TypeLuas', className: 'align-middle' },
-                            { data: 'Tmt', name: 'Tmt', className: 'align-middle' },
-                            { data: 'action', name: 'action', className: 'align-middle' },
+                        columns: [{
+                                data: 'DT_RowIndex',
+                                name: 'DT_RowIndex',
+                                orderable: false,
+                                searchable: false,
+                                className: 'align-middle text-center'
+                            },
+                            {
+                                data: 'Nama',
+                                name: 'Nama',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Pangkat',
+                                name: 'Pangkat',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Korps',
+                                name: 'Korps',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'NRPNIP',
+                                name: 'NRPNIP',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Jabatan',
+                                name: 'Jabatan',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Kesatuan',
+                                name: 'Kesatuan',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Ktp',
+                                name: 'Ktp',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Ttl',
+                                name: 'Ttl',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Status',
+                                name: 'Status',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'JumlahTanggungan',
+                                name: 'JumlahTanggungan',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Kpad',
+                                name: 'Kpad',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'AlamatRumah',
+                                name: 'AlamatRumah',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'TypeLuas',
+                                name: 'TypeLuas',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Tmt',
+                                name: 'Tmt',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'action',
+                                name: 'action',
+                                className: 'align-middle'
+                            },
 
                         ],
-                        order: [[1, 'asc']],
+                        order: [
+                            [1, 'asc']
+                        ],
                         language: {
                             "search": "Cari:",
                             "lengthMenu": "Tampilkan _MENU_ data",
@@ -623,14 +707,14 @@
                     });
 
                     // Event untuk filter status
-                    $('#filterStatus').on('change', function () {
+                    $('#filterStatus').on('change', function() {
 
                         table.ajax.reload();
                     });
                 });
             </script>
             <script>
-                $(function () {
+                $(function() {
                     var table = $('#tablehistory').DataTable({
                         processing: true,
                         serverSide: true,
@@ -638,31 +722,98 @@
                         autoWidth: false,
                         ajax: {
                             url: "{{ route('History') }}",
-                            data: function (d) {
+                            data: function(d) {
                                 d.status = $('#filterStatus').val();
                             }
                         },
-                        columns: [
-                            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false, className: 'align-middle text-center' },
-                            { data: 'Nama', name: 'Nama', className: 'align-middle' },
-                            { data: 'Pangkat', name: 'Pangkat', className: 'align-middle' },
-                            { data: 'Korps', name: 'Korps', className: 'align-middle' },
-                            { data: 'NRPNIP', name: 'NRPNIP', className: 'align-middle' },
-                            { data: 'Jabatan', name: 'Jabatan', className: 'align-middle' },
-                            { data: 'Kesatuan', name: 'Kesatuan', className: 'align-middle' },
-                            { data: 'Ktp', name: 'Ktp', className: 'align-middle' },
-                            { data: 'Ttl', name: 'Ttl', className: 'align-middle' },
-                            { data: 'Status', name: 'Status', className: 'align-middle' },
-                            { data: 'JumlahTanggungan', name: 'JumlahTanggungan', className: 'align-middle' },
-                            { data: 'Kpad', name: 'Kpad', className: 'align-middle' },
-                            { data: 'AlamatRumah', name: 'AlamatRumah', className: 'align-middle' },
-                            { data: 'TypeLuas', name: 'TypeLuas', className: 'align-middle' },
-                            { data: 'Tmt', name: 'Tmt', className: 'align-middle' },
-                            { data: 'action', name: 'action', className: 'align-middle' },
+                        columns: [{
+                                data: 'DT_RowIndex',
+                                name: 'DT_RowIndex',
+                                orderable: false,
+                                searchable: false,
+                                className: 'align-middle text-center'
+                            },
+                            {
+                                data: 'Nama',
+                                name: 'Nama',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Pangkat',
+                                name: 'Pangkat',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Korps',
+                                name: 'Korps',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'NRPNIP',
+                                name: 'NRPNIP',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Jabatan',
+                                name: 'Jabatan',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Kesatuan',
+                                name: 'Kesatuan',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Ktp',
+                                name: 'Ktp',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Ttl',
+                                name: 'Ttl',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Status',
+                                name: 'Status',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'JumlahTanggungan',
+                                name: 'JumlahTanggungan',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Kpad',
+                                name: 'Kpad',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'AlamatRumah',
+                                name: 'AlamatRumah',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'TypeLuas',
+                                name: 'TypeLuas',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'Tmt',
+                                name: 'Tmt',
+                                className: 'align-middle'
+                            },
+                            {
+                                data: 'action',
+                                name: 'action',
+                                className: 'align-middle'
+                            },
 
 
                         ],
-                        order: [[1, 'asc']],
+                        order: [
+                            [1, 'asc']
+                        ],
                         language: {
                             "search": "Cari:",
                             "lengthMenu": "Tampilkan _MENU_ data",
@@ -680,7 +831,7 @@
                     });
 
                     // Event untuk filter status
-                    $('#filterStatus').on('change', function () {
+                    $('#filterStatus').on('change', function() {
 
                         table.ajax.reload();
                     });
@@ -689,7 +840,8 @@
             <script>
                 // Script untuk anggota keluarga tetap sama
                 let rowIdx = 1;
-                const hubunganOptions = `
+                const hubunganOptions =
+                    `
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <option value="">Pilih</option>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <option value="Suami">Suami</option>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <option value="Istri">Istri</option>
@@ -705,13 +857,14 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <option value="Lainnya">Lainnya</option>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     `;
 
-                document.getElementById('addRow').addEventListener('click', function () {
+                document.getElementById('addRow').addEventListener('click', function() {
                     if (rowIdx >= 7) return alert("Maksimal 7 anggota keluarga");
 
                     const tbody = document.querySelector('#anggotaKeluargaTable tbody');
                     const row = document.createElement('tr');
 
-                    row.innerHTML = `
+                    row.innerHTML =
+                        `
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             <td><input type="text" name="AnggotaKeluarga[${rowIdx}][nama]" class="form-control"></td>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             <td><input type="text" name="AnggotaKeluarga[${rowIdx}][umur]" class="form-control"></td>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             <td>
@@ -734,7 +887,7 @@
                     rowIdx++;
                 });
 
-                document.addEventListener('click', function (e) {
+                document.addEventListener('click', function(e) {
                     if (e.target.classList.contains('removeRow')) {
                         e.target.closest('tr').remove();
                         rowIdx--;
@@ -742,4 +895,4 @@
                 });
             </script>
         @endpush
-@endsection
+    @endsection
