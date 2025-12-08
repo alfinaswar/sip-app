@@ -400,6 +400,11 @@
                                                             {{ old('Kpad', $suratIzin->Kpad) == 'PALAD' ? 'selected' : '' }}>
                                                             47 PALAD</option>
                                                     </optgroup>
+                                                    <optgroup label="Jakarta Selatan">
+                                                        <option value="KALIBATA"
+                                                            {{ old('Kpad', $suratIzin->Kpad) == 'KALIBATA' ? 'selected' : '' }}>
+                                                            48 KALIBATA</option>
+                                                    </optgroup>
                                                 </select>
                                             </div>
                                             <div class="form-group mb-3" id="kpadLainnyaDiv"

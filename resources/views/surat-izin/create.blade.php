@@ -56,7 +56,7 @@
                                                         editor.setAttribute('contenteditable', 'true');
                                                         editor.setAttribute('style',
                                                             'min-height:100px;border:1px solid #ced4da;padding:8px;border-radius:4px;background:#fff;margin-bottom:4px;'
-                                                            );
+                                                        );
                                                         editor.className = 'mb-2';
                                                         editor.innerHTML = textarea.value;
                                                         textarea.style.display = 'none';
@@ -282,6 +282,9 @@
                                                         <option value="JATIWARNA">45 JATIWARNA</option>
                                                         <option value="KOLOGAD">46 KOLOGAD</option>
                                                         <option value="PALAD">47 PALAD</option>
+                                                    </optgroup>
+                                                    <optgroup label="Jakarta Selatan">
+                                                        <option value="KALIBATA">48 KALIBATA</option>
                                                     </optgroup>
                                                 </select>
                                             </div>
