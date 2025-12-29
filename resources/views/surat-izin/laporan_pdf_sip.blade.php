@@ -119,7 +119,7 @@
                         <td>{{ $item->Ttl ?? '-' }}</td>
                         <td>{{ $item->Status ?? '-' }}</td>
                         <td>
-                            @if(isset($item->JumlahTanggungan))
+                            @if (isset($item->JumlahTanggungan))
                                 {{ $item->JumlahTanggungan . ' orang' }}
                             @else
                                 -
@@ -127,21 +127,34 @@
                         </td>
                         <td>
                             @php
-                                // Format anggota keluarga jika array/json
+                                // Pastikan anggota keluarga berupa string untuk mencegah error pada htmlspecialchars
                                 $anggota = $item->AnggotaKeluarga ?? '-';
-                                if (is_string($anggota)) {
+
+                                // Jika anggota berupa array, gabungkan jadi string
+                                if (is_array($anggota)) {
+                                    $anggota = implode(
+                                        ', ',
+                                        array_map(function ($a) {
+                                            return is_array($a) ? implode(' ', $a) : $a;
+                                        }, $anggota),
+                                    );
+                                } elseif (is_string($anggota)) {
+                                    // Jika kemungkinan json string
                                     $decoded = json_decode($anggota, true);
                                     if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
-                                        $anggota = implode(', ', array_map(function ($a) {
-                                            if (is_array($a)) {
-                                                return implode(' ', $a);
-                                            }
-                                            return $a;
-                                        }, $decoded));
+                                        $anggota = implode(
+                                            ', ',
+                                            array_map(function ($a) {
+                                                return is_array($a) ? implode(' ', $a) : $a;
+                                            }, $decoded),
+                                        );
                                     }
+                                } else {
+                                    // Selain string atau array, fallback ke '-'
+                                    $anggota = '-';
                                 }
                             @endphp
-                            {{ $anggota ?: '-' }}
+                            {{ is_string($anggota) && strlen($anggota) ? $anggota : '-' }}
                         </td>
                         <td>{{ $item->UntukMenempati ?? '-' }}</td>
                         <td>{{ $item->Keterangan ?? '-' }}</td>

@@ -444,6 +444,12 @@
                                                     value="{{ old('NamaTtd2', $suratIzin->NamaTtd2) }}"
                                                     placeholder=" Kolonel Czi NRP 11000050710979">
                                             </div>
+                                            <div class="form-group mb-3">
+                                                <label for="TanggalDibuat">Tanggal Dibuat</label>
+                                                <input type="date" name="TanggalDibuat" id="TanggalDibuat"
+                                                    class="form-control"
+                                                    value="{{ old('TanggalDibuat', $suratIzin->TanggalDibuat) }}">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group mb-3 mt-3">

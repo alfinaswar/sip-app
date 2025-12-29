@@ -320,6 +320,11 @@
                                                 <input type="text" name="NamaTtd2" id="NamaTtd2"
                                                     class="form-control" placeholder=" Kolonel Czi NRP 11000050710979">
                                             </div>
+                                            <div class="form-group mb-3">
+                                                <label for="TanggalDibuat">Tanggal Dibuat</label>
+                                                <input type="date" name="TanggalDibuat" id="TanggalDibuat"
+                                                    class="form-control">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group mb-3 mt-3">

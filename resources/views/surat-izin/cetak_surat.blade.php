@@ -366,7 +366,11 @@
                                             11 => 'November',
                                             12 => 'Desember',
                                         ];
-                                        $tanggalBerlakuObj = Carbon::parse($data->created_at)->addYear();
+                                        $tanggalSumber = $data->TanggalDibuat ?? null;
+                                        if (empty($tanggalSumber)) {
+                                            $tanggalSumber = $data->created_at;
+                                        }
+                                        $tanggalBerlakuObj = Carbon::parse($tanggalSumber)->addYear();
                                         $hariBerlaku = $tanggalBerlakuObj->format('d');
                                         $bulanBerlaku = (int) $tanggalBerlakuObj->format('m');
                                         $tahunBerlaku = $tanggalBerlakuObj->format('Y');
@@ -420,7 +424,11 @@
                                 11 => 'November',
                                 12 => 'Desember',
                             ];
-                            $tanggalObj = date_create($data->created_at);
+                            $tanggalDibuat = $data->TanggalDibuat ?? null;
+                            if (!$tanggalDibuat) {
+                                $tanggalDibuat = $data->created_at ?? null;
+                            }
+                            $tanggalObj = $tanggalDibuat ? date_create($tanggalDibuat) : null;
                             $hari = date_format($tanggalObj, 'd');
                             $bulan = (int) date_format($tanggalObj, 'm');
                             $tahun = date_format($tanggalObj, 'Y');
