@@ -226,18 +226,26 @@
                     <table class="custom-table">
                         <thead>
                             <tr>
-                                <td style="text-align: center; width: 5%;">NO</td>
-                                <td style="text-align: center; width: 25%;">NAMA</td>
-                                <td style="text-align: center; width: 15%;">UMUR</td>
-                                <td style="text-align: center; width: 8%;">JK</td>
-                                <td style="text-align: center; width: 20%;">HUBUNGANKELUARGA</td>
-                                <td style="text-align: center; width: 37%;">KET</td>
+                                <td
+                                    style="text-align: center; width: 5%; border-left:1px solid #000; border-right:1px solid #000;">
+                                    NO</td>
+                                <td style="text-align: center; width: 25%; border-right:1px solid #000;">NAMA</td>
+                                <td style="text-align: center; width: 15%; border-right:1px solid #000;">UMUR</td>
+                                <td style="text-align: center; width: 8%; border-right:1px solid #000;">JK</td>
+                                <td style="text-align: center; width: 20%; border-right:1px solid #000;">
+                                    HUBUNGANKELUARGA</td>
+                                <td style="text-align: center; width: 37%; border-right:1px solid #000;">KET</td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="table-row">
-                                <td colspan="5" style="text-align: center;">&nbsp;</td>
-                                <td style="text-align: justify; vertical-align: top;">
+                                <td style="border-left:1px solid #000; border-right:1px solid #000; text-align:center;">
+                                    &nbsp;</td>
+                                <td style="border-right:1px solid #000;">&nbsp;</td>
+                                <td style="border-right:1px solid #000;">&nbsp;</td>
+                                <td style="border-right:1px solid #000;">&nbsp;</td>
+                                <td style="border-right:1px solid #000;">&nbsp;</td>
+                                <td style="border-right:1px solid #000; text-align: justify; vertical-align: top;">
                                     {{ $data->Keterangan }}
                                 </td>
                             </tr>
