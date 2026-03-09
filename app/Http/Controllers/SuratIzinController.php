@@ -173,14 +173,21 @@ class SuratIzinController extends Controller
     }
     public function exportPdf()
     {
+        ini_set('max_execution_time', 300);
         $data = SuratIzin::get();
         $pdf = Pdf::loadView('surat-izin.laporan_pdf_sip', compact('data'))
             ->setPaper([0, 0, 935.43, 595.28], 'landscape'); // F4 landscape
 
         return $pdf->stream('surat-izin.laporan_pdf_sip');
     }
+    /**
+     * Export PDF History (MAX EXECUTION TIME 5 MENIT)
+     */
     public function exportPdfHistory()
     {
+        // MAX EXECUTION TIME 5 MENIT
+        ini_set('max_execution_time', 300);
+
         $data = RiwayatUpdate::get();
         $pdf = Pdf::loadView('surat-izin.laporan_pdf_sip', compact('data'))
             ->setPaper([0, 0, 935.43, 595.28], 'landscape'); // F4 landscape

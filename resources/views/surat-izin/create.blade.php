@@ -273,10 +273,10 @@
                                                         <option value="ZENI KRAMAT JATI">41 ZENI KRAMAT JATI</option>
                                                     </optgroup>
                                                     <optgroup label="WILAYAH KODIM 0506/TGR">
-                                                        <option value="REMPoa MABAD 21">42 REMPOA MABAD 21</option>
-                                                        <option value="REMPoa MABAD 25/60/124">43 REMPOA MABAD 25/60/124
+                                                        <option value="REMPOA MABAD 21">42 REMPOA MABAD 21</option>
+                                                        <option value="REMPOA MABAD 25/60/124">43 REMPOA MABAD 25/60/124
                                                         </option>
-                                                        <option value="REMPoa MABAD 55/65">44 REMPOA MABAD 55/65</option>
+                                                        <option value="REMPOA MABAD 55/65">44 REMPOA MABAD 55/65</option>
                                                     </optgroup>
                                                     <optgroup label="WILAYAH KODIM 0507/BKS">
                                                         <option value="JATIWARNA">45 JATIWARNA</option>
