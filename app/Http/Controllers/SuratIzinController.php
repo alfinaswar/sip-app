@@ -174,7 +174,7 @@ class SuratIzinController extends Controller
     public function exportPdf()
     {
         ini_set('max_execution_time', 300);
-        $data = SuratIzin::get();
+        $data = SuratIzin::whereYear('created_at', date('Y'))->get();
         $pdf = Pdf::loadView('surat-izin.laporan_pdf_sip', compact('data'))
             ->setPaper([0, 0, 935.43, 595.28], 'landscape'); // F4 landscape
 
@@ -188,7 +188,7 @@ class SuratIzinController extends Controller
         // MAX EXECUTION TIME 5 MENIT
         ini_set('max_execution_time', 300);
 
-        $data = RiwayatUpdate::get();
+        $data = RiwayatUpdate::whereYear('created_at', date('Y'))->get();
         $pdf = Pdf::loadView('surat-izin.laporan_pdf_sip', compact('data'))
             ->setPaper([0, 0, 935.43, 595.28], 'landscape'); // F4 landscape
 
