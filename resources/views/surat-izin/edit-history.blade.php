@@ -376,15 +376,15 @@
                                                             ZENI KRAMAT JATI</option>
                                                     </optgroup>
                                                     <optgroup label="WILAYAH KODIM 0506/TGR">
-                                                        <option value="REMPoa MABAD 21"
-                                                            {{ old('Kpad', $suratIzin->Kpad) == 'REMPoa MABAD 21' ? 'selected' : '' }}>
+                                                        <option value="REMPOA MABAD 21"
+                                                            {{ old('Kpad', $suratIzin->Kpad) == 'REMPOA MABAD 21' ? 'selected' : '' }}>
                                                             42
                                                             REMPOA MABAD 21</option>
-                                                        <option value="REMPoa MABAD 25/60/124"
-                                                            {{ old('Kpad', $suratIzin->Kpad) == 'REMPoa MABAD 25/60/124' ? 'selected' : '' }}>
+                                                        <option value="REMPOA MABAD 25/60/124"
+                                                            {{ old('Kpad', $suratIzin->Kpad) == 'REMPOA MABAD 25/60/124' ? 'selected' : '' }}>
                                                             43 REMPOA MABAD 25/60/124</option>
-                                                        <option value="REMPoa MABAD 55/65"
-                                                            {{ old('Kpad', $suratIzin->Kpad) == 'REMPoa MABAD 55/65' ? 'selected' : '' }}>
+                                                        <option value="REMPOA MABAD 55/65"
+                                                            {{ old('Kpad', $suratIzin->Kpad) == 'REMPOA MABAD 55/65' ? 'selected' : '' }}>
                                                             44
                                                             REMPOA MABAD 55/65</option>
                                                     </optgroup>
