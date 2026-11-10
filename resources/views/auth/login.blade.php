@@ -3,175 +3,169 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>APLIKASI SIP RUMAH DINAS KPAD KODAM JAYA/JAYAKARTA</title>
-    <!-- CSS files -->
-    <link href="{{ url('assets/css/tabler.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ url('assets/css/tabler-flags.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ url('assets/css/tabler-payments.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ url('assets/css/tabler-vendors.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ url('assets/css/demo.min.css') }}" rel="stylesheet" type="text/css" />
-    <style>
-        @import url('https://rsms.me/inter/inter.css');
 
-        :root {
-            --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
-        }
-
-        body {
-            font-feature-settings: "cv03", "cv04", "cv11";
-        }
-
-        .login-container {
-            position: relative;
-            min-height: 100vh;
-            background: #f5f7fb;
-        }
-
-        .centered-content {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .login-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
-            padding: 40px 32px;
-            gap: 32px;
-            /* Tambahan jarak antar elemen */
-        }
-
-        .logo-side {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 80px;
-        }
-
-        .logo-side img {
-            width: 90px;
-        }
-
-        .form-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 320px;
-            max-width: 400px;
-            width: 100%;
-            padding-inline: 24px;
-            /* Tambahan jarak antara form dan logo */
-        }
-
-        .app-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-align: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .app-subtitle {
-            font-size: 1.05rem;
-            font-weight: 500;
-            text-align: center;
-            color: #555;
-            margin-bottom: 1.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .login-wrapper {
-                flex-direction: column;
-                padding: 24px 8px;
-                gap: 24px;
-            }
-
-            .logo-side {
-                min-width: 0;
-                margin-bottom: 12px;
-            }
-        }
-    </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <!-- AdminLTE 3 Core -->
+    <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
+    <!-- Tema TNI AD / Kodam Jaya -->
+    <link rel="stylesheet" href="{{ asset('assets/dist/css/tni-theme.css') }}">
 </head>
 
-<body class="d-flex flex-column login-container">
-    <script src="{{ url('assets/js/demo-theme.min.js')}}"></script>
-    <div class="centered-content">
-        <div class="login-wrapper">
-            <!-- Logo kiri -->
-            <div class="logo-side">
-                <img src="{{ url('assets/img/loghijau.png') }}" alt="Logo Hijau">
-            </div>
-
-            <!-- Form dan judul aplikasi -->
-            <div class="form-section">
-                <div class="app-title">APLIKASI SIP RUMAH DINAS</div>
-                <div class="app-subtitle">KPAD KODAM JAYA/JAYAKARTA</div>
-                <div class="card card-md w-100">
-                    <div class="card-body">
-                        <h2 class="h2 text-center mb-4">Masuk ke Akun Anda</h2>
-                        <form method="POST" action="{{ route('login') }}" autocomplete="on" novalidate>
-                            @csrf
-                            <div class="mb-3">
-                                <label class="form-label">Email</label>
-                                <input id="email" type="email" placeholder="Email Anda"
-                                    class="form-control @error('email') is-invalid @enderror" name="email"
-                                    value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                                @enderror
-                            </div>
-
-                            <div class="mb-2">
-                                <label class="form-label">Kata Sandi</label>
-                                <div class="input-group input-group-flat">
-                                    <input id="password" type="password" placeholder="Kata Sandi"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="current-password">
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                                    @enderror
-                                    <span class="input-group-text">
-                                        <a href="#" class="link-secondary" title="Tampilkan password"
-                                            data-bs-toggle="tooltip">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <circle cx="12" cy="12" r="2" />
-                                                <path
-                                                    d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" />
-                                            </svg>
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="form-footer">
-                                <button type="submit" class="btn btn-info w-100">Masuk</button>
-                            </div>
-                        </form>
+<body class="hold-transition tni-auth-page">
+    <div class="tni-login-wrapper">
+        <div class="card tni-login-card mb-0">
+            <!-- Header Banner Militer dengan Dual Lambang -->
+            <div class="tni-login-banner">
+                <div class="row align-items-center text-center">
+                    <div class="col-3 col-sm-2 d-flex justify-content-center">
+                        <img src="{{ asset('assets/img/loghijau.png') }}" alt="Logo Kodam Jaya" class="tni-crest">
+                    </div>
+                    <div class="col-6 col-sm-8 px-2">
+                        <div class="tni-login-title">APLIKASI SIP RUMAH DINAS</div>
+                        <div class="tni-login-subtitle">KPAD KODAM JAYA / JAYAKARTA</div>
+                        <div class="tni-login-tagline d-none d-sm-block">
+                            Sistem Informasi Surat Izin Penghunian TNI AD
+                        </div>
+                    </div>
+                    <div class="col-3 col-sm-2 d-flex justify-content-center">
+                        <img src="{{ asset('assets/img/logoemas.png') }}" alt="Logo Kartika Eka Paksi"
+                            class="tni-crest">
                     </div>
                 </div>
             </div>
 
-            <!-- Logo kanan -->
-            <div class="logo-side">
-                <img src="{{ url('assets/img/logoemas.png') }}" alt="Logo Emas">
+            <!-- Form Login AdminLTE 3 -->
+            <div class="card-body login-card-body">
+                <div class="row justify-content-center">
+                    <div class="col-md-9 col-lg-8">
+                        <h4 class="text-center font-weight-bold text-dark mb-1">Masuk ke Akun Anda</h4>
+                        <div class="tni-divider-gold"></div>
+
+                        @if (session('status'))
+                            <div class="alert alert-success alert-dismissible fade show py-2" role="alert">
+                                <small><i class="fas fa-check-circle mr-1"></i> {{ session('status') }}</small>
+                                <button type="button" class="close py-1" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible fade show py-2" role="alert">
+                                <small><i class="fas fa-exclamation-triangle mr-1"></i> {{ $errors->first() }}</small>
+                                <button type="button" class="close py-1" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+
+                        <form method="POST" action="{{ route('login') }}" autocomplete="on">
+                            @csrf
+                            <div class="form-group">
+                                <label for="email" class="font-weight-semibold text-dark">Email</label>
+                                <div class="input-group">
+                                    <input id="email" type="email" name="email" value="{{ old('email') }}"
+                                        class="form-control @error('email') is-invalid @enderror"
+                                        placeholder="Masukkan email dinas Anda" required autocomplete="email" autofocus>
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-envelope"></span>
+                                        </div>
+                                    </div>
+                                    @error('email')
+                                        <span class="invalid-feedback d-block" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="font-weight-semibold text-dark">Kata Sandi</label>
+                                <div class="input-group">
+                                    <input id="password" type="password" name="password"
+                                        class="form-control @error('password') is-invalid @enderror"
+                                        placeholder="Masukkan kata sandi" required autocomplete="current-password">
+                                    <div class="input-group-append">
+                                        <button type="button" id="togglePassword"
+                                            class="input-group-text btn btn-light"
+                                            title="Tampilkan / Sembunyikan Kata Sandi"
+                                            aria-label="Tampilkan Kata Sandi">
+                                            <span class="fas fa-eye" id="togglePasswordIcon"></span>
+                                        </button>
+                                    </div>
+                                    @error('password')
+                                        <span class="invalid-feedback d-block" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row align-items-center mb-3">
+                                <div class="col-6">
+                                    <div class="icheck-success">
+                                        <input type="checkbox" id="remember" name="remember"
+                                            {{ old('remember') ? 'checked' : '' }}>
+                                        <label for="remember" class="font-weight-normal text-muted">
+                                            Ingat saya
+                                        </label>
+                                    </div>
+                                </div>
+                                @if (Route::has('password.request'))
+                                    <div class="col-6 text-right">
+                                        <a href="{{ route('password.request') }}"
+                                            class="text-success font-weight-semibold small">
+                                            <i class="fas fa-unlock-alt mr-1"></i>Lupa kata sandi?
+                                        </a>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <button type="submit" class="btn btn-tni btn-block py-2">
+                                <i class="fas fa-sign-in-alt mr-1"></i> Masuk
+                            </button>
+                        </form>
+
+                        {{-- <div class="text-center mt-3 pt-2 border-top">
+                            <small class="text-muted">
+                                <i class="fas fa-shield-alt mr-1 text-success"></i>
+                                Tentara Nasional Indonesia Angkatan Darat
+                            </small>
+                        </div> --}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Libs JS -->
-    <script src="{{ url('') }}assets/js/tabler.min.js" defer></script>
-    <script src="{{ url('') }}assets/js/demo.min.js" defer></script>
+    <!-- jQuery, Bootstrap 4, AdminLTE -->
+    <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
+    <script>
+        (function() {
+            var toggleBtn = document.getElementById('togglePassword');
+            var passwordInput = document.getElementById('password');
+            var toggleIcon = document.getElementById('togglePasswordIcon');
+
+            if (toggleBtn && passwordInput && toggleIcon) {
+                toggleBtn.addEventListener('click', function() {
+                    var isPassword = passwordInput.getAttribute('type') === 'password';
+                    passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+                    toggleIcon.classList.toggle('fa-eye', !isPassword);
+                    toggleIcon.classList.toggle('fa-eye-slash', isPassword);
+                });
+            }
+        })();
+    </script>
 </body>
 
 </html>

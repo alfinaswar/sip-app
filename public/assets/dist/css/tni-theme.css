@@ -1,0 +1,340 @@
+/* ==========================================================================
+   Tema Tentara Nasional Indonesia Angkatan Darat (TNI AD - Kodam Jaya)
+   AdminLTE 3 Override CSS
+   ========================================================================== */
+
+:root {
+    --tni-dark: #182114;
+    --tni-sidebar: #1f2b19;
+    --tni-navbar: #24331d;
+    --tni-olive: #3e4d3a;
+    --tni-olive-deep: #4b5320;
+    --tni-olive-hover: #313f2b;
+    --tni-gold: #bfa14a;
+    --tni-gold-bright: #d4b85c;
+    --tni-gold-soft: rgba(191, 161, 74, 0.18);
+    --tni-crimson: #9e1b1b;
+}
+
+/* Main Top Navbar */
+.main-header.navbar-tni {
+    background-color: var(--tni-navbar);
+    border-bottom: 2px solid var(--tni-gold);
+}
+
+.main-header.navbar-tni .nav-link {
+    color: #eef2ea;
+}
+
+.main-header.navbar-tni .nav-link:hover,
+.main-header.navbar-tni .nav-link:focus {
+    color: var(--tni-gold-bright);
+}
+
+.main-header.navbar-tni .badge-tni {
+    background-color: var(--tni-gold);
+    color: var(--tni-dark);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Main Sidebar */
+.main-sidebar.sidebar-tni {
+    background-color: var(--tni-sidebar);
+}
+
+.sidebar-tni .brand-link {
+    background-color: var(--tni-dark);
+    border-bottom: 1px solid rgba(191, 161, 74, 0.35);
+    color: #fff;
+}
+
+.sidebar-tni .brand-link:hover {
+    color: var(--tni-gold-bright);
+}
+
+.sidebar-tni .brand-text {
+    letter-spacing: 0.6px;
+}
+
+.sidebar-tni .user-panel {
+    border-bottom: 1px solid rgba(191, 161, 74, 0.22);
+}
+
+.sidebar-tni .nav-header {
+    color: var(--tni-gold);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.sidebar-tni .nav-sidebar > .nav-item > .nav-link {
+    color: #dbe3d5;
+    border-left: 3px solid transparent;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar-tni .nav-sidebar > .nav-item > .nav-link:hover {
+    background-color: rgba(191, 161, 74, 0.12);
+    color: #ffffff;
+}
+
+.sidebar-tni .nav-sidebar > .nav-item > .nav-link.active {
+    background-color: var(--tni-olive-deep);
+    border-left: 3px solid var(--tni-gold);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+}
+
+.sidebar-tni .nav-sidebar > .nav-item > .nav-link.active i {
+    color: var(--tni-gold-bright);
+}
+
+.sidebar-tni .nav-item.menu-open > .nav-link {
+    background-color: #2b3a23;
+    color: #ffffff;
+}
+
+.sidebar-tni .nav-treeview {
+    background-color: rgba(0, 0, 0, 0.14);
+}
+
+.sidebar-tni .nav-treeview > .nav-item > .nav-link {
+    color: #c8d3c0;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-tni .nav-treeview > .nav-item > .nav-link:hover {
+    background-color: rgba(191, 161, 74, 0.12);
+    color: #ffffff;
+}
+
+.sidebar-tni .nav-treeview > .nav-item > .nav-link.active {
+    background-color: rgba(191, 161, 74, 0.22);
+    border-left: 3px solid var(--tni-gold);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.sidebar-tni .nav-treeview > .nav-item > .nav-link.active i {
+    color: var(--tni-gold-bright);
+}
+
+/* Content Header & Cards */
+.content-wrapper {
+    background-color: #f3f5f0;
+}
+
+.card-tni {
+    border-top: 3px solid var(--tni-gold);
+}
+
+.card-tni > .card-header,
+.card-header-tni {
+    background-color: var(--tni-olive-deep);
+    color: #ffffff;
+    border-bottom: 2px solid var(--tni-gold);
+}
+
+.card-tni-tabs > .card-header {
+    background-color: #ebefe6;
+    border-bottom: 2px solid var(--tni-olive-deep);
+}
+
+.card-tni-tabs .nav-tabs .nav-link {
+    color: var(--tni-olive);
+    font-weight: 600;
+}
+
+.card-tni-tabs .nav-tabs .nav-link:hover {
+    border-color: transparent;
+    color: var(--tni-dark);
+}
+
+.card-tni-tabs .nav-tabs .nav-link.active {
+    background-color: var(--tni-olive-deep);
+    color: #ffffff;
+    border-color: var(--tni-olive-deep);
+    border-top: 3px solid var(--tni-gold);
+}
+
+/* Buttons */
+.btn-tni {
+    background-color: var(--tni-olive-deep);
+    border-color: var(--tni-olive);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.btn-tni:hover,
+.btn-tni:focus {
+    background-color: var(--tni-olive-hover);
+    border-color: var(--tni-dark);
+    color: #ffffff;
+}
+
+.btn-tni-gold {
+    background-color: var(--tni-gold);
+    border-color: #a98b36;
+    color: var(--tni-dark);
+    font-weight: 700;
+}
+
+.btn-tni-gold:hover,
+.btn-tni-gold:focus {
+    background-color: var(--tni-gold-bright);
+    border-color: var(--tni-gold);
+    color: var(--tni-dark);
+}
+
+/* Form Focus & Controls */
+.form-control:focus,
+.custom-select:focus,
+.custom-file-input:focus ~ .custom-file-label {
+    border-color: var(--tni-gold);
+    box-shadow: 0 0 0 0.2rem rgba(191, 161, 74, 0.25);
+}
+
+/* DataTables & Pagination */
+.table-tni thead th {
+    background-color: var(--tni-olive);
+    color: #ffffff;
+    border-color: var(--tni-olive-deep);
+    vertical-align: middle;
+}
+
+.page-item.active .page-link {
+    background-color: var(--tni-olive-deep);
+    border-color: var(--tni-olive-deep);
+    color: #ffffff;
+}
+
+.page-link {
+    color: var(--tni-olive-deep);
+}
+
+.page-link:hover {
+    color: var(--tni-dark);
+    background-color: #e9ede4;
+}
+
+/* Footer */
+.main-footer.footer-tni {
+    background-color: #ffffff;
+    border-top: 2px solid rgba(75, 83, 32, 0.2);
+    color: #495057;
+}
+
+/* ==========================================================================
+   Halaman Login & Auth Tema TNI AD
+   ========================================================================== */
+body.tni-auth-page {
+    min-height: 100vh;
+    background-color: var(--tni-dark);
+    background-image:
+        radial-gradient(circle at top left, rgba(191, 161, 74, 0.16), transparent 42%),
+        radial-gradient(circle at bottom right, rgba(75, 83, 32, 0.45), transparent 50%),
+        linear-gradient(135deg, #161f12 0%, #24331d 50%, #141c10 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 12px;
+}
+
+.tni-login-wrapper {
+    width: 100%;
+    max-width: 820px;
+}
+
+.tni-auth-box {
+    width: 100%;
+    max-width: 440px;
+}
+
+.tni-login-card {
+    border: none;
+    border-top: 4px solid var(--tni-gold);
+    border-bottom: 4px solid var(--tni-olive-deep);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.tni-login-banner {
+    background: linear-gradient(135deg, #1d2817 0%, #3a4a2c 60%, #232d1b 100%);
+    color: #ffffff;
+    border-bottom: 2px solid var(--tni-gold);
+    padding: 1.5rem 1.75rem;
+}
+
+.tni-login-banner .tni-crest {
+    height: 78px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.45));
+}
+
+.tni-login-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    color: #ffffff;
+    margin-bottom: 0.2rem;
+}
+
+.tni-login-subtitle {
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    color: var(--tni-gold-bright);
+    margin-bottom: 0;
+}
+
+.tni-login-tagline {
+    font-size: 0.78rem;
+    color: #d6dfd0;
+    letter-spacing: 0.4px;
+    margin-top: 0.25rem;
+}
+
+.tni-login-card .login-card-body {
+    padding: 1.75rem 2rem;
+}
+
+.tni-login-card .input-group-text {
+    background-color: #f4f6f0;
+    color: var(--tni-olive-deep);
+    border-color: #ced4da;
+}
+
+.tni-login-card .input-group .form-control:focus ~ .input-group-append .input-group-text {
+    border-color: var(--tni-gold);
+    color: var(--tni-dark);
+}
+
+.tni-divider-gold {
+    height: 2px;
+    width: 64px;
+    background-color: var(--tni-gold);
+    margin: 0.5rem auto 1rem;
+}
+
+@media (max-width: 576px) {
+    .tni-login-banner {
+        padding: 1.25rem 1rem;
+    }
+
+    .tni-login-banner .tni-crest {
+        height: 54px;
+    }
+
+    .tni-login-card .login-card-body {
+        padding: 1.25rem;
+    }
+
+    .tni-login-title {
+        font-size: 1rem;
+    }
+}

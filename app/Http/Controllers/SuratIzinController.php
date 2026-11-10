@@ -4,21 +4,40 @@ namespace App\Http\Controllers;
 
 use App\Exports\PengajuanExport;
 use App\Exports\PengajuanExportHistory;
+use App\Models\Korps;
+use App\Models\Kpad;
+use App\Models\Pangkat;
 use App\Models\RiwayatUpdate;
+use App\Models\StatusPenghuni;
 use App\Models\SuratIzin;
+use App\Services\SipPdfReport;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class SuratIzinController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:sip.view|sip.create')->only(['create']);
+        $this->middleware('permission:sip.view')->only(['index', 'show', 'Datatable', 'History']);
+        $this->middleware('permission:sip.create')->only(['store']);
+        $this->middleware('permission:sip.edit')->only(['edit', 'update']);
+        $this->middleware('permission:sip.delete')->only(['destroy']);
+        $this->middleware('permission:sip.export')->only(['exportExcel', 'exportPdf', 'exportExcelHistory', 'exportPdfHistory']);
+        $this->middleware('permission:sip.import')->only(['importExcel']);
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = SuratIzin::orrderBy('id', 'DESC')->get();
+        $data = SuratIzin::orderBy('id', 'DESC')->get();
         return view('surat-izin.index', compact('data'));
     }
 
@@ -27,33 +46,154 @@ class SuratIzinController extends Controller
      */
     public function create()
     {
+        $pangkats = Pangkat::active()->get();
+        $korpsList = Korps::active()->get();
+        $statusList = StatusPenghuni::active()->get();
+        $kpadGroups = Kpad::active()->get()->groupBy('wilayah_kodim');
 
-        $data = SuratIzin::latest()->get();
-        return view('surat-izin.create', compact('data'));
+        $filterStatusList = StatusPenghuni::orderBy('urutan')->orderBy('id')->get();
+        $filterPangkats = Pangkat::orderBy('urutan')->orderBy('id')->get();
+        $filterKorpsList = Korps::orderBy('urutan')->orderBy('id')->get();
+        $filterKpadGroups = Kpad::orderBy('urutan')->orderBy('id')->get()->groupBy('wilayah_kodim');
+        $filterWilayahList = $filterKpadGroups->keys();
+
+        return view('surat-izin.create', compact(
+            'pangkats',
+            'korpsList',
+            'statusList',
+            'kpadGroups',
+            'filterStatusList',
+            'filterPangkats',
+            'filterKorpsList',
+            'filterKpadGroups',
+            'filterWilayahList'
+        ));
     }
+
+    /**
+     * Build shared filtered query for DataTables, Excel export, and PDF export.
+     *
+     * @return array{0: Builder, 1: array<int, string>}
+     */
+    private function buildFilteredQuery(Request $request): array
+    {
+        $query = DB::table('surat_izins');
+        $activeFilters = [];
+
+        if ($request->filled('wilayah_kodim')) {
+            $wilayah = (string) $request->input('wilayah_kodim');
+            $kpadNames = Kpad::where('wilayah_kodim', $wilayah)->pluck('nama_kpad');
+            if ($kpadNames->isNotEmpty()) {
+                $query->whereIn('Kpad', $kpadNames->all());
+            } else {
+                $query->whereRaw('1 = 0');
+            }
+            $activeFilters[] = 'Wilayah: ' . $wilayah;
+        }
+
+        if ($request->filled('kpad')) {
+            $kpad = (string) $request->input('kpad');
+            if ($kpad === '__LAINNYA__') {
+                $masterKpads = Kpad::pluck('nama_kpad')->all();
+                $query->whereNotNull('Kpad')
+                    ->where('Kpad', '!=', '')
+                    ->when(!empty($masterKpads), fn ($q) => $q->whereNotIn('Kpad', $masterKpads));
+                $activeFilters[] = 'KPAD: Lainnya';
+            } else {
+                $query->where('Kpad', $kpad);
+                $activeFilters[] = 'KPAD: ' . $kpad;
+            }
+        }
+
+        if ($request->filled('status')) {
+            $status = (string) $request->input('status');
+            $query->where('Status', $status);
+            $activeFilters[] = 'Status: ' . ($status === '-' ? 'Tidak Ada' : $status);
+        }
+
+        if ($request->filled('pangkat')) {
+            $pangkat = (string) $request->input('pangkat');
+            $query->where('Pangkat', $pangkat);
+            $activeFilters[] = 'Pangkat: ' . ($pangkat === '-' ? 'Tidak Ada' : $pangkat);
+        }
+
+        if ($request->filled('korps')) {
+            $korps = (string) $request->input('korps');
+            $query->where('Korps', $korps);
+            $activeFilters[] = 'Korps: ' . ($korps === '-' ? 'Tidak Ada' : $korps);
+        }
+
+        $search = $request->input('search');
+        if (is_string($search) && trim($search) !== '') {
+            $keyword = trim($search);
+            $like = '%' . $keyword . '%';
+            $query->where(function (Builder $q) use ($like) {
+                $q->where('Nama', 'like', $like)
+                    ->orWhere('Pangkat', 'like', $like)
+                    ->orWhere('Korps', 'like', $like)
+                    ->orWhere('NRPNIP', 'like', $like)
+                    ->orWhere('Jabatan', 'like', $like)
+                    ->orWhere('Kesatuan', 'like', $like)
+                    ->orWhere('Ktp', 'like', $like)
+                    ->orWhere('Ttl', 'like', $like)
+                    ->orWhere('Status', 'like', $like)
+                    ->orWhere('JumlahTanggungan', 'like', $like)
+                    ->orWhere('Kpad', 'like', $like)
+                    ->orWhere('AlamatRumah', 'like', $like)
+                    ->orWhere('TypeLuas', 'like', $like)
+                    ->orWhere('Tmt', 'like', $like);
+            });
+            $activeFilters[] = 'Cari: "' . $keyword . '"';
+        }
+
+        return [$query, $activeFilters];
+    }
+
     public function Datatable(Request $request)
     {
         if ($request->ajax()) {
-            $query = SuratIzin::orderBy('id', 'DESC');
+            [$query] = $this->buildFilteredQuery($request);
+            $query->select([
+                'id',
+                'Nama',
+                'Pangkat',
+                'Korps',
+                'NRPNIP',
+                'Jabatan',
+                'Kesatuan',
+                'Ktp',
+                'Ttl',
+                'Status',
+                'JumlahTanggungan',
+                'Kpad',
+                'AlamatRumah',
+                'TypeLuas',
+                'Tmt',
+            ])->orderBy('id', 'DESC');
 
-            if ($request->filled('status')) {
-                $query->where('Status', $request->status);
-            }
+            $user = $request->user();
 
             return DataTables::of($query)
                 ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $editUrl = route('surat-izin.edit', $row->id);
-                    $deleteUrl = route('surat-izin.destroy', $row->id);
-                    $printUrl = route('surat-izin.show', $row->id);
-
-                    $btn = '<a href="' . $editUrl . '" class="btn btn-sm btn-primary mr-1">Edit</a>';
-                    $btn .= '<form action="' . $deleteUrl . '" method="POST" style="display:inline-block;" onsubmit="return confirm(\'Apakah Anda yakin ingin menghapus data ini?\')">';
-                    $btn .= csrf_field();
-                    $btn .= method_field('DELETE');
-                    $btn .= '<button type="submit" class="btn btn-sm btn-danger mr-1">Delete</button>';
-                    $btn .= '</form>';
-                    $btn .= '<a href="' . $printUrl . '" class="btn btn-sm btn-success" target="_blank">Print</a>';
+                ->addColumn('action', function ($row) use ($user) {
+                    $btn = '<div class="d-inline-flex align-items-center">';
+                    if ($user && $user->can('sip.edit')) {
+                        $editUrl = route('surat-izin.edit', $row->id);
+                        $btn .= '<a href="' . $editUrl . '" class="btn btn-sm btn-warning mr-1" title="Edit"><i class="fas fa-edit"></i> Edit</a>';
+                    }
+                    if ($user && $user->can('sip.view')) {
+                        $printUrl = route('surat-izin.show', $row->id);
+                        $btn .= '<a href="' . $printUrl . '" class="btn btn-sm btn-success mr-1" target="_blank" title="Cetak"><i class="fas fa-print"></i> Print</a>';
+                    }
+                    if ($user && $user->can('sip.delete')) {
+                        $deleteUrl = route('surat-izin.destroy', $row->id);
+                        $btn .= '<form action="' . $deleteUrl . '" method="POST" class="d-inline m-0" onsubmit="return confirm(\'Apakah Anda yakin ingin menghapus data ini?\')">';
+                        $btn .= csrf_field();
+                        $btn .= method_field('DELETE');
+                        $btn .= '<button type="submit" class="btn btn-sm btn-danger" title="Hapus"><i class="fas fa-trash"></i> Delete</button>';
+                        $btn .= '</form>';
+                    }
+                    $btn .= '</div>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -70,20 +210,28 @@ class SuratIzinController extends Controller
                 $query->where('Status', $request->status);
             }
 
+            $user = $request->user();
+
             return DataTables::of($query)
                 ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $editUrl = route('surat-izin-history.edit', $row->id);
-                    $deleteUrl = route('surat-izin-history.destroy', $row->id);
-                    $printUrl = route('surat-izin-history.show', $row->id);
-
-                    $btn = '<a href="' . $editUrl . '" class="btn btn-sm btn-primary mr-1">Edit</a>';
-                    $btn .= '<form action="' . $deleteUrl . '" method="POST" style="display:inline-block;" onsubmit="return confirm(\'Apakah Anda yakin ingin menghapus data ini?\')">';
-                    $btn .= csrf_field();
-                    $btn .= method_field('DELETE');
-                    $btn .= '<button type="submit" class="btn btn-sm btn-danger mr-1">Delete</button>';
-                    $btn .= '</form>';
-                    $btn .= '<a href="' . $printUrl . '" class="btn btn-sm btn-success" target="_blank">Print</a>';
+                ->addColumn('action', function ($row) use ($user) {
+                    $btn = '';
+                    if ($user && $user->can('sip.edit')) {
+                        $editUrl = route('surat-izin-history.edit', $row->id);
+                        $btn .= '<a href="' . $editUrl . '" class="btn btn-sm btn-primary mr-1">Edit</a>';
+                    }
+                    if ($user && $user->can('sip.delete')) {
+                        $deleteUrl = route('surat-izin-history.destroy', $row->id);
+                        $btn .= '<form action="' . $deleteUrl . '" method="POST" style="display:inline-block;" onsubmit="return confirm(\'Apakah Anda yakin ingin menghapus data ini?\')">';
+                        $btn .= csrf_field();
+                        $btn .= method_field('DELETE');
+                        $btn .= '<button type="submit" class="btn btn-sm btn-danger mr-1">Delete</button>';
+                        $btn .= '</form>';
+                    }
+                    if ($user && $user->can('sip.view')) {
+                        $printUrl = route('surat-izin-history.show', $row->id);
+                        $btn .= '<a href="' . $printUrl . '" class="btn btn-sm btn-success" target="_blank">Print</a>';
+                    }
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -165,13 +313,19 @@ class SuratIzinController extends Controller
 
         return $pdf->stream('SIP_' . $namaPemilik . '.pdf');
     }
-    public function exportPdf()
+    public function exportPdf(Request $request, SipPdfReport $pdfReport)
     {
-        $data = SuratIzin::get();
-        $pdf = Pdf::loadView('surat-izin.laporan_pdf_sip', compact('data'))
-            ->setPaper([0, 0, 935.43, 595.28], 'landscape'); // F4 landscape
+        @set_time_limit(0);
+        @ini_set('memory_limit', '512M');
 
-        return $pdf->stream('surat-izin.laporan_pdf_sip');
+        [$query, $activeFilters] = $this->buildFilteredQuery($request);
+        $binary = $pdfReport->generate($query->select(PengajuanExport::EXPORT_COLUMNS), $activeFilters);
+        $filename = 'data-pengajuan-sip-' . date('Ymd-His') . '.pdf';
+
+        return response($binary, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $filename . '"',
+        ]);
     }
     public function exportPdfHistory()
     {
@@ -186,12 +340,29 @@ class SuratIzinController extends Controller
      */
     public function edit($id)
     {
-        $suratIzin = SuratIzin::find($id);
-        return view('surat-izin.edit', compact('suratIzin'));
+        $suratIzin = SuratIzin::findOrFail($id);
+        $pangkats = Pangkat::active()->get();
+        $korpsList = Korps::active()->get();
+        $statusList = StatusPenghuni::active()->get();
+        $kpadGroups = Kpad::active()->get()->groupBy('wilayah_kodim');
+
+        return view('surat-izin.edit', compact(
+            'suratIzin',
+            'pangkats',
+            'korpsList',
+            'statusList',
+            'kpadGroups'
+        ));
     }
-    public function exportExcel()
+    public function exportExcel(Request $request)
     {
-        return Excel::download(new PengajuanExport, 'data-pengajuan.xlsx');
+        @set_time_limit(0);
+        @ini_set('memory_limit', '512M');
+
+        [$query] = $this->buildFilteredQuery($request);
+        $filename = 'data-pengajuan-sip-' . date('Ymd-His') . '.xlsx';
+
+        return Excel::download(new PengajuanExport($query), $filename);
     }
     public function exportExcelHistory()
     {

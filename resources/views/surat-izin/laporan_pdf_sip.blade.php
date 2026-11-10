@@ -108,7 +108,7 @@
                 @foreach ($data as $i => $item)
                     <tr>
                         <td class="nowrap">{{ $i + 1 }}</td>
-                        <td>{{ $item->NomorSIP ?? '-' }}</td>
+                        <td>{{ strip_tags(html_entity_decode($item->NomorSIP ?? '-', ENT_QUOTES, 'UTF-8')) ?: '-' }}</td>
                         <td>{{ $item->Nama ?? '-' }}</td>
                         <td>{{ $item->Pangkat ?? '-' }}</td>
                         <td>{{ $item->Korps ?? '-' }}</td>
@@ -119,7 +119,7 @@
                         <td>{{ $item->Ttl ?? '-' }}</td>
                         <td>{{ $item->Status ?? '-' }}</td>
                         <td>
-                            @if(isset($item->JumlahTanggungan))
+                            @if(isset($item->JumlahTanggungan) && $item->JumlahTanggungan !== '')
                                 {{ $item->JumlahTanggungan . ' orang' }}
                             @else
                                 -
@@ -127,18 +127,20 @@
                         </td>
                         <td>
                             @php
-                                // Format anggota keluarga jika array/json
-                                $anggota = $item->AnggotaKeluarga ?? '-';
+                                $anggota = $item->AnggotaKeluarga ?? null;
                                 if (is_string($anggota)) {
                                     $decoded = json_decode($anggota, true);
-                                    if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
-                                        $anggota = implode(', ', array_map(function ($a) {
-                                            if (is_array($a)) {
-                                                return implode(' ', $a);
-                                            }
-                                            return $a;
-                                        }, $decoded));
+                                    if (json_last_error() === JSON_ERROR_NONE) {
+                                        $anggota = $decoded;
                                     }
+                                }
+                                if (is_array($anggota)) {
+                                    $anggota = implode(', ', array_filter(array_map(function ($a) {
+                                        if (is_array($a)) {
+                                            return trim(implode(' ', array_filter($a)));
+                                        }
+                                        return is_scalar($a) ? trim((string) $a) : '';
+                                    }, $anggota)));
                                 }
                             @endphp
                             {{ $anggota ?: '-' }}

@@ -2,12 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Korps;
+use App\Models\Kpad;
+use App\Models\Pangkat;
 use App\Models\RiwayatUpdate;
+use App\Models\StatusPenghuni;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class RiwayatUpdateController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:sip.view')->only(['index', 'show']);
+        $this->middleware('permission:sip.create')->only(['create', 'store']);
+        $this->middleware('permission:sip.edit')->only(['edit', 'update']);
+        $this->middleware('permission:sip.delete')->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -54,8 +67,19 @@ class RiwayatUpdateController extends Controller
      */
     public function edit($id)
     {
-        $suratIzin = RiwayatUpdate::find($id);
-        return view('surat-izin.edit-history', compact('suratIzin'));
+        $suratIzin = RiwayatUpdate::findOrFail($id);
+        $pangkats = Pangkat::active()->get();
+        $korpsList = Korps::active()->get();
+        $statusList = StatusPenghuni::active()->get();
+        $kpadGroups = Kpad::active()->get()->groupBy('wilayah_kodim');
+
+        return view('surat-izin.edit-history', compact(
+            'suratIzin',
+            'pangkats',
+            'korpsList',
+            'statusList',
+            'kpadGroups'
+        ));
     }
 
     /**

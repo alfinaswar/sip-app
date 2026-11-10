@@ -2,78 +2,153 @@
 
 namespace App\Exports;
 
-use App\Models\SuratIzin;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithStyles;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
-use Maatwebsite\Excel\Concerns\WithCustomStartCell;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\WithCustomChunkSize;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
+use Maatwebsite\Excel\Concerns\WithDefaultStyles;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class PengajuanExport implements
-    FromCollection,
+class PengajuanExport extends DefaultValueBinder implements
+    FromQuery,
+    WithMapping,
+    WithCustomChunkSize,
     WithHeadings,
     WithStyles,
+    WithDefaultStyles,
     WithColumnWidths,
-    ShouldAutoSize
+    WithCustomValueBinder
 {
-    /**
-     * Get collection data for export
-     */
-    public function collection()
+    public const EXPORT_COLUMNS = [
+        'id',
+        'NomorSIP',
+        'Nama',
+        'Pangkat',
+        'Korps',
+        'NRPNIP',
+        'Jabatan',
+        'Kesatuan',
+        'Ktp',
+        'Ttl',
+        'Status',
+        'JumlahTanggungan',
+        'AnggotaKeluarga',
+        'UntukMenempati',
+        'Keterangan',
+        'DigunakanSebagai',
+        'Kpad',
+        'AlamatRumah',
+        'TypeLuas',
+        'Tmt',
+    ];
+
+    private int $rowNumber = 0;
+
+    public function __construct(private ?Builder $baseQuery = null)
     {
-        return SuratIzin::all()->map(function ($item, $index) {
-            return [
-                $index + 1, // No urut
-                $item->NomorSIP ?? '-',
-                $item->Nama ?? '-',
-                $item->Pangkat ?? '-',
-                $item->Korps ?? '-',
-                $item->NRPNIP ?? '-',
-                $item->Jabatan ?? '-',
-                $item->Kesatuan ?? '-',
-                $item->Ktp ?? '-',
-                $item->Ttl ?? '-',
-                $item->Status ?? '-',
-                $item->JumlahTanggungan ? $item->JumlahTanggungan . ' orang' : '-',
-                $this->formatAnggotaKeluarga($item->AnggotaKeluarga),
-                $item->UntukMenempati ?? '-',
-                $item->Keterangan ?? '-',
-                $item->DigunakanSebagai ?? '-',
-                $item->Kpad ?? '-',
-                $item->AlamatRumah ?? '-',
-                $item->TypeLuas ?? '-',
-                $item->Tmt ?? '-',
-                // Kolom Tanda Tangan, Sebagai, Foto, Tembusan dihapus
-            ];
-        });
     }
 
-    /**
-     * Format anggota keluarga data into readable list
-     */
-    private function formatAnggotaKeluarga($anggotaKeluarga)
+    public function query()
+    {
+        $query = $this->baseQuery
+            ? (clone $this->baseQuery)->select(self::EXPORT_COLUMNS)
+            : DB::table('surat_izins')->select(self::EXPORT_COLUMNS);
+
+        return $query->orderBy('id', 'desc');
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
+    }
+
+    public function map($item): array
+    {
+        $this->rowNumber++;
+
+        return [
+            $this->rowNumber,
+            $this->cleanNomorSip($item->NomorSIP ?? null),
+            $item->Nama ?: '-',
+            $item->Pangkat ?: '-',
+            $item->Korps ?: '-',
+            $item->NRPNIP ?: '-',
+            $item->Jabatan ?: '-',
+            $item->Kesatuan ?: '-',
+            $item->Ktp ?: '-',
+            $item->Ttl ?: '-',
+            $item->Status ?: '-',
+            !empty($item->JumlahTanggungan) ? $item->JumlahTanggungan . ' orang' : '-',
+            $this->formatAnggotaKeluarga($item->AnggotaKeluarga ?? null),
+            $item->UntukMenempati ?: '-',
+            $item->Keterangan ?: '-',
+            $item->DigunakanSebagai ?: '-',
+            $item->Kpad ?: '-',
+            $item->AlamatRumah ?: '-',
+            $item->TypeLuas ?: '-',
+            $item->Tmt ?: '-',
+        ];
+    }
+
+    public function bindValue(Cell $cell, $value): bool
+    {
+        if (in_array($cell->getColumn(), ['F', 'I'], true) && $value !== null && $value !== '' && $value !== '-') {
+            $cell->setValueExplicit((string) $value, DataType::TYPE_STRING);
+
+            return true;
+        }
+
+        return parent::bindValue($cell, $value);
+    }
+
+    private function cleanNomorSip(?string $value): string
+    {
+        if ($value === null || trim($value) === '') {
+            return '-';
+        }
+
+        $plain = str_ireplace(['<br>', '<br/>', '<br />', '</p>', '</div>'], ' ', $value);
+        $plain = html_entity_decode(strip_tags($plain), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $plain = trim((string) preg_replace('/\s+/u', ' ', $plain));
+
+        return $plain !== '' ? $plain : '-';
+    }
+
+    private function formatAnggotaKeluarga($anggotaKeluarga): string
     {
         if (empty($anggotaKeluarga)) {
             return '-';
         }
 
-        // Handle if it's a JSON string
         if (is_string($anggotaKeluarga)) {
             $anggotaKeluarga = json_decode($anggotaKeluarga, true);
         }
 
-        // Check if it's a valid array
         if (!is_array($anggotaKeluarga) || empty($anggotaKeluarga)) {
             return '-';
         }
 
         $anggotaList = [];
-        foreach ($anggotaKeluarga as $index => $anggota) {
+        foreach (array_values($anggotaKeluarga) as $index => $anggota) {
+            if (!is_array($anggota)) {
+                if (is_scalar($anggota) && trim((string) $anggota) !== '') {
+                    $anggotaList[] = ($index + 1) . '. ' . trim((string) $anggota);
+                }
+                continue;
+            }
+
             $nama = $anggota['nama'] ?? 'Tidak diketahui';
             $jk = $anggota['jk'] ?? '-';
             $umur = $anggota['umur'] ?? '-';
@@ -83,12 +158,9 @@ class PengajuanExport implements
             $anggotaList[] = ($index + 1) . '. ' . $nama . ' (' . $jk . ', ' . $umur . ' tahun, ' . $hubungan . ')' . $keterangan;
         }
 
-        return implode("\n", $anggotaList);
+        return $anggotaList ? implode("\n", $anggotaList) : '-';
     }
 
-    /**
-     * Define table headings
-     */
     public function headings(): array
     {
         return [
@@ -112,29 +184,35 @@ class PengajuanExport implements
             'Alamat Rumah',
             'Type / Luas',
             'TMT',
-            // Header Tanda Tangan, Sebagai, Foto, Tembusan dihapus
         ];
     }
 
-    /**
-     * Apply styles to the worksheet
-     */
+    public function defaultStyles(Style $defaultStyle)
+    {
+        return [
+            'font' => [
+                'size' => 10,
+            ],
+            'alignment' => [
+                'vertical' => Alignment::VERTICAL_TOP,
+            ],
+        ];
+    }
+
     public function styles(Worksheet $sheet)
     {
-        $lastRow = $sheet->getHighestRow();
-        $lastColumn = $sheet->getHighestColumn();
+        $lastRow = max(1, $sheet->getHighestRow());
 
-        return [
-            // Header row styling
-            1 => [
+        $styles = [
+            'A1:T1' => [
                 'font' => [
                     'bold' => true,
-                    'size' => 12,
-                    'color' => ['rgb' => 'FFFFFF']
+                    'size' => 11,
+                    'color' => ['rgb' => 'FFFFFF'],
                 ],
                 'fill' => [
                     'fillType' => Fill::FILL_SOLID,
-                    'startColor' => ['rgb' => '4B5320']
+                    'startColor' => ['rgb' => '4B5320'],
                 ],
                 'alignment' => [
                     'horizontal' => Alignment::HORIZONTAL_CENTER,
@@ -144,68 +222,50 @@ class PengajuanExport implements
                 'borders' => [
                     'allBorders' => [
                         'borderStyle' => Border::BORDER_THIN,
-                        'color' => ['rgb' => '000000']
-                    ]
-                ]
+                        'color' => ['rgb' => '000000'],
+                    ],
+                ],
             ],
-
-            // Data rows styling
-            '2:' . $lastRow => [
-                'alignment' => [
-                    'vertical' => Alignment::VERTICAL_TOP,
-                    'wrapText' => true,
-                ],
-                'borders' => [
-                    'allBorders' => [
-                        'borderStyle' => Border::BORDER_THIN,
-                        'color' => ['rgb' => 'CCCCCC']
-                    ]
-                ],
-                'font' => [
-                    'size' => 10
-                ]
-            ],
-
-            // Anggota Keluarga column (kolom M = 13) special formatting
-            'M:M' => [
-                'alignment' => [
-                    'vertical' => Alignment::VERTICAL_TOP,
-                    'wrapText' => true,
-                ],
-                'font' => [
-                    'size' => 9
-                ]
-            ]
         ];
+
+        if ($lastRow > 1) {
+            $styles['M2:M' . $lastRow] = [
+                'alignment' => [
+                    'vertical' => Alignment::VERTICAL_TOP,
+                    'wrapText' => true,
+                ],
+                'font' => [
+                    'size' => 9,
+                ],
+            ];
+        }
+
+        return $styles;
     }
 
-    /**
-     * Define column widths
-     */
     public function columnWidths(): array
     {
         return [
-            'A' => 5,   // No
-            'B' => 15,  // Nomor SIP
-            'C' => 20,  // Nama
-            'D' => 15,  // Pangkat
-            'E' => 10,  // Korps
-            'F' => 18,  // NRP/NIP
-            'G' => 20,  // Jabatan
-            'H' => 20,  // Kesatuan
-            'I' => 18,  // KTP
-            'J' => 15,  // TTL
-            'K' => 12,  // Status
-            'L' => 12,  // Jumlah Tanggungan
-            'M' => 35,  // Anggota Keluarga (wider for list)
-            'N' => 15,  // Untuk Menempati
-            'O' => 20,  // Keterangan
-            'P' => 15,  // Digunakan Sebagai
-            'Q' => 12,  // KPAD
-            'R' => 25,  // Alamat Rumah
-            'S' => 12,  // Type/Luas
-            'T' => 12,  // TMT
-            // Kolom Tanda Tangan, Sebagai, Foto, Tembusan dihapus
+            'A' => 6,
+            'B' => 20,
+            'C' => 22,
+            'D' => 16,
+            'E' => 10,
+            'F' => 18,
+            'G' => 20,
+            'H' => 20,
+            'I' => 20,
+            'J' => 20,
+            'K' => 15,
+            'L' => 14,
+            'M' => 36,
+            'N' => 16,
+            'O' => 20,
+            'P' => 16,
+            'Q' => 22,
+            'R' => 28,
+            'S' => 13,
+            'T' => 14,
         ];
     }
 }
