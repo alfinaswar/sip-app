@@ -359,10 +359,10 @@ class SuratIzinController extends Controller
         @set_time_limit(0);
         @ini_set('memory_limit', '512M');
 
-        [$query] = $this->buildFilteredQuery($request);
+        [$query, $activeFilters] = $this->buildFilteredQuery($request);
         $filename = 'data-pengajuan-sip-' . date('Ymd-His') . '.xlsx';
 
-        return Excel::download(new PengajuanExport($query), $filename);
+        return Excel::download(new PengajuanExport($query, $activeFilters), $filename);
     }
     public function exportExcelHistory()
     {
@@ -406,32 +406,46 @@ class SuratIzinController extends Controller
         ]);
 
         $data = Excel::toArray([], $request->file('file'));
+        $rows = $data[0] ?? [];
 
-        foreach ($data[0] as $index => $row) {
-            if ($index == 0) {
+        $headerRowIndex = 0;
+        foreach ($rows as $index => $row) {
+            $colA = strtolower(trim((string) ($row[0] ?? '')));
+            $colB = strtolower(trim((string) ($row[1] ?? '')));
+            if ($colA === 'no' && str_contains($colB, 'nomor sip')) {
+                $headerRowIndex = $index;
+                break;
+            }
+        }
+
+        foreach ($rows as $index => $row) {
+            if ($index <= $headerRowIndex) {
+                continue;
+            }
+            if (empty(array_filter($row, fn ($v) => $v !== null && trim((string) $v) !== ''))) {
                 continue;
             }
 
             SuratIzin::create([
-                'NomorSIP' => $row[1],
-                'Nama' => $row[2],
-                'Pangkat' => $row[3],
-                'Korps' => $row[4],
-                'NRPNIP' => $row[5],
-                'Jabatan' => $row[6],
-                'Kesatuan' => $row[7],
-                'Ktp' => $row[8],
-                'Ttl' => $row[9],
-                'Status' => $row[10],
-                'JumlahTanggungan' => $row[11],
-                'AnggotaKeluarga' => $row[12],
-                'UntukMenempati' => $row[13],
-                'Keterangan' => $row[14],
-                'DigunakanSebagai' => $row[15],
-                'Kpad' => $row[16],
-                'AlamatRumah' => $row[17],
-                'TypeLuas' => $row[18],
-                'Tmt' => $row[19],
+                'NomorSIP' => $row[1] ?? null,
+                'Nama' => $row[2] ?? null,
+                'Pangkat' => $row[3] ?? null,
+                'Korps' => $row[4] ?? null,
+                'NRPNIP' => $row[5] ?? null,
+                'Jabatan' => $row[6] ?? null,
+                'Kesatuan' => $row[7] ?? null,
+                'Ktp' => $row[8] ?? null,
+                'Ttl' => $row[9] ?? null,
+                'Status' => $row[10] ?? null,
+                'JumlahTanggungan' => $row[11] ?? null,
+                'AnggotaKeluarga' => $row[12] ?? null,
+                'UntukMenempati' => $row[13] ?? null,
+                'Keterangan' => $row[14] ?? null,
+                'DigunakanSebagai' => $row[15] ?? null,
+                'Kpad' => $row[16] ?? null,
+                'AlamatRumah' => $row[17] ?? null,
+                'TypeLuas' => $row[18] ?? null,
+                'Tmt' => $row[19] ?? null,
             ]);
         }
 

@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithCustomChunkSize;
+use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 use Maatwebsite\Excel\Concerns\WithDefaultStyles;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
@@ -19,6 +21,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class PengajuanExport extends DefaultValueBinder implements
@@ -26,6 +29,8 @@ class PengajuanExport extends DefaultValueBinder implements
     WithMapping,
     WithCustomChunkSize,
     WithHeadings,
+    WithCustomStartCell,
+    WithTitle,
     WithStyles,
     WithDefaultStyles,
     WithColumnWidths,
@@ -54,10 +59,25 @@ class PengajuanExport extends DefaultValueBinder implements
         'Tmt',
     ];
 
+    private const HEADER_ROW = 5;
+    private const DATA_START_ROW = 6;
+
     private int $rowNumber = 0;
 
-    public function __construct(private ?Builder $baseQuery = null)
+    public function __construct(
+        private ?Builder $baseQuery = null,
+        private array $activeFilters = []
+    ) {
+    }
+
+    public function startCell(): string
     {
+        return 'A' . self::HEADER_ROW;
+    }
+
+    public function title(): string
+    {
+        return 'Data Penghuni KPAD';
     }
 
     public function query()
@@ -191,6 +211,7 @@ class PengajuanExport extends DefaultValueBinder implements
     {
         return [
             'font' => [
+                'name' => 'Calibri',
                 'size' => 10,
             ],
             'alignment' => [
@@ -201,13 +222,95 @@ class PengajuanExport extends DefaultValueBinder implements
 
     public function styles(Worksheet $sheet)
     {
-        $lastRow = max(1, $sheet->getHighestRow());
+        $lastRow = max(self::HEADER_ROW, $sheet->getHighestRow());
+        $filterLabel = empty($this->activeFilters) ? 'Semua Data' : implode(' | ', $this->activeFilters);
+        $metaLine = sprintf(
+            'Filter: %s   |   Total Data: %s   |   Dicetak: %s',
+            $filterLabel,
+            number_format($this->rowNumber, 0, ',', '.'),
+            date('d-m-Y H:i')
+        );
+
+        $sheet->setCellValue('A1', 'TNI ANGKATAN DARAT  —  KODAM JAYA / JAYAKARTA');
+        $sheet->setCellValue('A2', 'DAFTAR PENGHUNIAN RUMAH DINAS (SIP) - KPAD');
+        $sheet->setCellValue('A3', $metaLine);
+
+        $sheet->mergeCells('A1:T1');
+        $sheet->mergeCells('A2:T2');
+        $sheet->mergeCells('A3:T3');
+
+        $sheet->getRowDimension(1)->setRowHeight(20);
+        $sheet->getRowDimension(2)->setRowHeight(25);
+        $sheet->getRowDimension(3)->setRowHeight(19);
+        $sheet->getRowDimension(4)->setRowHeight(8);
+        $sheet->getRowDimension(self::HEADER_ROW)->setRowHeight(28);
+
+        $sheet->freezePane('A' . self::DATA_START_ROW);
+        $sheet->setAutoFilter('A' . self::HEADER_ROW . ':T' . $lastRow);
+        $sheet->getPageSetup()
+            ->setOrientation(PageSetup::ORIENTATION_LANDSCAPE)
+            ->setFitToWidth(1)
+            ->setFitToHeight(0);
+        $sheet->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, self::HEADER_ROW);
 
         $styles = [
             'A1:T1' => [
                 'font' => [
                     'bold' => true,
-                    'size' => 11,
+                    'size' => 10,
+                    'color' => ['rgb' => '4B5320'],
+                ],
+                'fill' => [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F5F7F2'],
+                ],
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_LEFT,
+                    'vertical' => Alignment::VERTICAL_CENTER,
+                    'indent' => 1,
+                ],
+            ],
+            'A2:T2' => [
+                'font' => [
+                    'bold' => true,
+                    'size' => 14,
+                    'color' => ['rgb' => '1B2412'],
+                ],
+                'fill' => [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F5F7F2'],
+                ],
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_LEFT,
+                    'vertical' => Alignment::VERTICAL_CENTER,
+                    'indent' => 1,
+                ],
+            ],
+            'A3:T3' => [
+                'font' => [
+                    'size' => 9.5,
+                    'color' => ['rgb' => '475569'],
+                ],
+                'fill' => [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F5F7F2'],
+                ],
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_LEFT,
+                    'vertical' => Alignment::VERTICAL_CENTER,
+                    'indent' => 1,
+                ],
+                'borders' => [
+                    'bottom' => [
+                        'borderStyle' => Border::BORDER_MEDIUM,
+                        'color' => ['rgb' => 'BFA14A'],
+                    ],
+                ],
+            ],
+            'A' . self::HEADER_ROW . ':T' . self::HEADER_ROW => [
+                'font' => [
+                    'bold' => true,
+                    'size' => 10,
                     'color' => ['rgb' => 'FFFFFF'],
                 ],
                 'fill' => [
@@ -222,22 +325,52 @@ class PengajuanExport extends DefaultValueBinder implements
                 'borders' => [
                     'allBorders' => [
                         'borderStyle' => Border::BORDER_THIN,
-                        'color' => ['rgb' => '000000'],
+                        'color' => ['rgb' => '2F3614'],
+                    ],
+                    'bottom' => [
+                        'borderStyle' => Border::BORDER_MEDIUM,
+                        'color' => ['rgb' => 'BFA14A'],
                     ],
                 ],
             ],
         ];
 
-        if ($lastRow > 1) {
-            $styles['M2:M' . $lastRow] = [
+        if ($lastRow >= self::DATA_START_ROW) {
+            $dataRange = 'A' . self::DATA_START_ROW . ':T' . $lastRow;
+            $styles[$dataRange] = [
                 'alignment' => [
                     'vertical' => Alignment::VERTICAL_TOP,
                     'wrapText' => true,
                 ],
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                        'color' => ['rgb' => 'CBD5E1'],
+                    ],
+                ],
+            ];
+
+            foreach (['A', 'E', 'L', 'S', 'T'] as $col) {
+                $styles[$col . self::DATA_START_ROW . ':' . $col . $lastRow] = [
+                    'alignment' => [
+                        'horizontal' => Alignment::HORIZONTAL_CENTER,
+                    ],
+                ];
+            }
+
+            $styles['M' . self::DATA_START_ROW . ':M' . $lastRow] = [
                 'font' => [
                     'size' => 9,
                 ],
             ];
+
+            for ($row = self::DATA_START_ROW + 1; $row <= $lastRow; $row += 2) {
+                $sheet->getStyle('A' . $row . ':T' . $row)
+                    ->getFill()
+                    ->setFillType(Fill::FILL_SOLID)
+                    ->getStartColor()
+                    ->setRGB('F7F9F5');
+            }
         }
 
         return $styles;
@@ -247,25 +380,25 @@ class PengajuanExport extends DefaultValueBinder implements
     {
         return [
             'A' => 6,
-            'B' => 20,
-            'C' => 22,
-            'D' => 16,
-            'E' => 10,
-            'F' => 18,
-            'G' => 20,
-            'H' => 20,
+            'B' => 24,
+            'C' => 26,
+            'D' => 18,
+            'E' => 9,
+            'F' => 22,
+            'G' => 22,
+            'H' => 22,
             'I' => 20,
-            'J' => 20,
-            'K' => 15,
-            'L' => 14,
-            'M' => 36,
-            'N' => 16,
-            'O' => 20,
-            'P' => 16,
-            'Q' => 22,
-            'R' => 28,
-            'S' => 13,
-            'T' => 14,
+            'J' => 22,
+            'K' => 16,
+            'L' => 15,
+            'M' => 38,
+            'N' => 18,
+            'O' => 22,
+            'P' => 18,
+            'Q' => 24,
+            'R' => 30,
+            'S' => 14,
+            'T' => 18,
         ];
     }
 }

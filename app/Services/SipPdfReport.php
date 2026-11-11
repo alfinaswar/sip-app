@@ -9,10 +9,10 @@ class SipPdfReport
 {
     private const PAGE_WIDTH = 935.43;  // F4 Landscape (330mm)
     private const PAGE_HEIGHT = 595.28; // F4 Landscape (210mm)
-    private const MARGIN_L = 16.0;
-    private const MARGIN_R = 16.0;
-    private const MARGIN_T = 18.0;
-    private const MARGIN_B = 22.0;
+    private const MARGIN_L = 14.0;
+    private const MARGIN_R = 14.0;
+    private const MARGIN_T = 16.0;
+    private const MARGIN_B = 24.0;
 
     private string $fontRegular;
     private string $fontBold;
@@ -37,84 +37,152 @@ class SipPdfReport
 
         $usableW = self::PAGE_WIDTH - self::MARGIN_L - self::MARGIN_R;
         $cols = [
-            ['No', 0.025],
-            ['Nomor SIP', 0.055],
-            ['Nama', 0.070],
-            ['Pangkat', 0.050],
-            ['Korps', 0.032],
-            ['NRP/NIP', 0.055],
-            ['Jabatan', 0.058],
-            ['Kesatuan', 0.055],
-            ['KTP', 0.058],
-            ['TTL', 0.055],
-            ['Status', 0.048],
-            ['Tangg.', 0.035],
-            ['Anggota Keluarga', 0.095],
-            ['Menempati', 0.050],
-            ['Ket.', 0.045],
-            ['Fungsi', 0.045],
-            ['KPAD', 0.058],
-            ['Alamat Rumah', 0.070],
-            ['Type/Luas', 0.036],
-            ['TMT', 0.035],
+            [['No'], 0.023, 'center'],
+            [['Nomor SIP'], 0.056, 'left'],
+            [['Nama'], 0.072, 'left'],
+            [['Pangkat'], 0.048, 'left'],
+            [['Korps'], 0.028, 'center'],
+            [['NRP / NIP'], 0.060, 'left'],
+            [['Jabatan'], 0.054, 'left'],
+            [['Kesatuan'], 0.050, 'left'],
+            [['KTP'], 0.056, 'left'],
+            [['TTL'], 0.050, 'left'],
+            [['Status'], 0.044, 'left'],
+            [['Jml.', 'Tangg.'], 0.032, 'center'],
+            [['Anggota Keluarga'], 0.092, 'left'],
+            [['Untuk', 'Menempati'], 0.046, 'left'],
+            [['Ket.'], 0.040, 'left'],
+            [['Digunakan', 'Sebagai'], 0.040, 'left'],
+            [['KPAD'], 0.055, 'left'],
+            [['Alamat Rumah'], 0.068, 'left'],
+            [['Type /', 'Luas'], 0.036, 'center'],
+            [['TMT'], 0.050, 'center'],
         ];
 
         $colWidths = [];
         $colXs = [];
         $cursorX = self::MARGIN_L;
-        foreach ($cols as $idx => [$label, $pct]) {
+        foreach ($cols as $idx => [$labelLines, $pct, $align]) {
             $cw = $usableW * $pct;
             $colWidths[$idx] = $cw;
             $colXs[$idx] = $cursorX;
             $cursorX += $cw;
         }
 
-        $y = self::PAGE_HEIGHT - self::MARGIN_T;
-
-        // Report Title Header
-        $pdf->selectFont($this->fontBold);
-        $pdf->setColor([0.12, 0.17, 0.10]);
-        $pdf->addText(self::MARGIN_L, $y, 12, $this->encode('DAFTAR PENGHUNIAN RUMAH DINAS - KPAD KODAM JAYA/JAYAKARTA'));
-        $y -= 12;
-
-        $pdf->selectFont($this->fontRegular);
-        $pdf->setColor([0.35, 0.35, 0.35]);
         $filterText = empty($activeFilters)
             ? 'Semua Data'
             : implode(' | ', $activeFilters);
+        $printedAt = date('d-m-Y H:i');
+
+        $y = self::PAGE_HEIGHT - self::MARGIN_T;
+
+        // Kop / Report Header Halaman 1
+        $kopH = 38.0;
+        $pdf->setColor([0.961, 0.969, 0.949]);
+        $pdf->filledRectangle(self::MARGIN_L, $y - $kopH, $usableW, $kopH);
+
+        $pdf->setColor([0.294, 0.325, 0.125]);
+        $pdf->filledRectangle(self::MARGIN_L, $y - $kopH, 3.5, $kopH);
+
+        $pdf->selectFont($this->fontBold);
+        $pdf->setColor([0.294, 0.325, 0.125]);
+        $pdf->addText(self::MARGIN_L + 9.0, $y - 10.5, 7.0, $this->encode('TNI ANGKATAN DARAT  -  KODAM JAYA / JAYAKARTA'));
+
+        $pdf->setColor([0.106, 0.141, 0.071]);
+        $pdf->addText(self::MARGIN_L + 9.0, $y - 22.5, 11.0, $this->encode('DAFTAR PENGHUNIAN RUMAH DINAS (SIP) - KPAD'));
+
+        $pdf->selectFont($this->fontRegular);
+        $pdf->setColor([0.28, 0.33, 0.41]);
         $subtitle = sprintf(
-            'Total Data: %s | Filter: %s | Dicetak: %s',
+            'Total Data: %s   |   Filter: %s   |   Dicetak: %s',
             number_format($totalRows, 0, ',', '.'),
             $filterText,
-            date('d-m-Y H:i')
+            $printedAt
         );
-        $pdf->addText(self::MARGIN_L, $y, 7.5, $this->encode($subtitle));
-        $y -= 10;
+        $pdf->addText(self::MARGIN_L + 9.0, $y - 33.0, 6.8, $this->encode($subtitle));
 
-        $drawTableHeader = function () use ($pdf, $cols, $colXs, $usableW, &$y): void {
-            $rowH = 16.0;
-            $pdf->setColor([0.29, 0.33, 0.13]); // Olive TNI (#4b5320)
+        $pdf->setStrokeColor([0.749, 0.631, 0.290]);
+        $pdf->setLineStyle(1.2);
+        $pdf->line(self::MARGIN_L, $y - $kopH, self::MARGIN_L + $usableW, $y - $kopH);
+
+        $y -= ($kopH + 6.0);
+
+        $drawContinuationHeader = function () use ($pdf, $usableW, $filterText, &$y): void {
+            $pdf->selectFont($this->fontBold);
+            $pdf->setColor([0.294, 0.325, 0.125]);
+            $pdf->addText(self::MARGIN_L, $y - 8.0, 7.0, $this->encode('DAFTAR PENGHUNIAN RUMAH DINAS (SIP) - KPAD KODAM JAYA / JAYAKARTA'));
+
+            $pdf->selectFont($this->fontRegular);
+            $pdf->setColor([0.35, 0.38, 0.42]);
+            $rightText = $this->encode('Filter: ' . $filterText);
+            $maxRightW = 340.0;
+            while ($pdf->getTextWidth(6.3, $rightText) > $maxRightW && strlen($rightText) > 10) {
+                $rightText = substr($rightText, 0, -4) . '...';
+            }
+            $rw = $pdf->getTextWidth(6.3, $rightText);
+            $pdf->addText(self::PAGE_WIDTH - self::MARGIN_R - $rw, $y - 8.0, 6.3, $rightText);
+
+            $pdf->setStrokeColor([0.749, 0.631, 0.290]);
+            $pdf->setLineStyle(0.8);
+            $pdf->line(self::MARGIN_L, $y - 12.0, self::MARGIN_L + $usableW, $y - 12.0);
+            $y -= 16.0;
+        };
+
+        $drawTableHeader = function () use ($pdf, $cols, $colXs, $colWidths, $usableW, &$y): void {
+            $rowH = 21.0;
+            $pdf->setColor([0.294, 0.325, 0.125]); // Olive TNI (#4b5320)
             $pdf->filledRectangle(self::MARGIN_L, $y - $rowH, $usableW, $rowH);
-            $pdf->setColor([0.75, 0.63, 0.29]); // Gold accent line (#bfa14a)
-            $pdf->setLineStyle(1.0);
+
+            $pdf->setStrokeColor([0.416, 0.451, 0.227]);
+            $pdf->setLineStyle(0.4);
+            foreach ($cols as $idx => $meta) {
+                if ($idx > 0) {
+                    $pdf->line($colXs[$idx], $y, $colXs[$idx], $y - $rowH);
+                }
+            }
+
+            $pdf->setStrokeColor([0.184, 0.212, 0.078]);
+            $pdf->setLineStyle(0.5);
+            $pdf->rectangle(self::MARGIN_L, $y - $rowH, $usableW, $rowH);
+
+            $pdf->setStrokeColor([0.749, 0.631, 0.290]); // Gold accent line (#bfa14a)
+            $pdf->setLineStyle(1.2);
             $pdf->line(self::MARGIN_L, $y - $rowH, self::MARGIN_L + $usableW, $y - $rowH);
 
             $pdf->setColor([1.0, 1.0, 1.0]);
             $pdf->selectFont($this->fontBold);
-            foreach ($cols as $idx => [$label, $pct]) {
-                $pdf->addText($colXs[$idx] + 2, $y - 11, 6.2, $label);
+            $headerFontSize = 5.4;
+            foreach ($cols as $idx => [$labelLines, $pct, $align]) {
+                $lineCount = count($labelLines);
+                foreach ($labelLines as $li => $label) {
+                    $tw = $pdf->getTextWidth($headerFontSize, $label);
+                    $tx = $colXs[$idx] + max(1.0, ($colWidths[$idx] - $tw) / 2.0);
+                    $ty = $lineCount === 1
+                        ? $y - 12.4
+                        : $y - 8.4 - ($li * 7.0);
+                    $pdf->addText($tx, $ty, $headerFontSize, $label);
+                }
             }
             $pdf->selectFont($this->fontRegular);
             $y -= $rowH;
         };
 
         $pageNo = 1;
-        $drawFooter = function () use ($pdf, &$pageNo): void {
-            $pdf->setColor([0.45, 0.45, 0.45]);
-            $pdf->addText(self::MARGIN_L, 10, 6.8, 'SIP Rumah Dinas - Kodam Jaya/Jayakarta');
+        $drawFooter = function () use ($pdf, $usableW, &$pageNo): void {
+            $pdf->setStrokeColor([0.80, 0.84, 0.88]);
+            $pdf->setLineStyle(0.5);
+            $pdf->line(self::MARGIN_L, 18.0, self::MARGIN_L + $usableW, 18.0);
+
+            $pdf->selectFont($this->fontRegular);
+            $pdf->setColor([0.38, 0.42, 0.46]);
+            $pdf->addText(self::MARGIN_L, 9.5, 6.5, 'SIP Rumah Dinas - KPAD Kodam Jaya / Jayakarta');
+
+            $pdf->selectFont($this->fontBold);
+            $pdf->setColor([0.294, 0.325, 0.125]);
             $pageLabel = 'Halaman ' . $pageNo;
-            $tw = $pdf->getTextWidth(6.8, $pageLabel);
-            $pdf->addText(self::PAGE_WIDTH - self::MARGIN_R - $tw, 10, 6.8, $pageLabel);
+            $tw = $pdf->getTextWidth(6.5, $pageLabel);
+            $pdf->addText(self::PAGE_WIDTH - self::MARGIN_R - $tw, 9.5, 6.5, $pageLabel);
+            $pdf->selectFont($this->fontRegular);
         };
 
         $drawTableHeader();
@@ -122,18 +190,19 @@ class SipPdfReport
 
         if ($totalRows === 0) {
             $rowH = 22.0;
-            $pdf->setStrokeColor([0.80, 0.84, 0.86]);
+            $pdf->setStrokeColor([0.796, 0.835, 0.882]);
             $pdf->setLineStyle(0.4);
             $pdf->rectangle(self::MARGIN_L, $y - $rowH, $usableW, $rowH);
             $pdf->setColor([0.35, 0.35, 0.35]);
-            $pdf->addText(self::MARGIN_L + 8, $y - 14, 8, 'Tidak ada data yang sesuai dengan filter.');
+            $pdf->addText(self::MARGIN_L + 8, $y - 13.5, 7.5, 'Tidak ada data yang sesuai dengan filter.');
 
             return $pdf->output(['compress' => 1]);
         }
 
-        $fontSize = 6.0;
-        $lineH = 7.4;
+        $fontSize = 5.1;
+        $lineH = 6.6;
         $rowIndex = 0;
+        $rowsOnPage = 0;
 
         $query->orderBy('id', 'desc')->chunk(500, function ($rows) use (
             $pdf,
@@ -143,9 +212,11 @@ class SipPdfReport
             $usableW,
             &$y,
             &$rowIndex,
+            &$rowsOnPage,
             &$pageNo,
             $fontSize,
             $lineH,
+            $drawContinuationHeader,
             $drawTableHeader,
             $drawFooter
         ) {
@@ -185,38 +256,52 @@ class SipPdfReport
                     }
                 }
 
-                $rowH = max(12.0, $maxLines * $lineH + 4.0);
+                $rowH = max(12.0, $maxLines * $lineH + 4.4);
 
-                // Prevent oversized single row from breaking loop
-                if ($y - $rowH < self::MARGIN_B) {
+                if ($rowsOnPage > 0 && $y - $rowH < self::MARGIN_B) {
                     $pdf->newPage();
                     $pageNo++;
+                    $rowsOnPage = 0;
                     $y = self::PAGE_HEIGHT - self::MARGIN_T;
+                    $drawContinuationHeader();
                     $drawTableHeader();
                     $drawFooter();
                 }
 
                 if ($rowIndex % 2 === 0) {
-                    $pdf->setColor([0.96, 0.97, 0.96]);
+                    $pdf->setColor([0.969, 0.976, 0.961]);
                     $pdf->filledRectangle(self::MARGIN_L, $y - $rowH, $usableW, $rowH);
                 }
 
-                $pdf->setStrokeColor([0.80, 0.84, 0.86]);
+                $pdf->setStrokeColor([0.796, 0.835, 0.882]);
                 $pdf->setLineStyle(0.35);
                 $pdf->rectangle(self::MARGIN_L, $y - $rowH, $usableW, $rowH);
 
                 $pdf->setColor([0.13, 0.13, 0.13]);
-                foreach ($cols as $ci => $meta) {
+                $capH = $fontSize * 0.72;
+                foreach ($cols as $ci => [$labelLines, $pct, $align]) {
                     if ($ci > 0) {
                         $pdf->line($colXs[$ci], $y, $colXs[$ci], $y - $rowH);
                     }
-                    $tx = $colXs[$ci] + 2.0;
-                    foreach ($cellLines[$ci] as $li => $txt) {
-                        $pdf->addText($tx, $y - 8.2 - ($li * $lineH), $fontSize, $txt);
+                    $lines = $cellLines[$ci];
+                    $cnt = count($lines);
+                    $blockH = ($cnt - 1) * $lineH + $capH;
+                    $topGap = ($rowH - $blockH) / 2.0;
+                    $firstBaseline = $y - $topGap - $capH;
+
+                    foreach ($lines as $li => $txt) {
+                        if ($align === 'center') {
+                            $tw = $pdf->getTextWidth($fontSize, $txt);
+                            $tx = $colXs[$ci] + max(1.5, ($colWidths[$ci] - $tw) / 2.0);
+                        } else {
+                            $tx = $colXs[$ci] + 2.0;
+                        }
+                        $pdf->addText($tx, $firstBaseline - ($li * $lineH), $fontSize, $txt);
                     }
                 }
 
                 $y -= $rowH;
+                $rowsOnPage++;
             }
         });
 
