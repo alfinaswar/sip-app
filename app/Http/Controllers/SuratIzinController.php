@@ -273,12 +273,19 @@ class SuratIzinController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'TanggalDibuat' => 'nullable|date',
+            'MasaBerlaku' => 'nullable|integer|min:1|max:5',
+        ]);
+
         // Cek apakah No KTP sudah terdaftar
         $cekKtp = SuratIzin::where('Ktp', $request->Ktp)->first();
         if ($cekKtp) {
             return redirect()->back()->withInput()->with('error', 'Nomor KTP sudah terdaftar pada data Surat Izin lain.');
         }
         $data = $request->all();
+        $data['TanggalDibuat'] = $validated['TanggalDibuat'] ?? null;
+        $data['MasaBerlaku'] = (int) ($validated['MasaBerlaku'] ?? 1);
         if ($request->Kpad == 'Lainnya') {
             $data['Kpad'] = $request->KpadLainnya;
         } else {
@@ -373,7 +380,14 @@ class SuratIzinController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validated = $request->validate([
+            'TanggalDibuat' => 'nullable|date',
+            'MasaBerlaku' => 'nullable|integer|min:1|max:5',
+        ]);
+
         $data = $request->all();
+        $data['TanggalDibuat'] = $validated['TanggalDibuat'] ?? null;
+        $data['MasaBerlaku'] = (int) ($validated['MasaBerlaku'] ?? 1);
         if ($request->Kpad == 'Lainnya') {
             $data['Kpad'] = $request->KpadLainnya;
         } else {

@@ -48,13 +48,31 @@
         .table-solid {
             border-collapse: collapse;
             width: 100%;
+            border-bottom: 1px solid #000;
         }
 
         .table-solid th,
         .table-solid td {
-            border: 1px solid #000;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
             line-height: 1.1;
             padding: 2px 6px;
+        }
+
+        .table-solid thead th,
+        .table-solid thead td {
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        .table-solid tbody td {
+            border-top: 0;
+            border-bottom: 0;
+        }
+
+        .table-solid tbody tr:last-child td,
+        .table-solid tbody td[rowspan] {
+            border-bottom: 1px solid #000;
         }
 
         .signature-section {
@@ -206,7 +224,6 @@
                                 <td style="text-align: center; width: 15%;">UMUR</td>
                                 <td style="text-align: center; width: 8%;">JK</td>
                                 <td style="text-align: center; width: 20%;">HUBUNGANKELUARGA</td>
-                                </td>
                                 <td style="text-align: center; width: 37%;">KET</td>
                             </tr>
                         </thead>
@@ -226,7 +243,6 @@
                         </tbody>
                     </table>
                 @else
-
                     <table class="table-solid" width="100%">
                         <thead>
                             <tr>
@@ -235,7 +251,6 @@
                                 <td style="text-align: center; width: 10%;">UMUR</td>
                                 <td style="text-align: center; width: 8%;">JK</td>
                                 <td style="text-align: center; width: 20%;">HUBUNGAN KELUARGA</td>
-                                </td>
                                 <td style="text-align: center; width: 37%;">KET</td>
                             </tr>
                         </thead>
@@ -350,7 +365,13 @@
                                             11 => 'November',
                                             12 => 'Desember',
                                         ];
-                                        $tanggalBerlakuObj = Carbon::parse($data->created_at)->addYear();
+                                        $tanggalAcuan = !empty($data->TanggalDibuat) ? $data->TanggalDibuat : ($data->created_at ?? null);
+                                        $tanggalDasarObj = Carbon::parse($tanggalAcuan ?: now());
+                                        $masaBerlakuTahun = (int) ($data->MasaBerlaku ?? 1);
+                                        if ($masaBerlakuTahun < 1 || $masaBerlakuTahun > 5) {
+                                            $masaBerlakuTahun = 1;
+                                        }
+                                        $tanggalBerlakuObj = $tanggalDasarObj->copy()->addYears($masaBerlakuTahun);
                                         $hariBerlaku = $tanggalBerlakuObj->format('d');
                                         $bulanBerlaku = (int) $tanggalBerlakuObj->format('m');
                                         $tahunBerlaku = $tanggalBerlakuObj->format('Y');
@@ -385,24 +406,9 @@
                             Dikeluarkan di Jakarta
                         </div>
                         @php
-                            $bulanIndo = [
-                                1 => 'Januari',
-                                2 => 'Februari',
-                                3 => 'Maret',
-                                4 => 'April',
-                                5 => 'Mei',
-                                6 => 'Juni',
-                                7 => 'Juli',
-                                8 => 'Agustus',
-                                9 => 'September',
-                                10 => 'Oktober',
-                                11 => 'November',
-                                12 => 'Desember',
-                            ];
-                            $tanggalObj = date_create($data->created_at);
-                            $hari = date_format($tanggalObj, 'd');
-                            $bulan = (int) date_format($tanggalObj, 'm');
-                            $tahun = date_format($tanggalObj, 'Y');
+                            $hari = $tanggalDasarObj->format('d');
+                            $bulan = (int) $tanggalDasarObj->format('m');
+                            $tahun = $tanggalDasarObj->format('Y');
                             $tanggalIndonesia = $hari . ' ' . $bulanIndo[$bulan] . ' ' . $tahun;
                         @endphp
 

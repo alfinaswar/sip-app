@@ -217,6 +217,22 @@
                                                     placeholder="Kolonel Czi NRP 11000050710979"
                                                     value="{{ old('NamaTtd2') }}">
                                             </div>
+                                            <div class="form-group">
+                                                <label for="TanggalDibuat">Tanggal Dikeluarkan (Pada Tanggal)</label>
+                                                <input type="date" name="TanggalDibuat" id="TanggalDibuat" class="form-control"
+                                                    value="{{ old('TanggalDibuat', date('Y-m-d')) }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="MasaBerlaku">Masa Berlaku SIP</label>
+                                                <select name="MasaBerlaku" id="MasaBerlaku" class="form-control">
+                                                    @php $selectedMasaBerlaku = (int) old('MasaBerlaku', 1); @endphp
+                                                    @for ($tahun = 1; $tahun <= 5; $tahun++)
+                                                        <option value="{{ $tahun }}" {{ $selectedMasaBerlaku === $tahun ? 'selected' : '' }}>
+                                                            {{ $tahun }} Tahun
+                                                        </option>
+                                                    @endfor
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
 

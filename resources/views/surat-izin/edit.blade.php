@@ -33,6 +33,14 @@
                 </button>
             </div>
         @endif
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle mr-1"></i> {{ $errors->first() }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
 
         <div class="mb-3">
             <a href="{{ route('surat-izin.create') }}" class="btn btn-secondary btn-sm">
@@ -215,6 +223,23 @@
                                 <input type="text" name="NamaTtd2" id="NamaTtd2" class="form-control"
                                     value="{{ old('NamaTtd2', $suratIzin->NamaTtd2) }}"
                                     placeholder="Kolonel Czi NRP 11000050710979">
+                            </div>
+                            <div class="form-group">
+                                <label for="TanggalDibuat">Tanggal Dikeluarkan (Pada Tanggal)</label>
+                                <input type="date" name="TanggalDibuat" id="TanggalDibuat" class="form-control"
+                                    value="{{ old('TanggalDibuat', $suratIzin->TanggalDibuat) }}">
+                                <small class="form-text text-muted">Kosongkan untuk memakai tanggal input data.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="MasaBerlaku">Masa Berlaku SIP</label>
+                                <select name="MasaBerlaku" id="MasaBerlaku" class="form-control">
+                                    @php $selectedMasaBerlaku = (int) old('MasaBerlaku', $suratIzin->MasaBerlaku ?: 1); @endphp
+                                    @for ($tahun = 1; $tahun <= 5; $tahun++)
+                                        <option value="{{ $tahun }}" {{ $selectedMasaBerlaku === $tahun ? 'selected' : '' }}>
+                                            {{ $tahun }} Tahun
+                                        </option>
+                                    @endfor
+                                </select>
                             </div>
                         </div>
                     </div>

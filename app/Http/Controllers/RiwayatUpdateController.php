@@ -87,8 +87,15 @@ class RiwayatUpdateController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validated = $request->validate([
+            'TanggalDibuat' => 'nullable|date',
+            'MasaBerlaku' => 'nullable|integer|min:1|max:5',
+        ]);
+
         $riwayat = RiwayatUpdate::findOrFail($id);
         $data = $request->all();
+        $data['TanggalDibuat'] = $validated['TanggalDibuat'] ?? null;
+        $data['MasaBerlaku'] = (int) ($validated['MasaBerlaku'] ?? 1);
         // dd($data);
         // Penyesuaian field Kpad jika 'Lainnya'
         if ($request->Kpad == 'Lainnya') {
