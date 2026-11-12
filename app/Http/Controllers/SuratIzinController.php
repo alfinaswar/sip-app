@@ -126,23 +126,28 @@ class SuratIzinController extends Controller
         $search = $request->input('search');
         if (is_string($search) && trim($search) !== '') {
             $keyword = trim($search);
-            $like = '%' . $keyword . '%';
-            $query->where(function (Builder $q) use ($like) {
-                $q->where('Nama', 'like', $like)
-                    ->orWhere('Pangkat', 'like', $like)
-                    ->orWhere('Korps', 'like', $like)
-                    ->orWhere('NRPNIP', 'like', $like)
-                    ->orWhere('Jabatan', 'like', $like)
-                    ->orWhere('Kesatuan', 'like', $like)
-                    ->orWhere('Ktp', 'like', $like)
-                    ->orWhere('Ttl', 'like', $like)
-                    ->orWhere('Status', 'like', $like)
-                    ->orWhere('JumlahTanggungan', 'like', $like)
-                    ->orWhere('Kpad', 'like', $like)
-                    ->orWhere('AlamatRumah', 'like', $like)
-                    ->orWhere('TypeLuas', 'like', $like)
-                    ->orWhere('Tmt', 'like', $like);
-            });
+            $terms = preg_split('/\s+/', $keyword, -1, PREG_SPLIT_NO_EMPTY) ?: [];
+
+            foreach ($terms as $term) {
+                $like = '%' . mb_strtolower($term, 'UTF-8') . '%';
+                $query->where(function (Builder $q) use ($like) {
+                    $q->whereRaw('LOWER(Nama) LIKE ?', [$like])
+                        ->orWhereRaw('LOWER(Pangkat) LIKE ?', [$like])
+                        ->orWhereRaw('LOWER(Korps) LIKE ?', [$like])
+                        ->orWhereRaw('LOWER(NRPNIP) LIKE ?', [$like])
+                        ->orWhereRaw('LOWER(Jabatan) LIKE ?', [$like])
+                        ->orWhereRaw('LOWER(Kesatuan) LIKE ?', [$like])
+                        ->orWhereRaw('LOWER(Ktp) LIKE ?', [$like])
+                        ->orWhereRaw('LOWER(Ttl) LIKE ?', [$like])
+                        ->orWhereRaw('LOWER(Status) LIKE ?', [$like])
+                        ->orWhereRaw('LOWER(JumlahTanggungan) LIKE ?', [$like])
+                        ->orWhereRaw('LOWER(Kpad) LIKE ?', [$like])
+                        ->orWhereRaw('LOWER(AlamatRumah) LIKE ?', [$like])
+                        ->orWhereRaw('LOWER(TypeLuas) LIKE ?', [$like])
+                        ->orWhereRaw('LOWER(Tmt) LIKE ?', [$like]);
+                });
+            }
+
             $activeFilters[] = 'Cari: "' . $keyword . '"';
         }
 

@@ -756,11 +756,11 @@
                 syncExportLinks();
             });
 
-            $(document).on('input', '#dataTableSuratIzin_filter input', function () {
+            $(document).on('input search', '#dataTableSuratIzin_filter input', function () {
                 syncExportLinks();
             });
 
-            $('.js-export-excel, .js-export-pdf').on('click', function () {
+            $('.js-export-excel, .js-export-pdf').on('mousedown click', function () {
                 syncExportLinks();
             });
 

@@ -117,4 +117,52 @@ class ExportReportTest extends TestCase
             @unlink($tmpXlsx);
         }
     }
+
+    public function test_excel_export_matches_datatable_multi_term_search(): void
+    {
+        $this->actingAsExporter();
+
+        $uniqueTag = 'UNIK' . uniqid();
+        DB::table('surat_izins')->insert([
+            'NomorSIP' => 'SIP-' . $uniqueTag,
+            'Nama' => 'Budi ' . $uniqueTag,
+            'Pangkat' => 'Mayor',
+            'Korps' => 'Czi',
+            'Kpad' => 'KWINI',
+            'Status' => 'AKTIF',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $searchTerm = 'mayor ' . strtolower($uniqueTag);
+
+        $columns = collect([
+            'Nama', 'Pangkat', 'Korps', 'NRPNIP', 'Jabatan', 'Kesatuan',
+            'Ktp', 'Ttl', 'Status', 'JumlahTanggungan', 'Kpad', 'AlamatRumah', 'TypeLuas', 'Tmt',
+        ])->map(fn ($col) => [
+            'data' => $col,
+            'name' => $col,
+            'searchable' => 'true',
+            'orderable' => 'true',
+            'search' => ['value' => '', 'regex' => 'false'],
+        ])->all();
+
+        $dtResp = $this->withHeaders(['X-Requested-With' => 'XMLHttpRequest'])
+            ->getJson(route('datatable', [
+                'draw' => 1,
+                'start' => 0,
+                'length' => 10,
+                'search' => ['value' => $searchTerm, 'regex' => 'false'],
+                'columns' => $columns,
+            ]));
+        $dtResp->assertStatus(200);
+        $this->assertSame(1, $dtResp->json('recordsFiltered'));
+
+        $exResp = $this->get(route('exportExcel', ['search' => $searchTerm]));
+        $exResp->assertStatus(200);
+
+        $sheet = IOFactory::load($exResp->baseResponse->getFile()->getPathname())->getActiveSheet();
+        $this->assertSame(6, $sheet->getHighestRow());
+        $this->assertSame('Budi ' . $uniqueTag, $sheet->getCell('C6')->getValue());
+    }
 }
