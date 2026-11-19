@@ -102,6 +102,7 @@
                     <th>Alamat Rumah</th>
                     <th>Type / Luas</th>
                     <th>TMT</th>
+                    <th>Masa Berlaku</th>
                 </tr>
             </thead>
             <tbody>
@@ -152,6 +153,10 @@
                         <td>{{ $item->AlamatRumah ?? '-' }}</td>
                         <td>{{ $item->TypeLuas ?? '-' }}</td>
                         <td>{{ $item->Tmt ?? '-' }}</td>
+                        <td>
+                            @php $masaBerlakuTahun = (int) ($item->MasaBerlaku ?? 1); @endphp
+                            {{ ($masaBerlakuTahun >= 1 && $masaBerlakuTahun <= 5 ? $masaBerlakuTahun : 1) . ' Tahun' }}
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

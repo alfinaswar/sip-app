@@ -44,12 +44,13 @@ class ExportReportTest extends TestCase
         $this->assertStringContainsString('Total Data: 0', (string) $sheet->getCell('A3')->getValue());
         $this->assertSame('No', $sheet->getCell('A5')->getValue());
         $this->assertSame('TMT', $sheet->getCell('T5')->getValue());
+        $this->assertSame('Masa Berlaku', $sheet->getCell('U5')->getValue());
         $this->assertSame(5, $sheet->getHighestRow());
         $this->assertSame('A6', $sheet->getFreezePane());
-        $this->assertSame('A5:T5', $sheet->getAutoFilter()->getRange());
-        $this->assertContains('A1:T1', $sheet->getMergeCells());
-        $this->assertContains('A2:T2', $sheet->getMergeCells());
-        $this->assertContains('A3:T3', $sheet->getMergeCells());
+        $this->assertSame('A5:U5', $sheet->getAutoFilter()->getRange());
+        $this->assertContains('A1:U1', $sheet->getMergeCells());
+        $this->assertContains('A2:U2', $sheet->getMergeCells());
+        $this->assertContains('A3:U3', $sheet->getMergeCells());
 
         $sampleKpad = DB::table('surat_izins')->whereNotNull('Kpad')->value('Kpad');
         if ($sampleKpad) {
@@ -77,6 +78,28 @@ class ExportReportTest extends TestCase
             $dataResp->assertHeader('Content-Type', 'application/pdf');
             $this->assertStringStartsWith('%PDF-', $dataResp->getContent());
         }
+    }
+
+    public function test_excel_export_includes_masa_berlaku_column(): void
+    {
+        $this->actingAsExporter();
+
+        $uniqueTag = 'MASA' . uniqid();
+        DB::table('surat_izins')->insert([
+            'NomorSIP' => 'SIP-' . $uniqueTag,
+            'Nama' => 'Masa ' . $uniqueTag,
+            'Kpad' => 'KWINI',
+            'MasaBerlaku' => 3,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $resp = $this->get(route('exportExcel', ['search' => $uniqueTag]));
+        $resp->assertStatus(200);
+
+        $sheet = IOFactory::load($resp->baseResponse->getFile()->getPathname())->getActiveSheet();
+        $this->assertSame('Masa Berlaku', $sheet->getCell('U5')->getValue());
+        $this->assertSame('3 Tahun', $sheet->getCell('U6')->getValue());
     }
 
     public function test_import_excel_skips_report_kop_and_imports_from_data_row(): void

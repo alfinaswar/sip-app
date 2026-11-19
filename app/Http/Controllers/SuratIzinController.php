@@ -15,6 +15,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -281,13 +282,11 @@ class SuratIzinController extends Controller
         $validated = $request->validate([
             'TanggalDibuat' => 'nullable|date',
             'MasaBerlaku' => 'nullable|integer|min:1|max:5',
+            'Ktp' => ['nullable', 'max:32', Rule::unique('surat_izins', 'Ktp')],
+        ], [
+            'Ktp.unique' => 'Nomor KTP sudah terdaftar pada data Surat Izin lain.',
         ]);
 
-        // Cek apakah No KTP sudah terdaftar
-        $cekKtp = SuratIzin::where('Ktp', $request->Ktp)->first();
-        if ($cekKtp) {
-            return redirect()->back()->withInput()->with('error', 'Nomor KTP sudah terdaftar pada data Surat Izin lain.');
-        }
         $data = $request->all();
         $data['TanggalDibuat'] = $validated['TanggalDibuat'] ?? null;
         $data['MasaBerlaku'] = (int) ($validated['MasaBerlaku'] ?? 1);
@@ -388,6 +387,9 @@ class SuratIzinController extends Controller
         $validated = $request->validate([
             'TanggalDibuat' => 'nullable|date',
             'MasaBerlaku' => 'nullable|integer|min:1|max:5',
+            'Ktp' => ['nullable', 'max:32', Rule::unique('surat_izins', 'Ktp')->ignore($id)],
+        ], [
+            'Ktp.unique' => 'Nomor KTP sudah terdaftar pada data Surat Izin lain.',
         ]);
 
         $data = $request->all();
@@ -437,12 +439,25 @@ class SuratIzinController extends Controller
             }
         }
 
+        $masuk = 0;
+        $duplikat = 0;
+        $fileKtps = [];
+
         foreach ($rows as $index => $row) {
             if ($index <= $headerRowIndex) {
                 continue;
             }
             if (empty(array_filter($row, fn ($v) => $v !== null && trim((string) $v) !== ''))) {
                 continue;
+            }
+
+            $ktp = trim((string) ($row[8] ?? ''));
+            if ($ktp !== '' && $ktp !== '-') {
+                if (isset($fileKtps[$ktp]) || SuratIzin::where('Ktp', $ktp)->exists()) {
+                    $duplikat++;
+                    continue;
+                }
+                $fileKtps[$ktp] = true;
             }
 
             SuratIzin::create([
@@ -466,9 +481,10 @@ class SuratIzinController extends Controller
                 'TypeLuas' => $row[18] ?? null,
                 'Tmt' => $row[19] ?? null,
             ]);
+            $masuk++;
         }
 
-        return back()->with('success', 'Data berhasil diimport!');
+        return back()->with('success', "Data berhasil diimport! {$masuk} data masuk, {$duplikat} data dilewati karena No. KTP sudah terdaftar.");
     }
     /**
      * Remove the specified resource from storage.

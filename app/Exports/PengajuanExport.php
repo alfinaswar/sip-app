@@ -57,6 +57,7 @@ class PengajuanExport extends DefaultValueBinder implements
         'AlamatRumah',
         'TypeLuas',
         'Tmt',
+        'MasaBerlaku',
     ];
 
     private const HEADER_ROW = 5;
@@ -119,6 +120,7 @@ class PengajuanExport extends DefaultValueBinder implements
             $item->AlamatRumah ?: '-',
             $item->TypeLuas ?: '-',
             $item->Tmt ?: '-',
+            $this->formatMasaBerlaku($item->MasaBerlaku ?? null),
         ];
     }
 
@@ -144,6 +146,16 @@ class PengajuanExport extends DefaultValueBinder implements
         $plain = trim((string) preg_replace('/\s+/u', ' ', $plain));
 
         return $plain !== '' ? $plain : '-';
+    }
+
+    private function formatMasaBerlaku($value): string
+    {
+        $tahun = (int) $value;
+        if ($tahun < 1 || $tahun > 5) {
+            $tahun = 1;
+        }
+
+        return $tahun . ' Tahun';
     }
 
     private function formatAnggotaKeluarga($anggotaKeluarga): string
@@ -204,6 +216,7 @@ class PengajuanExport extends DefaultValueBinder implements
             'Alamat Rumah',
             'Type / Luas',
             'TMT',
+            'Masa Berlaku',
         ];
     }
 
@@ -235,9 +248,9 @@ class PengajuanExport extends DefaultValueBinder implements
         $sheet->setCellValue('A2', 'DAFTAR PENGHUNIAN RUMAH DINAS (SIP) - KPAD');
         $sheet->setCellValue('A3', $metaLine);
 
-        $sheet->mergeCells('A1:T1');
-        $sheet->mergeCells('A2:T2');
-        $sheet->mergeCells('A3:T3');
+        $sheet->mergeCells('A1:U1');
+        $sheet->mergeCells('A2:U2');
+        $sheet->mergeCells('A3:U3');
 
         $sheet->getRowDimension(1)->setRowHeight(20);
         $sheet->getRowDimension(2)->setRowHeight(25);
@@ -246,7 +259,7 @@ class PengajuanExport extends DefaultValueBinder implements
         $sheet->getRowDimension(self::HEADER_ROW)->setRowHeight(28);
 
         $sheet->freezePane('A' . self::DATA_START_ROW);
-        $sheet->setAutoFilter('A' . self::HEADER_ROW . ':T' . $lastRow);
+        $sheet->setAutoFilter('A' . self::HEADER_ROW . ':U' . $lastRow);
         $sheet->getPageSetup()
             ->setOrientation(PageSetup::ORIENTATION_LANDSCAPE)
             ->setFitToWidth(1)
@@ -254,7 +267,7 @@ class PengajuanExport extends DefaultValueBinder implements
         $sheet->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, self::HEADER_ROW);
 
         $styles = [
-            'A1:T1' => [
+            'A1:U1' => [
                 'font' => [
                     'bold' => true,
                     'size' => 10,
@@ -270,7 +283,7 @@ class PengajuanExport extends DefaultValueBinder implements
                     'indent' => 1,
                 ],
             ],
-            'A2:T2' => [
+            'A2:U2' => [
                 'font' => [
                     'bold' => true,
                     'size' => 14,
@@ -286,7 +299,7 @@ class PengajuanExport extends DefaultValueBinder implements
                     'indent' => 1,
                 ],
             ],
-            'A3:T3' => [
+            'A3:U3' => [
                 'font' => [
                     'size' => 9.5,
                     'color' => ['rgb' => '475569'],
@@ -307,7 +320,7 @@ class PengajuanExport extends DefaultValueBinder implements
                     ],
                 ],
             ],
-            'A' . self::HEADER_ROW . ':T' . self::HEADER_ROW => [
+            'A' . self::HEADER_ROW . ':U' . self::HEADER_ROW => [
                 'font' => [
                     'bold' => true,
                     'size' => 10,
@@ -336,7 +349,7 @@ class PengajuanExport extends DefaultValueBinder implements
         ];
 
         if ($lastRow >= self::DATA_START_ROW) {
-            $dataRange = 'A' . self::DATA_START_ROW . ':T' . $lastRow;
+            $dataRange = 'A' . self::DATA_START_ROW . ':U' . $lastRow;
             $styles[$dataRange] = [
                 'alignment' => [
                     'vertical' => Alignment::VERTICAL_TOP,
@@ -350,7 +363,7 @@ class PengajuanExport extends DefaultValueBinder implements
                 ],
             ];
 
-            foreach (['A', 'E', 'L', 'S', 'T'] as $col) {
+            foreach (['A', 'E', 'L', 'S', 'T', 'U'] as $col) {
                 $styles[$col . self::DATA_START_ROW . ':' . $col . $lastRow] = [
                     'alignment' => [
                         'horizontal' => Alignment::HORIZONTAL_CENTER,
@@ -365,7 +378,7 @@ class PengajuanExport extends DefaultValueBinder implements
             ];
 
             for ($row = self::DATA_START_ROW + 1; $row <= $lastRow; $row += 2) {
-                $sheet->getStyle('A' . $row . ':T' . $row)
+                $sheet->getStyle('A' . $row . ':U' . $row)
                     ->getFill()
                     ->setFillType(Fill::FILL_SOLID)
                     ->getStartColor()
@@ -399,6 +412,7 @@ class PengajuanExport extends DefaultValueBinder implements
             'R' => 30,
             'S' => 14,
             'T' => 18,
+            'U' => 13,
         ];
     }
 }

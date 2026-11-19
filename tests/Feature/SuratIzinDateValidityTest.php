@@ -118,6 +118,40 @@ class SuratIzinDateValidityTest extends TestCase
         $this->assertStringStartsWith('%PDF-', $histPdfResp->getContent());
     }
 
+    public function test_store_and_update_reject_duplicate_ktp(): void
+    {
+        $this->actingAsAdmin();
+
+        $ktp = 'TEST-DUP-' . uniqid();
+        $payload = [
+            'Nama' => 'Pemilik KTP',
+            'Ktp' => $ktp,
+            'Kpad' => 'KWINI',
+            'AnggotaKeluarga' => [['nama' => null, 'umur' => null, 'jk' => null, 'hubungan' => null]],
+        ];
+
+        $this->post(route('surat-izin.store'), $payload)->assertSessionHas('success');
+
+        $this->post(route('surat-izin.store'), $payload)->assertSessionHasErrors('Ktp');
+
+        $lain = SuratIzin::create([
+            'Nama' => 'Pemilik Lain',
+            'Ktp' => 'TEST-LAIN-' . uniqid(),
+        ]);
+
+        $this->put(route('surat-izin.update', $lain->id), [
+            'Nama' => 'Pemilik Lain',
+            'Ktp' => $ktp,
+            'Kpad' => 'KWINI',
+        ])->assertSessionHasErrors('Ktp');
+
+        $this->put(route('surat-izin.update', $lain->id), [
+            'Nama' => 'Pemilik Lain Diperbarui',
+            'Ktp' => $lain->Ktp,
+            'Kpad' => 'KWINI',
+        ])->assertSessionHasNoErrors();
+    }
+
     public function test_legacy_record_without_tanggal_dibuat_falls_back_to_created_at_and_one_year(): void
     {
         $surat = new SuratIzin([

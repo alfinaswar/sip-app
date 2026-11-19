@@ -38,25 +38,26 @@ class SipPdfReport
         $usableW = self::PAGE_WIDTH - self::MARGIN_L - self::MARGIN_R;
         $cols = [
             [['No'], 0.023, 'center'],
-            [['Nomor SIP'], 0.056, 'left'],
-            [['Nama'], 0.072, 'left'],
+            [['Nomor SIP'], 0.053, 'left'],
+            [['Nama'], 0.068, 'left'],
             [['Pangkat'], 0.048, 'left'],
             [['Korps'], 0.028, 'center'],
             [['NRP / NIP'], 0.060, 'left'],
-            [['Jabatan'], 0.054, 'left'],
+            [['Jabatan'], 0.050, 'left'],
             [['Kesatuan'], 0.050, 'left'],
-            [['KTP'], 0.056, 'left'],
+            [['KTP'], 0.050, 'left'],
             [['TTL'], 0.050, 'left'],
             [['Status'], 0.044, 'left'],
             [['Jml.', 'Tangg.'], 0.032, 'center'],
-            [['Anggota Keluarga'], 0.092, 'left'],
+            [['Anggota Keluarga'], 0.086, 'left'],
             [['Untuk', 'Menempati'], 0.046, 'left'],
             [['Ket.'], 0.040, 'left'],
             [['Digunakan', 'Sebagai'], 0.040, 'left'],
-            [['KPAD'], 0.055, 'left'],
-            [['Alamat Rumah'], 0.068, 'left'],
+            [['KPAD'], 0.050, 'left'],
+            [['Alamat Rumah'], 0.060, 'left'],
             [['Type /', 'Luas'], 0.036, 'center'],
             [['TMT'], 0.050, 'center'],
+            [['Masa', 'Berlaku'], 0.036, 'center'],
         ];
 
         $colWidths = [];
@@ -243,6 +244,7 @@ class SipPdfReport
                     $this->cleanStr($item->AlamatRumah ?? null),
                     $this->cleanStr($item->TypeLuas ?? null),
                     $this->cleanStr($item->Tmt ?? null),
+                    $this->formatMasaBerlaku($item->MasaBerlaku ?? null),
                 ];
 
                 $cellLines = [];
@@ -362,6 +364,16 @@ class SipPdfReport
         }
 
         return $lines ?: ['-'];
+    }
+
+    private function formatMasaBerlaku($value): string
+    {
+        $tahun = (int) $value;
+        if ($tahun < 1 || $tahun > 5) {
+            $tahun = 1;
+        }
+
+        return $tahun . ' Tahun';
     }
 
     private function formatAnggotaKeluarga($anggotaKeluarga): string
