@@ -90,6 +90,7 @@ class ExportReportTest extends TestCase
             'Nama' => 'Masa ' . $uniqueTag,
             'Kpad' => 'KWINI',
             'MasaBerlaku' => 3,
+            'TanggalDibuat' => '2026-01-15',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -99,7 +100,7 @@ class ExportReportTest extends TestCase
 
         $sheet = IOFactory::load($resp->baseResponse->getFile()->getPathname())->getActiveSheet();
         $this->assertSame('Masa Berlaku', $sheet->getCell('U5')->getValue());
-        $this->assertSame('3 Tahun', $sheet->getCell('U6')->getValue());
+        $this->assertSame('15-01-2029', $sheet->getCell('U6')->getValue());
     }
 
     public function test_import_excel_skips_report_kop_and_imports_from_data_row(): void

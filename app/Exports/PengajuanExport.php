@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -58,6 +59,8 @@ class PengajuanExport extends DefaultValueBinder implements
         'TypeLuas',
         'Tmt',
         'MasaBerlaku',
+        'TanggalDibuat',
+        'created_at',
     ];
 
     private const HEADER_ROW = 5;
@@ -120,7 +123,11 @@ class PengajuanExport extends DefaultValueBinder implements
             $item->AlamatRumah ?: '-',
             $item->TypeLuas ?: '-',
             $item->Tmt ?: '-',
-            $this->formatMasaBerlaku($item->MasaBerlaku ?? null),
+            $this->formatMasaBerlaku(
+                $item->MasaBerlaku ?? null,
+                $item->TanggalDibuat ?? null,
+                $item->created_at ?? null
+            ),
         ];
     }
 
@@ -148,14 +155,17 @@ class PengajuanExport extends DefaultValueBinder implements
         return $plain !== '' ? $plain : '-';
     }
 
-    private function formatMasaBerlaku($value): string
+    private function formatMasaBerlaku($value, $tanggalDibuat = null, $createdAt = null): string
     {
         $tahun = (int) $value;
         if ($tahun < 1 || $tahun > 5) {
             $tahun = 1;
         }
 
-        return $tahun . ' Tahun';
+        $tanggalAcuan = !empty($tanggalDibuat) ? $tanggalDibuat : $createdAt;
+        $tanggalDasar = Carbon::parse($tanggalAcuan ?: now());
+
+        return $tanggalDasar->addYears($tahun)->format('d-m-Y');
     }
 
     private function formatAnggotaKeluarga($anggotaKeluarga): string
